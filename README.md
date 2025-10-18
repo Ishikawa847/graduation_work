@@ -56,6 +56,10 @@ SNSによる宣伝
 - ランキング
 - 筋トレ飯スコア機能
 
+## 設計書
+### 画面遷移図
+[Figmaで確認](https://www.figma.com/design/IYlyHvYIT0zrIoKEwhPASt/%E7%84%A1%E9%A1%8C?node-id=0-1&p=f&t=fdUP2lEoapcUDGs1-0)
+
 ## 使用する技術スタック
 - 使用するフレームワーク：Ruby on Rails
 - ログイン機能 :devise
