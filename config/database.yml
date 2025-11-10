@@ -19,3 +19,9 @@ production:
   database: myapp_production
   username: myapp
   password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
+
+  cache:
+    <<: *default
+    database: myapp_cache_production
+    username: myapp
+    password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
