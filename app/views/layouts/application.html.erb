@@ -6,7 +6,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
@@ -19,8 +18,10 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render 'shared/header' %>
+    <main>
       <%= yield %>
     </main>
+    <%= render 'shared/footer' %>
   </body>
 </html>
