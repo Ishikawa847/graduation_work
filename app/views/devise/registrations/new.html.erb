@@ -1,0 +1,49 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 p-4">
+  <div class="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
+
+    <h2 class="text-3xl font-bold text-center mb-6">Sign up</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <!-- Email -->
+      <div class="mb-4">
+        <%= f.label :email, class: "block text-sm font-medium mb-1" %>
+        <%= f.email_field :email,
+              autofocus: true,
+              autocomplete: "email",
+              class: "w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-white outline-none" %>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <%= f.label :password, class: "block text-sm font-medium mb-1" %>
+        <% if @minimum_password_length %>
+          <span class="text-xs text-gray-400">(<%= @minimum_password_length %> characters minimum)</span>
+        <% end %>
+        <%= f.password_field :password,
+              autocomplete: "new-password",
+              class: "w-full mt-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-white outline-none" %>
+      </div>
+
+      <!-- Password confirmation -->
+      <div class="mb-6">
+        <%= f.label :password_confirmation, class: "block text-sm font-medium mb-1" %>
+        <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
+              class: "w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-white outline-none" %>
+      </div>
+
+      <!-- Submit -->
+      <div>
+        <%= f.submit "Sign up",
+              class: "w-full bg-white text-gray-900 font-semibold py-2 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6 text-center">
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>
+</div>
