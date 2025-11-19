@@ -1,0 +1,69 @@
+  <!-- ページタイトル & 右上検索ボックス -->
+  <section class="container mx-auto px-6 pt-12">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold">投稿一覧</h1>
+
+      <!-- 右上キーワード検索 -->
+      <%= form_with url: recipes_path, method: :get, local: true, class: "flex" do |f| %>
+        <%= f.text_field :keyword,
+          placeholder: "キーワード検索",
+          class: "bg-gray-800 text-gray-100 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-gray-600 w-48" %>
+        <%= f.submit "検索",
+          class: "bg-white text-gray-900 px-4 py-2 rounded-r-lg font-semibold hover:bg-gray-100 transition" %>
+      <% end %>
+    </div>
+
+    <!-- 詳細検索フォーム（タイトル下） -->
+    <div class="bg-gray-800 p-6 rounded-lg shadow mb-10">
+      <h2 class="text-xl font-semibold mb-4">条件で探す</h2>
+
+      <%= form_with url: recipes_path, method: :get, local: true,
+            class: "grid grid-cols-1 md:grid-cols-3 gap-4" do |f| %>
+
+        <div>
+          <%= f.label :category, "カテゴリ", class: "block mb-1 text-gray-300" %>
+          <%= f.select :category, [["筋肉飯", "muscle"], ["減量", "diet"], ["増量", "bulk"]],
+                { include_blank: "選択" },
+                class: "bg-gray-700 text-gray-100 px-3 py-2 rounded w-full" %>
+        </div>
+
+        <div>
+          <%= f.label :protein, "タンパク質量（以上）", class: "block mb-1 text-gray-300" %>
+          <%= f.number_field :protein, min: 0,
+                class: "bg-gray-700 text-gray-100 px-3 py-2 rounded w-full" %>
+        </div>
+
+        <div class="flex items-end">
+          <%= f.submit "検索する",
+                class: "bg-white text-gray-900 font-semibold px-6 py-2 rounded-lg shadow hover:bg-gray-100 transition w-full" %>
+        </div>
+
+      <% end %>
+    </div>
+  </section>
+
+  <!-- 投稿一覧カード -->
+  <section class="container mx-auto px-6 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <% @recipes.each do |post| %>
+        <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2"><%= post.title %></h3>
+          <p class="text-gray-300 text-sm mb-4">
+            <%= truncate(post.body, length: 80) %>
+          </p>
+
+          <div class="text-sm text-gray-400 mb-4">
+            P: <%= post.protein %>g /
+            F: <%= post.fat %>g /
+            C: <%= post.carbo %>g
+          </div>
+
+          <%= link_to "詳細を見る",
+                post_path(post),
+                class: "inline-block bg-white text-gray-900 font-semibold px-4 py-2 rounded-md hover:bg-gray-100 transition" %>
+        </div>
+      <% end %>
+
+    </div>
+  </section>
