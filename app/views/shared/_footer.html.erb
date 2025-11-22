@@ -1,0 +1,17 @@
+<footer class="bg-gray-900 text-gray-100 border-t border-gray-800 py-6 pt-12">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+
+    <!-- 左側：コピーライト -->
+    <p class="text-sm text-gray-400 mb-4 md:mb-0">
+      © <%= Time.current.year %> 筋トレ飯管理 All rights reserved.
+    </p>
+
+    <!-- 右側：各リンク -->
+    <nav class="flex space-x-6 text-sm">
+      <%= link_to "利用規約", "#", class: "hover:text-gray-300 transition" %>
+      <%= link_to "プライバシーポリシー", "#", class: "hover:text-gray-300 transition" %>
+      <%= link_to "お問い合わせ", "#", class: "hover:text-gray-300 transition" %>
+    </nav>
+
+  </div>
+</footer>
