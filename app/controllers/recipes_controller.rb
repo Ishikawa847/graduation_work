@@ -18,13 +18,15 @@ class RecipesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   private
 
   def recipe_params
     params.require(:recipe).permit(
       :name, :description, :image,
-      recipe_ingredients_attributes: [:id, :ingredient_id, :quantity, :_destroy]
+      recipe_ingredients_attributes: [:id, :ingredient_id, :quantity, :_destroy,
+    :ingredient_name, :protein_per_100g, :fat_per_100g, :carbohydrate_per_100g
+  ]
     )
   end
 end
