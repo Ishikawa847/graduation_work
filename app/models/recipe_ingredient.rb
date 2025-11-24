@@ -5,5 +5,8 @@ class RecipeIngredient < ApplicationRecord
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :recipe_id, uniqueness: { scope: :ingredient_id }
 
-  attr_accessor :ingredient_name, :protein_per_100g, :fat_per_100g, :carbohydrate_per_100g
+  attr_accessor :name, :protein, :fat, :carb
+
+  #accepts_nested_attributes_for :ingredient
+
 end

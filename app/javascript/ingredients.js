@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="md:col-span-2">
             <label class="block text-sm font-medium text-gray-700 mb-1">食材名</label>
             <input type="text" 
-                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][ingredient_name]" 
+                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][name]" 
                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
                    placeholder="例：鶏むね肉">
           </div>
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">タンパク質</label>
             <input type="number" step="0.1"
-                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][protein_per_100g]" 
+                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][protein]" 
                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
                    placeholder="23.3">
             <span class="text-xs text-gray-500">g/100g</span>
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">脂質</label>
             <input type="number" step="0.1"
-                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][fat_per_100g]" 
+                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][fat]" 
                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
                    placeholder="1.5">
             <span class="text-xs text-gray-500">g/100g</span>
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">炭水化物</label>
             <input type="number" step="0.1"
-                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][carbohydrate_per_100g]" 
+                   name="recipe[recipe_ingredients_attributes][${ingredientIndex}][carb]" 
                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
                    placeholder="0">
             <span class="text-xs text-gray-500">g/100g</span>
