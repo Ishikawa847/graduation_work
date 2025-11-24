@@ -16,5 +16,5 @@ class User < ApplicationRecord
   validates :weight, numericality: { greater_than: 0, less_than: 500 }, allow_blank: true
   validates :age, numericality: { greater_than: 0, less_than: 150 }, allow_blank: true
 
-  has_many :boards, dependent: :destroy
+  has_many :recipes, dependent: :destroy
 end

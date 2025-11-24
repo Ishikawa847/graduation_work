@@ -42,28 +42,3 @@
     </div>
   </section>
 
-  <!-- 投稿一覧カード -->
-  <section class="container mx-auto px-6 pb-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <% @recipes.each do |post| %>
-        <div class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-2"><%= post.title %></h3>
-          <p class="text-gray-300 text-sm mb-4">
-            <%= truncate(post.body, length: 80) %>
-          </p>
-
-          <div class="text-sm text-gray-400 mb-4">
-            P: <%= post.protein %>g /
-            F: <%= post.fat %>g /
-            C: <%= post.carbo %>g
-          </div>
-
-          <%= link_to "詳細を見る",
-                post_path(post),
-                class: "inline-block bg-white text-gray-900 font-semibold px-4 py-2 rounded-md hover:bg-gray-100 transition" %>
-        </div>
-      <% end %>
-
-    </div>
-  </section>
