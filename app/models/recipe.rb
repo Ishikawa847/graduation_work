@@ -17,7 +17,7 @@ class Recipe < ApplicationRecord
   private
 
   def reject_ingredient?(attributes)
-  # 以下の条件のいずれかに該当する場合は除外（trueを返す）
+
     attributes['quantity'].blank? || 
   (attributes['ingredient_attributes'] && 
    attributes['ingredient_attributes']['name'].blank?)
