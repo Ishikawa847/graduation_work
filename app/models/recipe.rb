@@ -18,10 +18,8 @@ class Recipe < ApplicationRecord
 
   def reject_ingredient?(attributes)
   # 以下の条件のいずれかに該当する場合は除外（trueを返す）
-  attributes['name'].blank? ||          # 材料名が空
-  attributes['quantity'].blank? ||                 # 分量が空
-  (attributes['protein'].blank? &&        # タンパク質が空 かつ
-   attributes['fat'].blank? &&            # 脂質が空 かつ
-   attributes['carb'].blank?)     # 炭水化物が空
+    attributes['quantity'].blank? || 
+  (attributes['ingredient_attributes'] && 
+   attributes['ingredient_attributes']['name'].blank?)
   end
 end
