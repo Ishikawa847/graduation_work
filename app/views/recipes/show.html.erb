@@ -1,0 +1,68 @@
+<div class="min-h-screen bg-gray-900 text-gray-100 flex justify-center p-8">
+  <div class="w-full max-w-5xl grid grid-cols-2 gap-8 bg-gray-800 p-8 rounded-2xl shadow-2xl">
+
+    <!-- 左カラム -->
+    <div class="space-y-6">
+
+      <!-- 左上：画像 -->
+      <div class="w-full h-64 bg-gray-700 rounded-xl overflow-hidden shadow-lg">
+        <% if @recipe.image.attached? %>
+          <%= image_tag @recipe.image, class: "w-full h-full object-cover" %>
+        <% else %>
+          <div class="flex items-center justify-center h-full text-gray-400">
+            No Image
+          </div>
+        <% end %>
+      </div>
+
+      <!-- 左下：PFC情報 -->
+      <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-gray-100">栄養情報 (PFC)</h2>
+
+        <%# 合計PFC計算 %>
+        <% 
+          total_p = 0
+          total_f = 0
+          total_c = 0
+
+          @recipe.recipe_ingredients.includes(:ingredient).each do |ri|
+            ing = ri.ingredient
+            qty = ri.quantity.to_f
+
+            total_p += ing.protein.to_f * qty / 100.0
+            total_f += ing.fat.to_f * qty / 100.0
+            total_c += ing.carb.to_f * qty / 100.0
+          end
+        %>
+
+        <ul class="space-y-2 text-gray-200">
+          <li>タンパク質（P）：<%= total_p.round(1) %> g</li>
+          <li>脂質（F）：<%= total_f.round(1) %> g</li>
+          <li>炭水化物（C）：<%= total_c.round(1) %> g</li>
+          <li class="pt-2 text-gray-400 text-sm">
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 右カラム -->
+    <div class="space-y-6">
+
+      <!-- 右上：レシピ名 -->
+      <div>
+        <h1 class="text-3xl font-bold tracking-wide"><%= @recipe.name %></h1>
+      </div>
+
+      <!-- 右下：説明文 -->
+      <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-gray-100">料理の説明</h2>
+        <p class="leading-relaxed text-gray-200">
+          <%= @recipe.description.presence || "説明がありません。" %>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

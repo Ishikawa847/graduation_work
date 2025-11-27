@@ -40,5 +40,22 @@
 
       <% end %>
     </div>
+      <div class="container mx-auto px-4">
+  <h1 class="text-3xl font-bold mb-8">レシピ一覧</h1>
+  
+  <% if @recipes.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <% @recipes.each do |recipe| %>
+        <%= render 'recipe', recipe: recipe %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center">
+      <p class="text-gray-600 mb-4">まだレシピが投稿されていません。</p>
+      <%= link_to '新しいレシピを作成', new_recipe_path, 
+          class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    </div>
+  <% end %>
+</div>
   </section>
 
