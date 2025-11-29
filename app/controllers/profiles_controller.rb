@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-  before_action :require_login  # ログイン必須
   
   # プロフィール表示
   def show

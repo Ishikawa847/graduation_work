@@ -1,0 +1,154 @@
+<div class="min-h-screen bg-gray-900 text-gray-100 py-8 px-4">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- ページタイトル -->
+    <h1 class="text-3xl font-bold mb-8 text-gray-100">マイプロフィール</h1>
+
+    <!-- 左右2カラム -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <!-- 左側：レシピ一覧（2/3） -->
+      <div class="lg:col-span-2">
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-100">投稿したレシピ</h2>
+          </div>
+
+          <% if @recipes.any? %>
+
+            <div class="space-y-4">
+              <% @recipes.each do |recipe| %>
+                <div class="border border-gray-700 rounded-lg p-4 hover:shadow-xl transition-shadow duration-200 bg-gray-850">
+                  <div class="flex gap-4">
+
+                    <!-- レシピ画像 -->
+                    <div class="flex-shrink-0">
+                      <div class="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden">
+                        <% if recipe.image.present? %>
+                          <%= image_tag recipe.image, alt: recipe.name, class: "w-full h-full object-cover" %>
+                        <% else %>
+                          <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <span>No Image</span>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <!-- レシピ情報 -->
+                    <div class="flex-grow">
+                      <h3 class="text-xl font-bold text-gray-100 mb-2">
+                        <%= link_to recipe.name, recipe_path(recipe), class: "hover:text-blue-400 transition-colors" %>
+                      </h3>
+
+                      <% if recipe.description.present? %>
+                        <p class="text-gray-400 text-sm mb-3 line-clamp-2">
+                          <%= truncate(recipe.description, length: 80) %>
+                        </p>
+                      <% end %>
+
+                      <!-- 投稿日 -->
+                      <div class="flex items-center text-sm text-gray-500 mb-3">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <%= recipe.created_at.strftime('%Y年%m月%d日') %>
+                      </div>
+
+                      <!-- ボタン -->
+                      <div class="flex gap-2">
+                        <%= link_to "編集", "#",
+                          class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition" %>
+
+                        <%= link_to "削除", "#",
+                          data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                          class: "inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition" %>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+          <% else %>
+
+            <div class="text-center py-12">
+              <svg class="w-16 h-16 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <p class="text-gray-400 text-lg mb-4">まだレシピが投稿されていません</p>
+              <%= link_to "最初のレシピを投稿する", new_recipe_path,
+                class: "inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+
+      <!-- 右側：プロフィール（1/3） -->
+      <div class="lg:col-span-1">
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 sticky top-8">
+
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-100">プロフィール情報</h2>
+            <%= link_to "編集", edit_profile_path, class: "text-blue-400 hover:text-blue-300 text-sm font-medium" %>
+          </div>
+
+          <!-- ユーザー名 -->
+          <div class="mb-6 text-center">
+            <div class="w-20 h-20 bg-gray-700 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <span class="text-3xl font-bold text-blue-400"><%= @user.name.first %></span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-100"><%= @user.name %></h3>
+            <p class="text-sm text-gray-400"><%= @user.email %></p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- 年齢 -->
+            <div class="border-b border-gray-700 pb-4">
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-400">年齢</span>
+                <span class="text-lg font-bold text-gray-100">
+                  <%= @user.age.present? ? "#{@user.age} 歳" : "未設定" %>
+                </span>
+              </div>
+            </div>
+
+            <!-- 身長 -->
+            <div class="border-b border-gray-700 pb-4">
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-400">身長</span>
+                <span class="text-lg font-bold text-gray-100">
+                  <%= @user.height.present? ? "#{@user.height} cm" : "未設定" %>
+                </span>
+              </div>
+            </div>
+
+            <!-- 体重 -->
+            <div class="border-b border-gray-700 pb-4">
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-400">体重</span>
+                <span class="text-lg font-bold text-gray-100">
+                  <%= @user.weight.present? ? "#{@user.weight} kg" : "未設定" %>
+                </span>
+              </div>
+            </div>
+
+            <!-- 性別 -->
+            <div class="pb-4">
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-400">性別</span>
+                <span class="text-lg font-bold text-gray-100"><%= @user.gender %></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
