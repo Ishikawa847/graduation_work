@@ -1,0 +1,152 @@
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+  <h1 class="text-3xl font-bold text-center mb-8 text-gray-100">
+    レシピを編集
+  </h1>
+
+  <%= form_with model: @recipe, local: true, multipart: true, class: "space-y-8" do |form| %>
+
+    <%# エラーメッセージ %>
+    <% if @recipe.errors.any? %>
+      <div class="bg-red-900/40 border border-red-600 text-red-300 px-4 py-3 rounded-lg">
+        <h4 class="font-bold">エラーが発生しました:</h4>
+        <ul class="mt-2 list-disc pl-5">
+          <% @recipe.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# 既存画像のプレビュー %>
+    <% if @recipe.image.attached? %>
+      <div class="mb-4 text-center">
+        <p class="text-gray-300 mb-2">現在の画像</p>
+        <%= image_tag @recipe.image, class: "w-48 h-48 object-cover mx-auto rounded-lg" %>
+      </div>
+    <% end %>
+
+    <%# 料理名 %>
+    <div>
+      <%= form.label :name, "料理名", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.text_field :name, 
+          class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <%# 料理説明 %>
+    <div>
+      <%= form.label :description, "料理の説明", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.text_area :description, rows: 4,
+          class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <%# 写真 %>
+    <div>
+      <%= form.label :image, "料理の写真（変更する場合のみ）", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+
+      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-lg bg-gray-800">
+        <div class="text-center space-y-2">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor">
+            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" />
+          </svg>
+
+          <div class="text-sm text-gray-300">
+            <%= form.file_field :image, class: "sr-only", id: "image-upload", accept: "image/*" %>
+            <label for="image-upload"
+              class="cursor-pointer bg-gray-700 px-3 py-1 rounded text-blue-400 hover:text-blue-300">
+              写真をアップロード
+            </label>
+            <p>またはドラッグ&ドロップ</p>
+          </div>
+
+          <p class="text-xs text-gray-400">PNG, JPG, GIF (最大5MB)</p>
+        </div>
+      </div>
+    </div>
+
+    <%# 材料 %>
+    <div>
+      <h3 class="text-lg font-bold text-gray-100 mb-4">材料</h3>
+
+      <div id="ingredients-container">
+        <%= form.fields_for :recipe_ingredients do |ingredient_form| %>
+          <div class="ingredient-item mb-4 p-4 border border-gray-700 rounded-lg bg-gray-800">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+
+              <%# 食材名 %>
+              <div class="md:col-span-2">
+                <%= ingredient_form.fields_for :ingredient do |ing_form| %>
+                  <%= ing_form.label :name, "食材名", class: "block text-sm font-medium text-gray-200 mb-1" %>
+                  <%= ing_form.text_field :name,
+                        class: "w-full rounded-md bg-gray-900 border-gray-700 text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500" %>
+                <% end %>
+              </div>
+
+              <%# 分量 %>
+              <div>
+                <%= ingredient_form.label :quantity, "分量", class: "block text-sm font-medium text-gray-200 mb-1" %>
+                <%= ingredient_form.text_field :quantity,
+                      placeholder: "例: 200g",
+                      class: "w-full rounded-md bg-gray-900 border-gray-700 text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+
+              <%# 栄養価 %>
+              <div>
+                <%= ingredient_form.fields_for :ingredient do |ing_form| %>
+                  <%= ing_form.label :protein, "タンパク質", class: "block text-sm font-medium text-gray-200 mb-1" %>
+                  <%= ing_form.number_field :protein, step: 0.1,
+                        class: "w-full rounded-md bg-gray-900 border-gray-700 text-gray-100 focus:border-blue-500 focus:ring-blue-500" %>
+                  <span class="text-xs text-gray-400">g/100g</span>
+                <% end %>
+              </div>
+
+              <div>
+                <%= ingredient_form.fields_for :ingredient do |ing_form| %>
+                  <%= ing_form.label :fat, "脂質", class: "block text-sm font-medium text-gray-200 mb-1" %>
+                  <%= ing_form.number_field :fat, step: 0.1,
+                        class: "w-full rounded-md bg-gray-900 border-gray-700 text-gray-100 focus:border-blue-500 focus:ring-blue-500" %>
+                  <span class="text-xs text-gray-400">g/100g</span>
+                <% end %>
+              </div>
+
+              <div>
+                <%= ingredient_form.fields_for :ingredient do |ing_form| %>
+                  <%= ing_form.label :carb, "炭水化物", class: "block text-sm font-medium text-gray-200 mb-1" %>
+                  <%= ing_form.number_field :carb, step: 0.1,
+                        class: "w-full rounded-md bg-gray-900 border-gray-700 text-gray-100 focus:border-blue-500 focus:ring-blue-500" %>
+                  <span class="text-xs text-gray-400">g/100g</span>
+                <% end %>
+              </div>
+
+            </div>
+
+            <div class="mt-3 flex justify-end">
+              <%= ingredient_form.check_box :_destroy, class: "hidden" %>
+              <button type="button"
+                class="remove-ingredient bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                削除
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <button type="button" id="add-ingredient"
+        class="mt-3 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        + 材料を追加
+      </button>
+    </div>
+
+    <%# 送信 %>
+    <div class="flex justify-center">
+      <%= form.submit "変更を保存",
+            class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition transform hover:scale-105" %>
+    </div>
+
+  <% end %>
+
+  <div class="text-center mt-8">
+    <%= link_to "レシピ詳細に戻る", @recipe,
+          class: "text-blue-400 hover:text-blue-300 underline" %>
+  </div>
+</div>
