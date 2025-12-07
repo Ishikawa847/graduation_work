@@ -1,0 +1,46 @@
+<h1>新しいメニューを作成</h1>
+
+<%= form_with model: @menu, url: menus_path do |form| %>
+  <!-- エラーメッセージ表示 -->
+  <% if @menu.errors.any? %>
+    <div style="color: red;">
+      <h2><%= @menu.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @menu.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- メニュー名 -->
+  <div>
+    <%= form.label :name, "メニュー名" %>
+    <%= form.text_field :name, placeholder: "例：今週の献立" %>
+  </div>
+
+  <h2>レシピを追加</h2>
+
+  <!-- ネストしたフォーム -->
+  <%= form.fields_for :menu_recipes do |menu_recipe_form| %>
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+      <div>
+        <%= menu_recipe_form.label :recipe_id, "レシピ" %>
+        <%= menu_recipe_form.collection_select :recipe_id, @recipes, :id, :name, 
+            { prompt: "レシピを選択" }, 
+            { style: "width: 200px;" } %>
+      </div>
+
+      <div>
+        <%= menu_recipe_form.label :position, "何食目？" %>
+        <%= menu_recipe_form.number_field :position, min: 1, placeholder: "1" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit "作成" %>
+  </div>
+<% end %>
+
+<%= link_to "戻る", menus_path %>
