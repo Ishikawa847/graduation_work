@@ -1,4 +1,7 @@
 class MenusController < ApplicationController
+  def index 
+    @menus = Menu.includes(:user)
+  end
 
   def new
     @menu = current_user.menus.build
