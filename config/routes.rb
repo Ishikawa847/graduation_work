@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   root 'static_pages#top'
   resources :recipes, only: %i[index create new show edit update destroy]
   resource :profile, only: %i[show edit update]
-  resources :menus, only: %i[index new create edit]
+  resources :menus, only: %i[index new create show edit]
 end
