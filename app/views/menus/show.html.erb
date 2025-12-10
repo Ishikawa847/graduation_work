@@ -1,0 +1,44 @@
+<h1>メニュー詳細</h1>
+
+<div>
+  <h2><%= @menu.name %></h2>
+  
+  <p>
+    <strong>作成日:</strong>
+    <%= @menu.created_at.strftime('%Y年%m月%d日') %>
+  </p>
+  
+  <h3>レシピ一覧</h3>
+  
+  <% if @menu.menu_recipes.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>順番</th>
+          <th>レシピ名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @menu.menu_recipes.order(:position).each do |menu_recipe| %>
+          <tr>
+            <td>
+              <%= menu_recipe.position %>食目
+            </td>
+            <td>
+              <%= menu_recipe.recipe.name %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>レシピが登録されていません</p>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to "編集", edit_menu_path(@menu)%>
+  <%= link_to "削除", menu_path(@menu), 
+      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }%>
+  <%= link_to "一覧に戻る", menus_path %>
+</div>

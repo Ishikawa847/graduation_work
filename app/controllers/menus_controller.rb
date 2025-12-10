@@ -22,7 +22,7 @@ class MenusController < ApplicationController
   end
 
   def show
-    @menu = current_user.Menu.find(params[:id])
+    @menu = current_user.menus.find(params[:id])
   end
 
   def edit
