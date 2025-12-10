@@ -1,0 +1,36 @@
+<h1>マイメニュー<h1>
+
+<% if @menus.any? %>
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>メニュー名</th>
+        <th>レシピ数</th>
+        <th>作成日</th>
+        <th>操作</th>
+      <tr>
+    </thead>
+    <tbody>
+      <% @menus.each do |menu| %>
+        <tr>
+          <td>
+            <%= link_to menu.name, "#" %>
+          </td>
+          <td>
+            <%= menu.recipes.size %>
+          </td>
+          <td>
+            <%= menu.created_at.strftime('%Y年%m月%d日') %>
+          </td>
+          <td>
+            <%= link_to "詳細", "#" %>
+            <%= link_to "編集", "#" %>
+            <%= link_to "削除", "#" %>
+          </td>
+        </tr>
+      <%end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>まだメニューがありません<p>
+<% end %>

@@ -1,4 +1,7 @@
 class MenusController < ApplicationController
+  def index 
+    @menus = current_user.menus.includes(:menu_recipes, :recipes).order(created_at: :desc)
+  end
 
   def new
     @menu = current_user.menus.build
