@@ -27,6 +27,8 @@ class MenusController < ApplicationController
 
   def edit
     @menu = current_user.menus.find(params[:id])
+    (3 - @menu.menu_recipes.size).times { @menu.menu_recipes.build } if @menu.menu_recipes.size < 3
+    @recipes = Recipe.all
   end
 
   private
