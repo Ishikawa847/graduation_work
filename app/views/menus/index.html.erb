@@ -23,8 +23,8 @@
             <%= menu.created_at.strftime('%Y年%m月%d日') %>
           </td>
           <td>
-            <%= link_to "詳細", "#" %>
-            <%= link_to "編集", "#" %>
+            <%= link_to "詳細", menu_path(menu) %>
+            <%= link_to "編集", edit_menu_path(menu) %>
             <%= link_to "削除", "#" %>
           </td>
         </tr>

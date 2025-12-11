@@ -21,6 +21,25 @@ class MenusController < ApplicationController
     end
   end
 
+  def show
+    @menu = current_user.menus.find(params[:id])
+  end
+
+  def edit
+    @menu = current_user.menus.find(params[:id])
+    (3 - @menu.menu_recipes.size).times { @menu.menu_recipes.build } if @menu.menu_recipes.size < 3
+    @recipes = Recipe.all
+  end
+
+  def update
+    @menu = current_user.menus.find(params[:id])
+   if @menu.update(menu_params)
+      redirect_to menu_path(@menu), notice: '献立を編集しました' 
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def menu_params
