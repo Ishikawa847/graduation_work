@@ -31,6 +31,15 @@ class MenusController < ApplicationController
     @recipes = Recipe.all
   end
 
+  def updated
+    @menu = current_user.menus.find(params[:id])
+   if @menu.update(menu_params)
+      redirect_to menu_path(@menu), notice: '献立を編集しました' 
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def menu_params
