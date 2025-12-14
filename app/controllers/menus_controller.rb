@@ -40,6 +40,12 @@ class MenusController < ApplicationController
     end
   end
 
+  def destroy
+    menu = current_user.menus.find(params[:id])
+    menu.destroy!
+    redirect_to menus_path, notice: "献立を削除しました。"
+  end
+
   private
 
   def menu_params
