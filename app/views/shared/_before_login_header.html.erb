@@ -1,0 +1,17 @@
+<header class="bg-gray-900 text-gray-100 shadow-md sticky top-0 z-50">
+  <div class="container mx-auto flex items-center justify-between px-6 py-4">
+
+    <div>
+      <%= link_to "MyMuscleMeal", root_path, class: "text-2xl font-bold tracking-wide hover:text-gray-300 transition" %>
+    </div>
+
+    <div class="flex space-x-4">
+      <%= link_to "会員登録", new_user_registration_path,
+            class: "bg-white text-gray-900 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-200 transition" %>
+
+      <%= link_to "ログイン", new_user_session_path,
+            class: "bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition" %>
+    </div>
+
+  </div>
+</header>
