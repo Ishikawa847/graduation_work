@@ -1,8 +1,14 @@
 <div class="container mx-auto px-6 py-10">
 
-  <h1 class="text-3xl font-bold text-gray-100 mb-8">
+<div class="flex items-center justify-between mb-8">
+  <h1 class="text-3xl font-bold text-gray-100">
     献立
   </h1>
+
+  <%= link_to "新規作成", new_menu_path,
+      class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
+            hover:bg-gray-200 transition" %>
+</div>
 
   <% if @menus.any? %>
     <div class="overflow-x-auto bg-gray-800 rounded-xl shadow-lg">
