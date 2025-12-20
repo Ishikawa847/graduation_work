@@ -2,13 +2,27 @@
   <div class="container mx-auto flex items-center justify-between px-6 py-4">
 
     <div>
-      <%= link_to "MyMuscleMeal", root_path, class: "text-2xl font-bold tracking-wide hover:text-gray-300 transition" %>
+      <%= link_to "MyMuscleMeal", root_path,
+          class: "text-2xl font-bold tracking-wide hover:text-gray-300 transition-colors" %>
     </div>
 
+    <nav class="flex items-center space-x-6">
+
+      <%= link_to "マイページ", profile_path,
+          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
+
+      <%= link_to "料理一覧", recipes_path,
+          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
+
+      <%= link_to "献立一覧", menus_path,
+          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
+
       <%= link_to "ログアウト", destroy_user_session_path,
-            data: {turbo_method: :delete},
-            class: "bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition" %>
-    </div>
+          data: { turbo_method: :delete },
+          class: "ml-4 bg-gray-700 text-white font-medium px-4 py-2 rounded-lg
+                 hover:bg-gray-600 transition-colors duration-200 shadow-sm" %>
+
+    </nav>
 
   </div>
 </header>
