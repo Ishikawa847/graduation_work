@@ -1,44 +1,93 @@
-<h1>メニュー詳細</h1>
+<div class="container mx-auto px-6 py-10">
 
-<div>
-  <h2><%= @menu.name %></h2>
-  
-  <p>
-    <strong>作成日:</strong>
-    <%= @menu.created_at.strftime('%Y年%m月%d日') %>
-  </p>
-  
-  <h3>レシピ一覧</h3>
-  
-  <% if @menu.menu_recipes.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>順番</th>
-          <th>レシピ名</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @menu.menu_recipes.order(:position).each do |menu_recipe| %>
-          <tr>
-            <td>
-              <%= menu_recipe.position %>食目
-            </td>
-            <td>
-              <%= menu_recipe.recipe.name %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>レシピが登録されていません</p>
-  <% end %>
-</div>
+  <!-- ページタイトル -->
+  <h1 class="text-3xl font-bold text-gray-100 mb-8">
+    メニュー詳細
+  </h1>
 
-<div>
-  <%= link_to "編集", edit_menu_path(@menu)%>
-  <%= link_to "削除", menu_path(@menu), 
-      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }%>
-  <%= link_to "一覧に戻る", menus_path %>
+  <!-- メニュー情報カード -->
+  <div class="bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-100 mb-2">
+          <%= @menu.name %>
+        </h2>
+        <p class="text-sm text-gray-400">
+          作成日：<%= @menu.created_at.strftime('%Y年%m月%d日') %>
+        </p>
+      </div>
+
+      <!-- アクション -->
+      <div class="flex items-center space-x-3">
+        <%= link_to "編集", edit_menu_path(@menu),
+            class: "bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition" %>
+
+        <%= link_to "削除", menu_path(@menu),
+            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+            class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition" %>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- レシピ一覧 -->
+  <div class="bg-gray-800 rounded-xl shadow-lg p-6">
+
+    <h3 class="text-xl font-bold text-gray-100 mb-4">
+      レシピ一覧
+    </h3>
+
+    <% if @menu.menu_recipes.any? %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-gray-300">
+
+          <thead class="bg-gray-900 text-gray-400">
+            <tr>
+              <th class="px-6 py-3 text-left font-semibold">順番</th>
+              <th class="px-6 py-3 text-left font-semibold">レシピ名</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-gray-700">
+            <% @menu.menu_recipes.order(:position).each do |menu_recipe| %>
+              <tr class="hover:bg-gray-700/40 transition">
+
+                <td class="px-6 py-4 font-medium text-gray-100">
+                  <%= menu_recipe.position %>食目
+                </td>
+
+                <td class="px-6 py-4">
+                  <%= link_to menu_recipe.recipe.name,
+                      recipe_path(menu_recipe.recipe),
+                      class: "hover:text-blue-400 transition" %>
+                </td>
+
+                <td class="px-6 py-4">
+                  <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-700">
+                    <%= image_tag menu_recipe.recipe.image,
+                    class: "w-full h-full object-cover" %>
+                  </div>
+                </td>
+
+              </tr>
+            <% end %>
+          </tbody>
+
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-12 text-gray-400">
+        レシピが登録されていません
+      </div>
+    <% end %>
+
+  </div>
+
+  <!-- フッターアクション -->
+  <div class="mt-8 flex justify-between">
+    <%= link_to "一覧に戻る", menus_path,
+        class: "text-gray-400 hover:text-white transition" %>
+  </div>
+
 </div>
