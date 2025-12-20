@@ -1,57 +1,91 @@
-<h1>メニューを編集</h1>
+<div class="container mx-auto px-6 py-10 max-w-2xl">
 
-<%= form_with model: @menu do |form| %>
-  <!-- エラーメッセージ表示 -->
-  <% if @menu.errors.any? %>
-    <div style="color: red;">
-      <h2><%= @menu.errors.count %>件のエラーがあります</h2>
-      <ul>
-        <% @menu.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+  <h1 class="text-3xl font-bold text-gray-100 mb-8 text-center">
+    メニューを編集
+  </h1>
+
+  <%= form_with model: @menu, local: true, class: "space-y-8" do |form| %>
+
+    <% if @menu.errors.any? %>
+      <div class="bg-red-900/40 border border-red-600 text-red-300 px-4 py-3 rounded-lg">
+        <h4 class="font-bold">エラーが発生しました</h4>
+        <ul class="mt-2 list-disc pl-5">
+          <% @menu.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, "メニュー名",
+            class: "block text-sm font-semibold text-gray-200 mb-2" %>
+
+      <%= form.text_field :name,
+            class: "w-full rounded-lg bg-gray-800 border border-gray-700
+                    text-gray-100 px-4 py-2.5
+                    focus:border-blue-500 focus:ring-blue-500",
+            placeholder: "例：今週の献立" %>
+    </div>
+
+    <div>
+      <h2 class="text-lg font-bold text-gray-100 mb-4">
+        レシピを編集
+      </h2>
+
+      <div class="space-y-4">
+        <%= form.fields_for :menu_recipes do |menu_recipe_form| %>
+          <div class="bg-gray-800 border border-gray-700 rounded-lg p-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+
+              <div class="md:col-span-2">
+                <%= menu_recipe_form.label :recipe_id, "レシピ",
+                      class: "block text-sm text-gray-200 mb-1" %>
+
+                <%= menu_recipe_form.collection_select :recipe_id, @recipes, :id, :name,
+                      { prompt: "レシピを選択" },
+                      class: "w-full rounded-md bg-gray-900 border-gray-700
+                              text-gray-100 focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+
+              <div>
+                <%= menu_recipe_form.label :position, "何食目？",
+                      class: "block text-sm text-gray-200 mb-1" %>
+
+                <%= menu_recipe_form.number_field :position, min: 1,
+                      class: "w-full rounded-md bg-gray-900 border-gray-700
+                              text-gray-100 focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+
+            </div>
+
+            <% if menu_recipe_form.object.persisted? %>
+              <div class="mt-4 flex items-center gap-2 text-sm text-red-400">
+                <%= menu_recipe_form.check_box :_destroy,
+                      class: "rounded border-gray-600 bg-gray-900" %>
+                <span>このレシピを削除</span>
+              </div>
+            <% end %>
+
+            <%= menu_recipe_form.hidden_field :id %>
+
+          </div>
         <% end %>
-      </ul>
+      </div>
     </div>
+
+    <div class="flex justify-center">
+      <%= form.submit "更新",
+            class: "bg-white text-gray-900 font-semibold px-6 py-2.5
+                    rounded-lg shadow hover:bg-gray-200 transition" %>
+    </div>
+
   <% end %>
 
-  <!-- メニュー名 -->
-  <div>
-    <%= form.label :name, "メニュー名" %>
-    <%= form.text_field :name, placeholder: "例：今週の献立" %>
+  <div class="text-center mt-8">
+    <%= link_to "一覧に戻る", menus_path,
+          class: "text-blue-400 hover:text-blue-300 underline" %>
   </div>
 
-  <h2>レシピを編集</h2>
-
-  <!-- ネストしたフォーム -->
-  <%= form.fields_for :menu_recipes do |menu_recipe_form| %>
-    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-      <div>
-        <%= menu_recipe_form.label :recipe_id, "レシピ" %>
-        <%= menu_recipe_form.collection_select :recipe_id, @recipes, :id, :name, 
-            { prompt: "レシピを選択" }, 
-            { style: "width: 200px;" } %>
-      </div>
-
-      <div>
-        <%= menu_recipe_form.label :position, "何食目？" %>
-        <%= menu_recipe_form.number_field :position, min: 1, placeholder: "1" %>
-      </div>
-
-      <!-- 削除チェックボックス(既存レコードのみ) -->
-      <% if menu_recipe_form.object.persisted? %>
-        <div style="margin-top: 10px;">
-          <%= menu_recipe_form.check_box :_destroy %>
-          <%= menu_recipe_form.label :_destroy, "このレシピを削除" %>
-        </div>
-      <% end %>
-
-      <!-- 既存レコードのID -->
-      <%= menu_recipe_form.hidden_field :id %>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.submit "更新" %>
-  </div>
-<% end %>
-
-<%= link_to "戻る", menus_path %>
+</div>

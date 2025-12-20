@@ -13,7 +13,7 @@ class MenusController < ApplicationController
     @menu = current_user.menus.build(menu_params)
     
     if @menu.save
-      redirect_to "#", success: 'メニューを作成しました'
+      redirect_to menus_path, success: 'メニューを作成しました'
     else
       @recipes = Recipe.all
       flash.now[:danger] = 'メニューの作成に失敗しました'
