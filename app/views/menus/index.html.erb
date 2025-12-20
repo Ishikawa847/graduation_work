@@ -1,45 +1,75 @@
-<h1>マイメニュー<h1>
+<div class="container mx-auto px-6 py-10">
 
-<% if @menus.any? %>
-  <table border="1" style="width: 100%; border-collapse: collapse;">
-    <thead>
-      <tr>
-        <th>メニュー名</th>
-        <th>レシピ数</th>
-        <th>作成日</th>
-        <th>PFC</th>
-        <th>操作</th>
-      <tr>
-    </thead>
-    <tbody>
-      <% @menus.each do |menu| %>
-        <tr>
-          <td>
-            <%= link_to menu.name, "#" %>
-          </td>
-          <td>
-            <%= menu.recipes.size %>
-          </td>
-          <td>
-            <%= menu.created_at.strftime('%Y年%m月%d日') %>
-          </td>
-          <td>
-          P:
-          <%= menu.total_protein %>
-          F:
-          <%= menu.total_fat %>
-          C:
-          <%= menu.total_carb %>
-          </td>
-          <td>
-            <%= link_to "詳細", menu_path(menu) %>
-            <%= link_to "編集", edit_menu_path(menu) %>
-            <%= link_to "削除", menu_path(menu) %>
-          </td>
-        </tr>
-      <%end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>まだメニューがありません<p>
-<% end %>
+  <h1 class="text-3xl font-bold text-gray-100 mb-8">
+    献立
+  </h1>
+
+  <% if @menus.any? %>
+    <div class="overflow-x-auto bg-gray-800 rounded-xl shadow-lg">
+      <table class="min-w-full text-sm text-gray-300">
+
+        <thead class="bg-gray-900 text-gray-400">
+          <tr>
+            <th class="px-6 py-4 text-left font-semibold">メニュー名</th>
+            <th class="px-6 py-4 text-center font-semibold">レシピ数</th>
+            <th class="px-6 py-4 text-center font-semibold">作成日</th>
+            <th class="px-6 py-4 text-center font-semibold">PFC</th>
+            <th class="px-6 py-4 text-right font-semibold">操作</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-700">
+          <% @menus.each do |menu| %>
+            <tr class="hover:bg-gray-700/40 transition-colors">
+
+              <td class="px-6 py-4 font-medium text-gray-100">
+                <%= link_to menu.name, menu_path(menu),
+                    class: "hover:text-blue-400 transition-colors" %>
+              </td>
+
+              <td class="px-6 py-4 text-center">
+                <span class="inline-block bg-gray-700 px-3 py-1 rounded-full text-xs">
+                  <%= menu.recipes.size %>
+                </span>
+              </td>
+
+              <td class="px-6 py-4 text-center text-gray-400">
+                <%= menu.created_at.strftime('%Y年%m月%d日') %>
+              </td>
+
+              <td class="px-6 py-4 text-center text-xs">
+                <span class="text-blue-400">P:</span> <%= menu.total_protein %>
+                <span class="mx-1 text-gray-500">/</span>
+                <span class="text-red-400">F:</span> <%= menu.total_fat %>
+                <span class="mx-1 text-gray-500">/</span>
+                <span class="text-green-400">C:</span> <%= menu.total_carb %>
+              </td>
+
+              <td class="px-6 py-4 text-right space-x-3">
+                <%= link_to "詳細", menu_path(menu),
+                    class: "text-blue-400 hover:text-blue-300 transition" %>
+
+                <%= link_to "編集", edit_menu_path(menu),
+                    class: "text-yellow-400 hover:text-yellow-300 transition" %>
+
+                <%= link_to "削除", menu_path(menu),
+                    data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                    class: "text-red-400 hover:text-red-300 transition" %>
+              </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+    </div>
+
+  <% else %>
+    <div class="text-center py-16 text-gray-400">
+      <p class="text-lg mb-4">まだメニューがありません</p>
+      <%= link_to "最初のメニューを作成する", new_menu_path,
+          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition" %>
+    </div>
+  <% end %>
+
+</div>
