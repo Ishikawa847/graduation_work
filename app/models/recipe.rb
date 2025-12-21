@@ -24,4 +24,12 @@ class Recipe < ApplicationRecord
   (attributes['ingredient_attributes'] && 
    attributes['ingredient_attributes']['name'].blank?)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "description", "id", "name", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["user", "ingredients", "recipe_ingredients"]
+  end
 end

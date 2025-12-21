@@ -1,6 +1,6 @@
 <%= search_form_for @q, url: recipes_path, method: :get do |f| %>
   <div class="input-group mb-3">
-    <%= f.search_field :title_or_description_cont, 
+    <%= f.search_field :name_or_description_cont, 
         class: 'form-control', 
         placeholder: 'レシピ名または説明で検索' %>
     <div class="input-group-append">
