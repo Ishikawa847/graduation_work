@@ -3,11 +3,13 @@
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-bold">投稿一覧</h1>
 
-        <div class="row mb-4">
-          <div class="col-lg-8 offset-lg-2">
-            <%= render 'search_form' %>
-          </div>
-        </div>
+    <div class="flex items-center gap-4">
+      <%= render 'search_form' %>
+
+      <%= link_to "＋ レシピ新規作成", new_recipe_path,
+          class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
+                  hover:bg-gray-200 transition whitespace-nowrap" %>
+    </div>
     </div>
 
       <div class="container mx-auto px-4">
