@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
       recipe_ingredient = @recipe.recipe_ingredients.build
       recipe_ingredient.build_ingredient
     end
+    @ingredients = Ingredient.all
   end
 
   def create
@@ -57,6 +58,7 @@ class RecipesController < ApplicationController
       :name, :description, :image,
       recipe_ingredients_attributes: [
         :id,
+        :ingredient_id,
         :quantity,
         :_destroy,
         ingredient_attributes: [
