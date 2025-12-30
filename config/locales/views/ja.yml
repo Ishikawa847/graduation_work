@@ -1,4 +1,6 @@
 ja:
+  defaults:
+    search: 検索
   helpers:
     submit:
       create: 登録
