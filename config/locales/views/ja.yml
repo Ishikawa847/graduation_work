@@ -1,0 +1,31 @@
+ja:
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+    label:
+      email: メールアドレス
+      password: パスワード
+  user_sessions:
+    new:
+      title: ログイン
+      login: ログイン
+      password_forget: パスワードをお忘れの方はこちら
+  devise:
+    shared:
+      links:
+        sign_in: ログイン
+        sign_up: 会員登録
+        forgot_your_password: パスワードをお忘れですか?
+        didn_t_receive_confirmation_instructions: 確認メールを受け取っていませんか?
+  users:
+    new:
+      title: ユーザー登録
+      to_login_page: ログインページへ
+  header:
+    login: ログイン
+    logout: ログアウト
+    recipe_index: レシピ一覧
+    menu_index: 献立一覧
+    profile: プロフィール
