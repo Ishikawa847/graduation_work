@@ -35,6 +35,13 @@ ja:
       new: ＋ レシピ新規作成
       no_recipes: レシピがまだありません
       search_placeholder: レシピ名または説明で検索
+    show:
+      pfc_information: 栄養情報 (PFC)
+      protein: タンパク質（P）
+      fat: 脂質（F）
+      carbo: 炭水化物（C）
+      description: 料理の説明
+      no_description: 説明がありません
   header:
     sign_up: 会員登録
     login: ログイン

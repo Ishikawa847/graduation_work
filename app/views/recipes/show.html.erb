@@ -17,7 +17,7 @@
 
       <!-- 左下：PFC情報 -->
       <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
-        <h2 class="text-xl font-semibold mb-4 text-gray-100">栄養情報 (PFC)</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-100"><%= t('recipes.show.pfc_information') %></h2>
 
         <%# 合計PFC計算 %>
         <% 
@@ -36,9 +36,9 @@
         %>
 
         <ul class="space-y-2 text-gray-200">
-          <li>タンパク質（P）：<%= total_p.round(1) %> g</li>
-          <li>脂質（F）：<%= total_f.round(1) %> g</li>
-          <li>炭水化物（C）：<%= total_c.round(1) %> g</li>
+          <li><%= t('recipes.show.protein')%>: <%= total_p.round(1) %> g</li>
+          <li><%= t('recipes.show.fat')%>:<%= total_f.round(1) %> g</li>
+          <li><%= t('recipes.show.carbo')%>:<%= total_c.round(1) %> g</li>
           <li class="pt-2 text-gray-400 text-sm">
           </li>
         </ul>
@@ -56,9 +56,9 @@
 
       <!-- 右下：説明文 -->
       <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
-        <h2 class="text-xl font-semibold mb-4 text-gray-100">料理の説明</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-100"><%= t('recipes.show.description') %></h2>
         <p class="leading-relaxed text-gray-200">
-          <%= @recipe.description.presence || "説明がありません。" %>
+          <%= @recipe.description.presence || t('recipes.show.no_description') %>
         </p>
       </div>
 
