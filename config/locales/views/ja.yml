@@ -27,6 +27,12 @@ ja:
     new:
       title: ユーザー登録
       to_login_page: ログインページへ
+  recipes:
+    index:
+      title: レシピ一覧
+      new: ＋ レシピ新規作成
+      no_recipes: レシピがまだありません
+      search_placeholder: レシピ名または説明で検索
   header:
     sign_up: 会員登録
     login: ログイン
