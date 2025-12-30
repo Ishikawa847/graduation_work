@@ -34,3 +34,8 @@ ja:
     recipe_index: レシピ一覧
     menu_index: 献立一覧
     profile: プロフィール
+  footer:
+    copyright: "© %{year} 筋トレ飯管理 All rights reserved."
+    terms_of_service: "利用規約"
+    privacy_policy: "プライバシーポリシー"
+    contact: "お問い合わせ"
