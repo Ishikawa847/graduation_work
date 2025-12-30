@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        email: メールアドレス
+        name: 名前 
+        password: パスワード
+        password_confirmation: パスワード確認
+        remember_me: ログイン状態を保持する
+        height: 身長
+        weight: 体重
+        age: 年齢
+        gender: 性別
