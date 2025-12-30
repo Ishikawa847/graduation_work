@@ -42,6 +42,15 @@ ja:
       carbo: 炭水化物（C）
       description: 料理の説明
       no_description: 説明がありません
+    new:
+      title: 新しいレシピを投稿
+      new_recipe: レシピを投稿
+      back_to_recipes: レシピ一覧に戻る
+      error_occur: エラーが発生しました
+      upload_image: 写真をアップロード
+      change_image: 写真を変更
+      or_drag_and_drop: またはドラッグ&ドロップ
+      max_MB: 最大５MB
     edit:
       title: レシピを編集
       ingredient: 食材
