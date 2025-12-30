@@ -13,3 +13,12 @@ ja:
         weight: 体重
         age: 年齢
         gender: 性別
+      recipe:
+        id: ID
+        user_id: ユーザーID
+        user: ユーザー
+        image: 画像
+        name: レシピ名
+        description: 説明
+        created_at: 作成日時
+        updated_at: 更新日時
