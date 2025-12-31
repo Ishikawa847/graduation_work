@@ -145,6 +145,19 @@ ja:
         position_suffix: "%{count}食目"
         no_recipes: レシピが登録されていません
       back_to_list: 一覧に戻る
+    new:
+      title: 新しいメニューを作成
+      name_label: メニュー名
+      name_placeholder: "例：今週の献立"
+      add_recipes_title: レシピを追加
+      recipe_label: レシピ
+      recipe_prompt: レシピを選択
+      position_label: 何食目？
+      position_placeholder: "1"
+      back: 戻る
+      submit: 作成
+      errors:
+        title: "%{count}件のエラーがあります"
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
