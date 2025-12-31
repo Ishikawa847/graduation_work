@@ -2,10 +2,10 @@
 
 <div class="flex items-center justify-between mb-8">
   <h1 class="text-3xl font-bold text-gray-100">
-    献立
+    <%= t('.title') %>
   </h1>
 
-  <%= link_to "新規作成", new_menu_path,
+  <%= link_to t('.new'), new_menu_path,
       class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
             hover:bg-gray-200 transition" %>
 </div>
@@ -16,11 +16,11 @@
 
         <thead class="bg-gray-900 text-gray-400">
           <tr>
-            <th class="px-6 py-4 text-left font-semibold">メニュー名</th>
-            <th class="px-6 py-4 text-center font-semibold">レシピ数</th>
-            <th class="px-6 py-4 text-center font-semibold">作成日</th>
-            <th class="px-6 py-4 text-center font-semibold">PFC</th>
-            <th class="px-6 py-4 text-right font-semibold">操作</th>
+            <th class="px-6 py-4 text-left font-semibold"><%= t('.table.menu_name') %></th>
+            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.recipe_count') %></th>
+            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.created_at') %></th>
+            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.pfc') %></th>
+            <th class="px-6 py-4 text-right font-semibold"><%= t('.table.actions') %></th>
           </tr>
         </thead>
 
@@ -40,7 +40,7 @@
               </td>
 
               <td class="px-6 py-4 text-center text-gray-400">
-                <%= menu.created_at.strftime('%Y年%m月%d日') %>
+                <%= l menu.created_at, format: :long %>
               </td>
 
               <td class="px-6 py-4 text-center text-xs">
@@ -52,14 +52,14 @@
               </td>
 
               <td class="px-6 py-4 text-right space-x-3">
-                <%= link_to "詳細", menu_path(menu),
+                <%= link_to t('.actions.show'), menu_path(menu),
                     class: "text-blue-400 hover:text-blue-300 transition" %>
 
-                <%= link_to "編集", edit_menu_path(menu),
+                <%= link_to t('.actions.edit'), edit_menu_path(menu),
                     class: "text-yellow-400 hover:text-yellow-300 transition" %>
 
-                <%= link_to "削除", menu_path(menu),
-                    data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                <%= link_to t('.actions.delete'), menu_path(menu),
+                    data: { turbo_method: :delete, turbo_confirm: t('.actions.confirm_delete') },
                     class: "text-red-400 hover:text-red-300 transition" %>
               </td>
 
@@ -72,8 +72,8 @@
 
   <% else %>
     <div class="text-center py-16 text-gray-400">
-      <p class="text-lg mb-4">まだメニューがありません</p>
-      <%= link_to "最初のメニューを作成する", new_menu_path,
+      <p class="text-lg mb-4"><%= t('.empty.message') %></p>
+      <%= link_to t('.empty.create_first'), new_menu_path,
           class: "inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition" %>
     </div>
   <% end %>

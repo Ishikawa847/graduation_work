@@ -112,6 +112,26 @@ ja:
       title: プロフィール編集
       submit: 更新
   menus:
+    index:
+      title: 献立
+      new: 新規作成
+      table:
+        menu_name: メニュー名
+        recipe_count: レシピ数
+        created_at: 作成日
+        pfc: PFC
+        actions: 操作
+        protein_label: "P:"
+        fat_label: "F:"
+        carb_label: "C:"
+      actions:
+        show: 詳細
+        edit: 編集
+        delete: 削除
+        confirm_delete: 本当に削除しますか?
+      empty:
+        message: まだメニューがありません
+        create_first: 最初のメニューを作成する
     show:
       title: メニュー詳細
       created_at: 作成日
