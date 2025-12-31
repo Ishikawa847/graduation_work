@@ -140,7 +140,7 @@
             <div class="pb-4">
               <div class="flex justify-between">
                 <span class="text-sm text-gray-400">性別</span>
-                <span class="text-lg font-bold text-gray-100"><%= @user.gender %></span>
+                <span class="text-lg font-bold text-gray-100"><%= @user.human_attribute_enum(:gender) %></span>
               </div>
             </div>
 
