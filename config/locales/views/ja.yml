@@ -83,6 +83,57 @@ ja:
       max_MB: 最大５MB
       update_recipe: レシピを更新
       back_to_recipe: レシピ詳細に戻る
+  profiles:
+    show:
+      title: マイプロフィール
+      posted_recipes: 投稿したレシピ
+      no_image: No Image
+      posted_at: "%{date}に投稿"
+      edit: 編集
+      delete: 削除
+      confirm_delete: 本当に削除しますか?
+      no_recipes:
+        message: まだレシピが投稿されていません
+        create_first: 最初のレシピを投稿する
+      profile_info:
+        title: プロフィール情報
+        edit: 編集
+        unset: 未設定
+        age_unit:
+          one: "%{count} 歳"
+          other: "%{count} 歳"
+        height_unit:
+          one: "%{count} cm"
+          other: "%{count} cm"
+        weight_unit:
+          one: "%{count} kg"
+          other: "%{count} kg"
+  time:
+    formats:
+      default: "%Y年%m月%d日 %H:%M"
+      long: "%Y年%m月%d日"
+      short: "%m/%d"
+  date:
+    formats:
+      default: "%Y年%m月%d日"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d" 
+    abbr_day_names:
+      - 日
+      - 月
+      - 火
+      - 水
+      - 木
+      - 金
+      - 土   
+    day_names:
+      - 日曜日
+      - 月曜日
+      - 火曜日
+      - 水曜日
+      - 木曜日
+      - 金曜日
+      - 土曜日
   header:
     sign_up: 会員登録
     login: ログイン
