@@ -1,6 +1,6 @@
 <div class="container mx-auto px-4 py-12 max-w-2xl">
   <h1 class="text-3xl font-bold text-center mb-8 text-gray-100">
-    レシピを編集
+    <%= t('recipes.edit.title') %>
   </h1>
 
   <%= form_with model: @recipe, local: true, multipart: true, class: "space-y-8" do |form| %>
@@ -8,7 +8,7 @@
     <%# エラーメッセージ %>
     <% if @recipe.errors.any? %>
       <div class="bg-red-900/40 border border-red-600 text-red-300 px-4 py-3 rounded-lg">
-        <h4 class="font-bold">エラーが発生しました:</h4>
+        <h4 class="font-bold"><%= t('recipes.edit.error_occur') %>:</h4>
         <ul class="mt-2 list-disc pl-5">
           <% @recipe.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -19,21 +19,21 @@
 
     <%# 料理名 %>
     <div>
-      <%= form.label :name, "料理名", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :name, class: "block text-gray-200 text-sm font-semibold mb-2" %>
       <%= form.text_field :name, 
           class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <%# 料理説明 %>
     <div>
-      <%= form.label :description, "料理の説明", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :description, class: "block text-gray-200 text-sm font-semibold mb-2" %>
       <%= form.text_area :description, rows: 4,
           class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <%# 写真 %>
     <div>
-      <%= form.label :image, "料理の写真", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :image, class: "block text-gray-200 text-sm font-semibold mb-2" %>
 
 
 
@@ -48,19 +48,19 @@
             <%= form.file_field :image, class: "sr-only", id: "image-upload", accept: "image/*" %>
             <label for="image-upload"
               class="cursor-pointer bg-gray-700 px-3 py-1 rounded text-blue-400 hover:text-blue-300">
-              <%= @recipe.image.present? ? '写真を変更' : '写真をアップロード' %>
+              <%= @recipe.image.present? ? t('recipes.edit.change_image') : t('recipes.edit.upload_image') %>
             </label>
-            <p>またはドラッグ&ドロップ</p>
+            <p><%= t('recipes.edit.or_drag_and_drop')%></p>
           </div>
 
-          <p class="text-xs text-gray-400">PNG, JPG, GIF (最大5MB)</p>
+          <p class="text-xs text-gray-400">PNG, JPG, GIF (<%= t('recipes.edit.max_MB')%>)</p>
         </div>
       </div>
     </div>
 
     <%# 食材セクション %>
     <div>
-      <h2 class="text-xl font-bold text-gray-100 mb-4">食材</h2>
+      <h2 class="text-xl font-bold text-gray-100 mb-4"><%= t('recipes.edit.ingredient')%></h2>
 
       <div id="ingredients-container">
         <%= form.fields_for :recipe_ingredients do |ingredient_form| %>
@@ -222,19 +222,19 @@
 
       <!-- 食材追加ボタン -->
       <button type="button" id="add-ingredient" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-        + 食材を追加
+        <%= t('recipes.edit.add_ingredient')%>
       </button>
     </div>
     <%# 送信ボタン %>
     <div class="flex justify-center">
-      <%= form.submit "レシピを更新",
+      <%= form.submit t('recipes.edit.update_recipe'),
             class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition transform hover:scale-105" %>
     </div>
 
   <% end %>
 
   <div class="text-center mt-8">
-    <%= link_to "レシピ詳細に戻る", recipe_path(@recipe),
+    <%= link_to t('recipes.edit.back_to_recipe'), recipe_path(@recipe),
           class: "text-blue-400 hover:text-blue-300 underline" %>
   </div>
 </div>

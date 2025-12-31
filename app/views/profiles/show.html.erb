@@ -2,7 +2,9 @@
   <div class="max-w-7xl mx-auto">
 
     <!-- ページタイトル -->
-    <h1 class="text-3xl font-bold mb-8 text-gray-100">マイプロフィール</h1>
+    <h1 class="text-3xl font-bold mb-8 text-gray-100">      
+      <%= t('.title') %>
+    </h1>
 
     <!-- 左右2カラム -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -12,7 +14,9 @@
         <div class="bg-gray-800 rounded-lg shadow-lg p-6">
 
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-100">投稿したレシピ</h2>
+            <h2 class="text-2xl font-bold text-gray-100">
+              <%= t('.posted_recipes') %>
+            </h2>
           </div>
 
           <% if @recipes.any? %>
@@ -52,15 +56,15 @@
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <%= recipe.created_at.strftime('%Y年%m月%d日') %>
+                        <%= l(recipe.created_at, format: :long) %>
                       </div>
 
                       <!-- ボタン -->
                       <div class="flex gap-2">
-                        <%= link_to "編集", edit_recipe_path(recipe),
+                        <%= link_to t('.edit'), edit_recipe_path(recipe),
                           class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition" %>
 
-                        <%= link_to "削除", recipe_path(recipe),
+                        <%= link_to t('.delete'), recipe_path(recipe),
                           data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
                           class: "inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition" %>
                       </div>
@@ -77,8 +81,10 @@
               <svg class="w-16 h-16 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              <p class="text-gray-400 text-lg mb-4">まだレシピが投稿されていません</p>
-              <%= link_to "最初のレシピを投稿する", new_recipe_path,
+              <p class="text-gray-400 text-lg mb-4">
+                <%= t('.no_recipes.message') %>
+              </p>
+              <%= link_to t('.no_recipes.create_first'), new_recipe_path,
                 class: "inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" %>
             </div>
 
@@ -92,8 +98,10 @@
         <div class="bg-gray-800 rounded-lg shadow-lg p-6 sticky top-8">
 
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-100">プロフィール情報</h2>
-            <%= link_to "編集", edit_profile_path, class: "text-blue-400 hover:text-blue-300 text-sm font-medium" %>
+            <h2 class="text-xl font-bold text-gray-100">
+              <%= t('.profile_info.title') %>
+            </h2>
+            <%= link_to t('.profile_info.edit'), edit_profile_path, class: "text-blue-400 hover:text-blue-300 text-sm font-medium" %>
           </div>
 
           <!-- ユーザー名 -->
@@ -109,9 +117,13 @@
             <!-- 年齢 -->
             <div class="border-b border-gray-700 pb-4">
               <div class="flex justify-between">
-                <span class="text-sm text-gray-400">年齢</span>
+                <span class="text-sm text-gray-400"><%= User.human_attribute_name(:age) %></span>
                 <span class="text-lg font-bold text-gray-100">
-                  <%= @user.age.present? ? "#{@user.age} 歳" : "未設定" %>
+                  <% if @user.age.present? %>
+                    <%= t('.profile_info.age_unit', count: @user.age) %>
+                  <% else %>
+                    <%= t('.profile_info.unset') %>
+                  <% end %>
                 </span>
               </div>
             </div>
@@ -119,9 +131,13 @@
             <!-- 身長 -->
             <div class="border-b border-gray-700 pb-4">
               <div class="flex justify-between">
-                <span class="text-sm text-gray-400">身長</span>
+                <span class="text-sm text-gray-400"><%= User.human_attribute_name(:height) %></span>
                 <span class="text-lg font-bold text-gray-100">
-                  <%= @user.height.present? ? "#{@user.height} cm" : "未設定" %>
+                  <% if @user.height.present? %>
+                    <%= t('.profile_info.height_unit', count: @user.height) %>
+                  <% else %>
+                    <%= t('.profile_info.unset') %>
+                  <% end %>
                 </span>
               </div>
             </div>
@@ -129,9 +145,13 @@
             <!-- 体重 -->
             <div class="border-b border-gray-700 pb-4">
               <div class="flex justify-between">
-                <span class="text-sm text-gray-400">体重</span>
+                <span class="text-sm text-gray-400"><%= User.human_attribute_name(:weight) %></span>
                 <span class="text-lg font-bold text-gray-100">
-                  <%= @user.weight.present? ? "#{@user.weight} kg" : "未設定" %>
+                  <% if @user.weight.present? %>
+                    <%= t('.profile_info.weight_unit', count: @user.weight) %>
+                  <% else %>
+                    <%= t('.profile_info.unset') %>
+                  <% end %>
                 </span>
               </div>
             </div>
@@ -139,8 +159,8 @@
             <!-- 性別 -->
             <div class="pb-4">
               <div class="flex justify-between">
-                <span class="text-sm text-gray-400">性別</span>
-                <span class="text-lg font-bold text-gray-100"><%= @user.gender %></span>
+                <span class="text-sm text-gray-400"><%= User.human_attribute_name(:gender) %></span>
+                <span class="text-lg font-bold text-gray-100"><%= @user.human_attribute_enum(:gender) %></span>
               </div>
             </div>
 

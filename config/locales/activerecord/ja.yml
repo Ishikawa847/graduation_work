@@ -1,0 +1,31 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        email: メールアドレス
+        name: 名前 
+        password: パスワード
+        password_confirmation: パスワード確認
+        remember_me: ログイン状態を保持する
+        height: 身長
+        weight: 体重
+        age: 年齢
+        gender: 性別
+      user/gender:
+        male: 男性
+        female: 女性
+        other: その他
+        prefer_not_to_say: 選択しない
+      recipe:
+        id: ID
+        user_id: ユーザーID
+        user: ユーザー
+        image: 画像
+        name: レシピ名
+        description: 説明
+        created_at: 作成日時
+        updated_at: 更新日時
+      menu:
+        name: 献立名

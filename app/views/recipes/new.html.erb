@@ -1,6 +1,6 @@
 <div class="container mx-auto px-4 py-12 max-w-2xl">
   <h1 class="text-3xl font-bold text-center mb-8 text-gray-100">
-    新しいレシピを投稿
+    <%= t('recipes.new.title') %>
   </h1>
 
   <%= form_with model: @recipe, local: true, multipart: true, class: "space-y-8" do |form| %>
@@ -8,7 +8,7 @@
     <%# エラーメッセージ %>
     <% if @recipe.errors.any? %>
       <div class="bg-red-900/40 border border-red-600 text-red-300 px-4 py-3 rounded-lg">
-        <h4 class="font-bold">エラーが発生しました:</h4>
+        <h4 class="font-bold"><%= t('recipes.new.error_occur') %>:</h4>
         <ul class="mt-2 list-disc pl-5">
           <% @recipe.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -19,21 +19,21 @@
 
     <%# 料理名 %>
     <div>
-      <%= form.label :name, "料理名", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :name, class: "block text-gray-200 text-sm font-semibold mb-2" %>
       <%= form.text_field :name, 
           class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <%# 料理説明 %>
     <div>
-      <%= form.label :description, "料理の説明", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :description, class: "block text-gray-200 text-sm font-semibold mb-2" %>
       <%= form.text_area :description, rows: 4,
           class: "bg-gray-800 border border-gray-700 rounded w-full py-3 px-4 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <%# 写真 %>
     <div>
-      <%= form.label :image, "料理の写真", class: "block text-gray-200 text-sm font-semibold mb-2" %>
+      <%= form.label :image, class: "block text-gray-200 text-sm font-semibold mb-2" %>
 
       <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-lg bg-gray-800">
         <div class="text-center space-y-2">
@@ -46,9 +46,9 @@
             <%= form.file_field :image, class: "sr-only", id: "image-upload", accept: "image/*" %>
             <label for="image-upload"
               class="cursor-pointer bg-gray-700 px-3 py-1 rounded text-blue-400 hover:text-blue-300">
-              写真をアップロード
+              <%=t('recipes.new.upload_image') %>
             </label>
-            <p>またはドラッグ&ドロップ</p>
+            <p><%= t('recipes.new.or_drag_and_drop')%></p>
           </div>
 
           <p class="text-xs text-gray-400">PNG, JPG, GIF (最大5MB)</p>
@@ -216,14 +216,14 @@
 
     <%# 送信ボタン %>
     <div class="flex justify-center">
-      <%= form.submit "レシピを投稿",
+      <%= form.submit t('recipes.new.new_recipe'),
             class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition transform hover:scale-105" %>
     </div>
 
   <% end %>
 
   <div class="text-center mt-8">
-    <%= link_to "レシピ一覧に戻る", recipes_path,
+    <%= link_to t('recipes.new.back_to_recipes'), recipes_path,
           class: "text-blue-400 hover:text-blue-300 underline" %>
   </div>
 </div>

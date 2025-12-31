@@ -1,14 +1,14 @@
 <div class="container mx-auto px-6 py-10 max-w-xl">
 
   <h1 class="text-3xl font-bold text-gray-100 mb-8 text-center">
-    プロフィール編集
+    <%= t('.title') %>
   </h1>
 
   <%= form_with model: current_user, url: profile_path, local: true,
         class: "space-y-6" do |f| %>
 
     <div>
-      <%= f.label :age, "年齢",
+      <%= f.label :age,
             class: "block text-sm font-semibold text-gray-200 mb-2" %>
 
       <%= f.text_field :age,
@@ -18,7 +18,7 @@
     </div>
 
     <div>
-      <%= f.label :height, "身長（cm）",
+      <%= f.label :height,
             class: "block text-sm font-semibold text-gray-200 mb-2" %>
 
       <%= f.text_field :height,
@@ -28,7 +28,7 @@
     </div>
 
     <div>
-      <%= f.label :weight, "体重（kg）",
+      <%= f.label :weight,
             class: "block text-sm font-semibold text-gray-200 mb-2" %>
 
       <%= f.text_field :weight,
@@ -38,11 +38,11 @@
     </div>
 
     <div>
-      <%= f.label :gender, "性別",
+      <%= f.label :gender,
             class: "block text-sm font-semibold text-gray-200 mb-2" %>
 
       <%= f.select :gender,
-            User.genders.keys.map { |key| [key, key] },
+            User.enum_options_for_select(:gender),
             {},
             class: "w-full rounded-lg bg-gray-800 border border-gray-700
                     text-gray-100 px-4 py-2.5
@@ -50,7 +50,7 @@
     </div>
 
     <div class="flex justify-center pt-4">
-      <%= f.submit "更新",
+      <%= f.submit t('.submit'),
             class: "bg-white text-gray-900 font-semibold px-6 py-2.5
                     rounded-lg shadow hover:bg-gray-200 transition" %>
     </div>

@@ -1,0 +1,211 @@
+ja:
+  defaults:
+    search: 検索
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+    label:
+      email: メールアドレス
+      password: パスワード
+    password_requirement: "(%{count}文字以上必須)"
+  static_pages:
+    top:
+      hero:
+        title: 筋トレ飯を簡単に管理
+        description: PFCバランスを自動計算して、献立作成の手間を削減。ユーザー同士でアイデアを共有してモチベーションもアップ!
+        sign_up: 会員登録
+        login: ログイン
+      features:
+        title: サービスの特徴
+        pfc_calculation:
+          title: PFC自動計算
+          description: 誰でも簡単に栄養バランスを管理。増量期・減量期に合わせて最適化。
+        recipe_sharing:
+          title: 筋トレ飯の共有
+          description: 等身大の一般ユーザーのレシピを見て、献立のアイデアを増やせます。
+        ranking:
+          title: ランキング & スコア
+          description: PFCの理想値にどれだけ近いかをスコア化。人気の筋トレ飯もすぐわかる。
+      cta:
+        title: さあ、今日から筋トレ飯を管理しよう!
+        start_free: 無料で始める
+  user_sessions:
+    new:
+      title: ログイン
+      login: ログイン
+      password_forget: パスワードをお忘れの方はこちら
+  devise:
+    shared:
+      links:
+        sign_in: ログイン
+        sign_up: 会員登録
+        forgot_your_password: パスワードをお忘れですか?
+        didn_t_receive_confirmation_instructions: 確認メールを受け取っていませんか?
+    registrations:
+      new:
+        title: 会員登録
+  users:
+    new:
+      title: ユーザー登録
+      to_login_page: ログインページへ
+  recipes:
+    index:
+      title: レシピ一覧
+      new: ＋ レシピ新規作成
+      no_recipes: レシピがまだありません
+      search_placeholder: レシピ名または説明で検索
+    show:
+      pfc_information: 栄養情報 (PFC)
+      protein: タンパク質（P）
+      fat: 脂質（F）
+      carbo: 炭水化物（C）
+      description: 料理の説明
+      no_description: 説明がありません
+    new:
+      title: 新しいレシピを投稿
+      new_recipe: レシピを投稿
+      back_to_recipes: レシピ一覧に戻る
+      error_occur: エラーが発生しました
+      upload_image: 写真をアップロード
+      change_image: 写真を変更
+      or_drag_and_drop: またはドラッグ&ドロップ
+      max_MB: 最大５MB
+    edit:
+      title: レシピを編集
+      ingredient: 食材
+      add_ingredient: + 食材を追加
+      error_occur: エラーが発生しました
+      upload_image: 写真をアップロード
+      change_image: 写真を変更
+      or_drag_and_drop: またはドラッグ&ドロップ
+      max_MB: 最大５MB
+      update_recipe: レシピを更新
+      back_to_recipe: レシピ詳細に戻る
+  profiles:
+    show:
+      title: マイプロフィール
+      posted_recipes: 投稿したレシピ
+      no_image: No Image
+      posted_at: "%{date}に投稿"
+      edit: 編集
+      delete: 削除
+      confirm_delete: 本当に削除しますか?
+      no_recipes:
+        message: まだレシピが投稿されていません
+        create_first: 最初のレシピを投稿する
+      profile_info:
+        title: プロフィール情報
+        edit: 編集
+        unset: 未設定
+        age_unit:
+          one: "%{count} 歳"
+          other: "%{count} 歳"
+        height_unit:
+          one: "%{count} cm"
+          other: "%{count} cm"
+        weight_unit:
+          one: "%{count} kg"
+          other: "%{count} kg"
+    edit:
+      title: プロフィール編集
+      submit: 更新
+  menus:
+    index:
+      title: 献立
+      new: 新規作成
+      table:
+        menu_name: メニュー名
+        recipe_count: レシピ数
+        created_at: 作成日
+        pfc: PFC
+        actions: 操作
+        protein_label: "P:"
+        fat_label: "F:"
+        carb_label: "C:"
+      actions:
+        show: 詳細
+        edit: 編集
+        delete: 削除
+        confirm_delete: 本当に削除しますか?
+      empty:
+        message: まだメニューがありません
+        create_first: 最初のメニューを作成する
+    show:
+      title: メニュー詳細
+      created_at: 作成日
+      edit: 編集
+      delete: 削除
+      confirm_delete: 本当に削除しますか?
+      recipes:
+        title: レシピ一覧
+        position: 順番
+        recipe_name: レシピ名
+        position_suffix: "%{count}食目"
+        no_recipes: レシピが登録されていません
+      back_to_list: 一覧に戻る
+    new:
+      title: 新しいメニューを作成
+      name_label: メニュー名
+      name_placeholder: "例：今週の献立"
+      add_recipes_title: レシピを追加
+      recipe_label: レシピ
+      recipe_prompt: レシピを選択
+      position_label: 何食目？
+      position_placeholder: "1"
+      back: 戻る
+      submit: 作成
+      errors:
+        title: "%{count}件のエラーがあります"
+    edit:
+      title: メニューを編集
+      name_label: メニュー名
+      name_placeholder: "例:今週の献立"
+      edit_recipes_title: レシピを編集
+      recipe_label: レシピ
+      recipe_prompt: レシピを選択
+      position_label: 何食目?
+      delete_recipe: このレシピを削除
+      submit: 更新
+      back: 一覧に戻る
+      errors:
+        title: エラーが発生しました
+  time:
+    formats:
+      default: "%Y年%m月%d日 %H:%M"
+      long: "%Y年%m月%d日"
+      short: "%m/%d"
+  date:
+    formats:
+      default: "%Y年%m月%d日"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d" 
+    abbr_day_names:
+      - 日
+      - 月
+      - 火
+      - 水
+      - 木
+      - 金
+      - 土   
+    day_names:
+      - 日曜日
+      - 月曜日
+      - 火曜日
+      - 水曜日
+      - 木曜日
+      - 金曜日
+      - 土曜日
+  header:
+    sign_up: 会員登録
+    login: ログイン
+    logout: ログアウト
+    recipe_index: レシピ一覧
+    menu_index: 献立一覧
+    profile: プロフィール
+  footer:
+    copyright: "© %{year} 筋トレ飯管理 All rights reserved."
+    terms_of_service: "利用規約"
+    privacy_policy: "プライバシーポリシー"
+    contact: "お問い合わせ"

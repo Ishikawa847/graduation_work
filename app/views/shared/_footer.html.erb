@@ -3,14 +3,14 @@
 
     <!-- 左側：コピーライト -->
     <p class="text-sm text-gray-400 mb-4 md:mb-0">
-      © <%= Time.current.year %> 筋トレ飯管理 All rights reserved.
+      <%= t('footer.copyright', year: Time.current.year) %>
     </p>
 
     <!-- 右側：各リンク -->
     <nav class="flex space-x-6 text-sm">
-      <%= link_to "利用規約", "#", class: "hover:text-gray-300 transition" %>
-      <%= link_to "プライバシーポリシー", "#", class: "hover:text-gray-300 transition" %>
-      <%= link_to "お問い合わせ", "#", class: "hover:text-gray-300 transition" %>
+      <%= link_to t('footer.terms_of_service'), "#", class: "hover:text-gray-300 transition" %>
+      <%= link_to t('footer.privacy_policy'), "#", class: "hover:text-gray-300 transition" %>
+      <%= link_to t('footer.contact'), "#", class: "hover:text-gray-300 transition" %>
     </nav>
 
   </div>

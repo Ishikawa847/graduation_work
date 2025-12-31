@@ -8,16 +8,16 @@
 
     <nav class="flex items-center space-x-6">
 
-      <%= link_to "マイページ", profile_path,
+      <%= link_to t('header.profile'), profile_path,
           class: "text-gray-300 hover:text-white transition-colors duration-200" %>
 
-      <%= link_to "料理一覧", recipes_path,
+      <%= link_to t('header.recipe_index'), recipes_path,
           class: "text-gray-300 hover:text-white transition-colors duration-200" %>
 
-      <%= link_to "献立一覧", menus_path,
+      <%= link_to t('header.menu_index'), menus_path,
           class: "text-gray-300 hover:text-white transition-colors duration-200" %>
 
-      <%= link_to "ログアウト", destroy_user_session_path,
+      <%= link_to t('header.logout'), destroy_user_session_path,
           data: { turbo_method: :delete },
           class: "ml-4 bg-gray-700 text-white font-medium px-4 py-2 rounded-lg
                  hover:bg-gray-600 transition-colors duration-200 shadow-sm" %>

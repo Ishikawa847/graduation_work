@@ -2,7 +2,7 @@
   <div class="max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-8">
 
     <h1 class="text-3xl font-bold mb-8">
-      新しいメニューを作成
+      <%= t('.title') %>
     </h1>
 
     <%= form_with model: @menu, url: menus_path, class: "space-y-8" do |form| %>
@@ -10,7 +10,7 @@
       <% if @menu.errors.any? %>
         <div class="bg-red-900/40 border border-red-700 text-red-300 rounded-lg p-4">
           <h2 class="font-semibold mb-2">
-            <%= @menu.errors.count %>件のエラーがあります
+            <%= t('.errors.title', count: @menu.errors.count) %>
           </h2>
           <ul class="list-disc list-inside text-sm">
             <% @menu.errors.full_messages.each do |message| %>
@@ -21,11 +21,11 @@
       <% end %>
 
       <div>
-        <%= form.label :name, "メニュー名",
+        <%= form.label :name,
             class: "block text-sm font-medium text-gray-300 mb-2" %>
 
         <%= form.text_field :name,
-            placeholder: "例：今週の献立",
+            placeholder: t('.name_placeholder'),
             class: "w-full rounded-lg bg-gray-900 border border-gray-700
                     text-gray-100 placeholder-gray-500
                     focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
@@ -33,7 +33,7 @@
 
       <div>
         <h2 class="text-xl font-semibold mb-4">
-          レシピを追加
+          <%= t('.add_recipes_title') %>
         </h2>
 
         <div class="space-y-4">
@@ -41,18 +41,18 @@
             <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 
               <div>
-                <%= menu_recipe_form.label :recipe_id, "レシピ",
+                <%= menu_recipe_form.label :recipe_id, t('.recipe_label'),
                     class: "block text-sm text-gray-400 mb-1" %>
 
                 <%= menu_recipe_form.collection_select :recipe_id,
                     @recipes, :id, :name,
-                    { prompt: "レシピを選択" },
+                    { prompt: t('.recipe_prompt') },
                     class: "w-full rounded-lg bg-gray-800 border border-gray-700
                             text-gray-100 focus:ring-blue-500 focus:border-blue-500" %>
               </div>
 
               <div>
-                <%= menu_recipe_form.label :position, "何食目？",
+                <%= menu_recipe_form.label :position, t('.position_label'),
                     class: "block text-sm text-gray-400 mb-1" %>
 
                 <%= menu_recipe_form.number_field :position,
@@ -67,10 +67,10 @@
       </div>
 
       <div class="flex items-center justify-between pt-6">
-        <%= link_to "戻る", menus_path,
+        <%= link_to t('.back'), menus_path,
             class: "text-gray-400 hover:text-gray-200 transition" %>
 
-        <%= form.submit "作成",
+        <%= form.submit t('.submit'),
             class: "bg-white text-gray-900 font-semibold px-6 py-2.5 rounded-lg shadow
                     hover:bg-gray-200 transition" %>
       </div>

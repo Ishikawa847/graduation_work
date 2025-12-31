@@ -1,19 +1,18 @@
   <!-- ページタイトル & 右上検索ボックス -->
   <section class="container mx-auto px-6 pt-12">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-bold">投稿一覧</h1>
+      <h1 class="text-3xl font-bold"><%= t('recipes.index.title') %></h1>
 
     <div class="flex items-center gap-4">
       <%= render 'search_form' %>
 
-      <%= link_to "＋ レシピ新規作成", new_recipe_path,
+      <%= link_to t('recipes.index.new'), new_recipe_path,
           class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
                   hover:bg-gray-200 transition whitespace-nowrap" %>
     </div>
     </div>
 
       <div class="container mx-auto px-4">
-  <h1 class="text-3xl font-bold mb-8">レシピ一覧</h1>
   
   <% if @recipes.any? %>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -23,8 +22,8 @@
     </div>
   <% else %>
     <div class="text-center">
-      <p class="text-gray-600 mb-4">まだレシピが投稿されていません。</p>
-      <%= link_to '新しいレシピを作成', new_recipe_path, 
+      <p class="text-gray-600 mb-4"><%= t('recipes.index.no_recipes') %></p>
+      <%= link_to t('recipes.index.new'), new_recipe_path, 
           class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
     </div>
   <% end %>
