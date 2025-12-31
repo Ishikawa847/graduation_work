@@ -111,6 +111,20 @@ ja:
     edit:
       title: プロフィール編集
       submit: 更新
+  menus:
+    show:
+      title: メニュー詳細
+      created_at: 作成日
+      edit: 編集
+      delete: 削除
+      confirm_delete: 本当に削除しますか?
+      recipes:
+        title: レシピ一覧
+        position: 順番
+        recipe_name: レシピ名
+        position_suffix: "%{count}食目"
+        no_recipes: レシピが登録されていません
+      back_to_list: 一覧に戻る
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"

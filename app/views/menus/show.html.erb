@@ -2,7 +2,7 @@
 
   <!-- ページタイトル -->
   <h1 class="text-3xl font-bold text-gray-100 mb-8">
-    メニュー詳細
+    <%= t('.title') %>
   </h1>
 
   <!-- メニュー情報カード -->
@@ -14,17 +14,17 @@
           <%= @menu.name %>
         </h2>
         <p class="text-sm text-gray-400">
-          作成日：<%= @menu.created_at.strftime('%Y年%m月%d日') %>
+          <%= t('.created_at') %>：<%= l @menu.created_at, format: :long %>
         </p>
       </div>
 
       <!-- アクション -->
       <div class="flex items-center space-x-3">
-        <%= link_to "編集", edit_menu_path(@menu),
+        <%= link_to t('.edit'), edit_menu_path(@menu),
             class: "bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition" %>
 
-        <%= link_to "削除", menu_path(@menu),
-            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+        <%= link_to t('.delete'), menu_path(@menu),
+            data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') },
             class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition" %>
       </div>
     </div>
@@ -35,7 +35,7 @@
   <div class="bg-gray-800 rounded-xl shadow-lg p-6">
 
     <h3 class="text-xl font-bold text-gray-100 mb-4">
-      レシピ一覧
+      <%= t('.recipes.title') %>
     </h3>
 
     <% if @menu.menu_recipes.any? %>
@@ -44,8 +44,8 @@
 
           <thead class="bg-gray-900 text-gray-400">
             <tr>
-              <th class="px-6 py-3 text-left font-semibold">順番</th>
-              <th class="px-6 py-3 text-left font-semibold">レシピ名</th>
+              <th class="px-6 py-3 text-left font-semibold"><%= t('.recipes.position') %></th>
+              <th class="px-6 py-3 text-left font-semibold"><%= t('.recipes.recipe_name') %></th>
             </tr>
           </thead>
 
@@ -54,7 +54,7 @@
               <tr class="hover:bg-gray-700/40 transition">
 
                 <td class="px-6 py-4 font-medium text-gray-100">
-                  <%= menu_recipe.position %>食目
+                  <%= t('.recipes.position_suffix', count: menu_recipe.position) %>
                 </td>
 
                 <td class="px-6 py-4">
@@ -78,7 +78,7 @@
       </div>
     <% else %>
       <div class="text-center py-12 text-gray-400">
-        レシピが登録されていません
+        <%= t('.recipes.no_recipes') %>
       </div>
     <% end %>
 
@@ -86,7 +86,7 @@
 
   <!-- フッターアクション -->
   <div class="mt-8 flex justify-between">
-    <%= link_to "一覧に戻る", menus_path,
+    <%= link_to t('.back_to_list'), menus_path,
         class: "text-gray-400 hover:text-white transition" %>
   </div>
 
