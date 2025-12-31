@@ -108,6 +108,9 @@ ja:
         weight_unit:
           one: "%{count} kg"
           other: "%{count} kg"
+    edit:
+      title: プロフィール編集
+      submit: 更新
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
