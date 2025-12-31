@@ -158,6 +158,19 @@ ja:
       submit: 作成
       errors:
         title: "%{count}件のエラーがあります"
+    edit:
+      title: メニューを編集
+      name_label: メニュー名
+      name_placeholder: "例:今週の献立"
+      edit_recipes_title: レシピを編集
+      recipe_label: レシピ
+      recipe_prompt: レシピを選択
+      position_label: 何食目?
+      delete_recipe: このレシピを削除
+      submit: 更新
+      back: 一覧に戻る
+      errors:
+        title: エラーが発生しました
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
