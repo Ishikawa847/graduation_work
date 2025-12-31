@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum gender: { 
-    男性: 0, 
-    女性: 1, 
-    その他: 2, 
-    選択しない: 3 
+    male: 0, 
+    female: 1, 
+    other: 2, 
+    prefer_not_to_say: 3 
   }
 
   validates :name, presence: true, length: { maximum: 100 }
