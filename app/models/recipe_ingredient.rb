@@ -6,5 +6,4 @@ class RecipeIngredient < ApplicationRecord
   validates :recipe_id, uniqueness: { scope: :ingredient_id }
 
   accepts_nested_attributes_for :ingredient
-
 end

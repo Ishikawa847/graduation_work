@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
       redirect_to recipes_path
     else
       # ログイン前の場合はランディングページを表示
-      render 'static_pages/top'
+      render "static_pages/top"
     end
   end
 end
