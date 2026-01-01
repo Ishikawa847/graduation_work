@@ -9,16 +9,16 @@ class Menu < ApplicationRecord
 
   def total_protein
     recipes.joins(:recipe_ingredients, :ingredients)
-    .sum('ingredients.protein * recipe_ingredients.quantity / 100.0')
+    .sum("ingredients.protein * recipe_ingredients.quantity / 100.0")
   end
 
   def total_fat
     recipes.joins(:recipe_ingredients, :ingredients)
-    .sum('ingredients.fat * recipe_ingredients.quantity / 100.0')
+    .sum("ingredients.fat * recipe_ingredients.quantity / 100.0")
   end
 
   def total_carb
     recipes.joins(:recipe_ingredients, :ingredients)
-    .sum('ingredients.carb * recipe_ingredients.quantity / 100.0')
+    .sum("ingredients.carb * recipe_ingredients.quantity / 100.0")
   end
 end

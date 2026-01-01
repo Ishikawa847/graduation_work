@@ -16,9 +16,9 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.build(recipe_params)
-    
+
     if @recipe.save
-      redirect_to recipes_path, notice: 'レシピが作成されました'
+      redirect_to recipes_path, notice: "レシピが作成されました"
     else
       # エラー時にフォーム用データを再準備
       while @recipe.recipe_ingredients.size < 3
@@ -40,7 +40,7 @@ class RecipesController < ApplicationController
   def update
     @recipe = current_user.recipes.find(params[:id])
     if @recipe.update(recipe_params)
-      redirect_to recipe_path(@recipe), notice: 'レシピを編集しました' 
+      redirect_to recipe_path(@recipe), notice: "レシピを編集しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -63,10 +63,10 @@ class RecipesController < ApplicationController
         :quantity,
         :_destroy,
         ingredient_attributes: [
-          :id, 
-          :name, 
-          :protein, 
-          :fat, 
+          :id,
+          :name,
+          :protein,
+          :fat,
           :carb
         ]
       ]

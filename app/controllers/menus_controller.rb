@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  def index 
+  def index
     @menus = current_user.menus.includes(:menu_recipes, :recipes).order(created_at: :desc)
   end
 
@@ -8,15 +8,15 @@ class MenusController < ApplicationController
     3.times { @menu.menu_recipes.build }
     @recipes = Recipe.all
   end
-  
+
   def create
     @menu = current_user.menus.build(menu_params)
-    
+
     if @menu.save
-      redirect_to menus_path, success: 'メニューを作成しました'
+      redirect_to menus_path, success: "メニューを作成しました"
     else
       @recipes = Recipe.all
-      flash.now[:danger] = 'メニューの作成に失敗しました'
+      flash.now[:danger] = "メニューの作成に失敗しました"
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,10 +34,10 @@ class MenusController < ApplicationController
   def update
     @menu = current_user.menus.find(params[:id])
    if @menu.update(menu_params)
-      redirect_to menu_path(@menu), notice: '献立を編集しました' 
-    else
+      redirect_to menu_path(@menu), notice: "献立を編集しました"
+   else
       render :edit, status: :unprocessable_entity
-    end
+   end
   end
 
   def destroy
@@ -51,7 +51,7 @@ class MenusController < ApplicationController
   def menu_params
     params.require(:menu).permit(
       :name,
-      menu_recipes_attributes: [:id, :recipe_id, :position, :_destroy]
+      menu_recipes_attributes: [ :id, :recipe_id, :position, :_destroy ]
     )
   end
 end
