@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'メールアドレス', with: 'test1@example.com'
         fill_in 'パスワード', with: 'password123'
         fill_in 'パスワード確認', with: 'password123'
-        
+
         click_button '会員登録'
 
         expect(page).to have_content 'ユーザー登録が完了しました'
@@ -21,7 +21,7 @@ RSpec.describe "Users", type: :system do
     context '入力値が以上な場合' do
       it 'ユーザー登録が失敗する' do
         visit new_user_registration_path
-        
+
         click_button '会員登録'
 
         expect(page).to have_content '名前を入力してください'

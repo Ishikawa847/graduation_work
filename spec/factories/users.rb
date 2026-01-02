@@ -7,6 +7,6 @@ FactoryBot.define do
     height { 170.5 }
     weight { 65.0 }
     age { 25 }
-    gender { 1 }    
+    gender { 1 }
   end
 end

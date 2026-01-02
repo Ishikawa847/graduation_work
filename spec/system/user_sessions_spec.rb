@@ -29,7 +29,7 @@ RSpec.describe 'UserSessions', type: :system do
         expect(page).to have_content('メールアドレスまたはパスワードが正しくありません')
         expect(page).to have_current_path(new_user_session_path)
       end
-    end    
+    end
   end
 
   describe 'ログアウト' do
