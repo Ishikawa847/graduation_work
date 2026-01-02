@@ -7,14 +7,14 @@ RSpec.describe "Users", type: :system do
         visit new_user_registration_path
 
         fill_in '名前', with: 'ほげ'
-        fill_in 'メールアドレス', with: 'test@example.com'
+        fill_in 'メールアドレス', with: 'test1@example.com'
         fill_in 'パスワード', with: 'password123'
         fill_in 'パスワード確認', with: 'password123'
-
+        
         click_button '会員登録'
-
+        
         #expect(page).to have_content 'ユーザー登録が完了しました'
-        expect(current_path).to eq recipes_path
+        expect(page).to have_current_path(recipes_path, wait: 10)
       end
     end
   end
