@@ -12,8 +12,8 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード確認', with: 'password123'
         
         click_button '会員登録'
-        
-        #expect(page).to have_content 'ユーザー登録が完了しました'
+
+        expect(page).to have_content 'ユーザー登録が完了しました'
         expect(page).to have_current_path(recipes_path, wait: 10)
       end
     end
