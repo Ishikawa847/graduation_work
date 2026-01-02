@@ -17,5 +17,18 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_current_path(recipes_path, wait: 10)
       end
     end
+
+    context '入力値が以上な場合' do
+      it 'ユーザー登録が失敗する' do
+        visit new_user_registration_path
+        
+        click_button '会員登録'
+
+        expect(page).to have_content '名前を入力してください'
+        expect(page).to have_content 'メールアドレスを入力してください'
+        expect(page).to have_content 'パスワードを入力してください'
+        expect(page).to have_current_path(new_user_registration_path)
+      end
+    end
   end
 end
