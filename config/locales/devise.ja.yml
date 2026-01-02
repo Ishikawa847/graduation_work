@@ -1,0 +1,7 @@
+ja:
+  devise:
+    registrations:
+      signed_up: "ユーザー登録が完了しました"
+      signed_up_but_inactive: "アカウントが有効化されていません"
+      signed_up_but_locked: "アカウントがロックされています"
+      signed_up_but_unconfirmed: "確認メールを送信しました"
