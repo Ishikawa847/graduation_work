@@ -1,0 +1,51 @@
+ja:
+  devise:
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      already_signed_out: "既にログアウト済みです"
+    registrations:
+      signed_up: "ユーザー登録が完了しました"
+      signed_up_but_inactive: "アカウントが有効化されていません"
+      signed_up_but_locked: "アカウントがロックされています"
+      signed_up_but_unconfirmed: "確認メールを送信しました"
+      updated: "アカウント情報を更新しました"
+      updated_but_not_signed_in: "アカウント情報を更新しましたが、再度ログインしてください"
+      destroyed: "アカウントを削除しました"
+    passwords:
+      send_instructions: "パスワードリセットのメールを送信しました"
+      updated: "パスワードを変更しました"
+      updated_not_active: "パスワードを変更しました"
+      send_paranoid_instructions: "メールアドレスが登録されている場合、パスワードリセットのメールが送信されます"
+    confirmations:
+      send_instructions: "確認メールを送信しました"
+      send_paranoid_instructions: "メールアドレスが登録されている場合、確認メールが送信されます"
+      confirmed: "アカウントを確認しました"
+    unlocks:
+      send_instructions: "アカウントのロック解除方法をメールで送信しました"
+      send_paranoid_instructions: "アカウントが存在する場合、ロック解除方法をメールで送信しました"
+      unlocked: "アカウントをロック解除しました"
+    omniauth_callbacks:
+      success: "%{kind}アカウントによる認証に成功しました"
+      failure: "%{kind}アカウントによる認証に失敗しました。理由: %{reason}"
+    mailer:
+      confirmation_instructions:
+        subject: "アカウント確認のお知らせ"
+      reset_password_instructions:
+        subject: "パスワードリセットのお知らせ"
+      unlock_instructions:
+        subject: "アカウントロック解除のお知らせ"
+      email_changed:
+        subject: "メールアドレス変更のお知らせ"
+      password_change:
+        subject: "パスワード変更のお知らせ"
+    failure:
+      already_authenticated: "既にログインしています"
+      inactive: "アカウントが有効化されていません"
+      invalid: "メールアドレスまたはパスワードが正しくありません"
+      locked: "アカウントがロックされています"
+      last_attempt: "もう一度失敗するとアカウントがロックされます"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください"
+      unauthenticated: "ログインしてください"
+      unconfirmed: "アカウントの確認が完了していません"

@@ -23,6 +23,11 @@
     <% else %>
       <%= render 'shared/before_login_header' %>
     <% end %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>">
+        <%= message %>
+      </div>
+    <% end %>
     <main class="bg-gray-900 text-gray-100 min-h-screen">
     <%= yield %>
     </main>
