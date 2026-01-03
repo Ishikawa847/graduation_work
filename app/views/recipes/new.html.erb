@@ -32,18 +32,27 @@
     </div>
 
     <%# 写真 %>
-    <div>
+    <div data-controller="image-preview">
       <%= form.label :image, class: "block text-gray-200 text-sm font-semibold mb-2" %>
 
       <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-lg bg-gray-800">
         <div class="text-center space-y-2">
+
+       <img id="image-preview" src="" alt="" class="mx-auto max-h-64 rounded hidden" data-image-preview-target="preview">
+
+
           <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48">
             <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" />
           </svg>
 
           <div class="text-sm text-gray-300">
-            <%= form.file_field :image, class: "sr-only", id: "image-upload", accept: "image/*" %>
+            <%= form.file_field :image, class: "sr-only", id: "image-upload", accept: "image/*",
+            data: { 
+      image_preview_target: "input",
+      action: "change->image-preview#preview"
+    }  %>
+
             <label for="image-upload"
               class="cursor-pointer bg-gray-700 px-3 py-1 rounded text-blue-400 hover:text-blue-300">
               <%=t('recipes.new.upload_image') %>

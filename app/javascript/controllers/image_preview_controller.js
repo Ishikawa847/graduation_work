@@ -2,7 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["input", "preview"]
-
+  connect() {
+    console.log("✅ image-preview controller connected!") // ←追加
+  }
   preview() {
     const file = this.inputTarget.files[0]
     
