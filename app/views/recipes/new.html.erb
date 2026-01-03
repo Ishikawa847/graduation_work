@@ -40,6 +40,14 @@
 
        <img id="image-preview" src="" alt="" class="mx-auto max-h-64 rounded hidden" data-image-preview-target="preview">
 
+      <button
+        type="button"
+        class="hidden mt-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
+        data-image-preview-target="removeButton"
+        data-action="click->image-preview#remove"
+      >
+        <%= "delete" %> <!-- または「画像を削除」など -->
+      </button>
 
           <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48">
             <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
