@@ -4,7 +4,10 @@ export default class extends Controller {
   static targets = [
     "input",
     "preview",
-    "removeButton"
+    "removeButton",
+    "uploadIcon",
+    "uploadArea",
+    "uploadHint"
   ]
   
   connect() {
@@ -22,6 +25,8 @@ export default class extends Controller {
         this.previewTarget.classList.remove('hidden')
 
         this.removeButtonTarget.classList.remove('hidden')
+
+        this.hideUploadElements()
       }
       
       reader.readAsDataURL(file)
@@ -33,6 +38,37 @@ export default class extends Controller {
     this.previewTarget.src = ""
     this.previewTarget.classList.add('hidden')
 
-    this.removeButtonTarget.classList.add('hidden')    
+    this.removeButtonTarget.classList.add('hidden') 
+    
+    this.showUploadElements()
+  }
+
+  hideUploadElements() {
+    if (this.hasUploadIconTarget) {
+      this.uploadIconTarget.classList.add('hidden')
+    }
+
+    if (this.hasUploadAreaTarget) {
+      this.uploadAreaTarget.classList.add('hidden')
+    }
+    
+    if (this.hasUploadHintTarget) {
+      this.uploadHintTarget.classList.add('hidden')
+    }
+
+  }
+
+  showUploadElements() {
+    if (this.hasUploadIconTarget) {
+      this.uploadIconTarget.classList.remove('hidden')
+    } 
+
+    if (this.hasUploadAreaTarget) {
+      this.uploadAreaTarget.classList.remove('hidden')
+    } 
+
+    if (this.hasUploadHintTarget) {
+      this.uploadHintTarget.classList.remove('hidden')
+    } 
   }
 }
