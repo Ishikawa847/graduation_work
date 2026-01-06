@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="autocomplete"
 export default class extends Controller {
-  static targets = ["inputs", "results"]
+  static targets = ["input", "results"]
   connect() {
     this.timeout = null
   }
@@ -14,12 +14,12 @@ export default class extends Controller {
 
     if (query.length === 0) {
       this.hideResults()
-      renturn
+      return
     }
 
     this.timeout = setTimeout(() =>{
-      fetch('/recipes/autocomplete?q[title_or_body_cont]=${query}')
-      .then(response => response.json)
+      fetch(`/recipes/autocomplete?q[name_or_description_cont]=${query}`)
+      .then(response => response.json())
       .then(data =>{
         this.displayResults(data)
       })
@@ -33,10 +33,11 @@ export default class extends Controller {
     }
 
     this.resultsTarget.innerHTML = results.map(result => {
-      return
-        <li data-aciton="click->autocomplete#select" data-id="${result.id}">
-          ${result.title}
+      return`
+        <li data-action="click->autocomplete#select" data-id="${result.id}">
+          ${result.name}
         </li>
+        `
     }).join('')
 
     this.showResults()
@@ -44,7 +45,7 @@ export default class extends Controller {
 
   select(event) {
     const id = event.target.dataset.id
-    window.location.href = '/recipes/${id}'
+    window.location.href = `/recipes/${id}`
   }
 
   showResults() {

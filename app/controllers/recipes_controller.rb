@@ -8,12 +8,14 @@ class RecipesController < ApplicationController
     @q = Recipe.ransack(params[:q])
     @recipes = @q.result(distinct: true).limit(10)
 
-    render json: @recipes.map{ |recipe|
-      {
-      id: recipe.id
-      title: recipe.title
-      }
+    render json: @recipes.map { |recipe| 
+      { 
+        id: recipe.id, 
+        name: recipe.name,
+        description: recipe.description&.truncate(100) # 説明文を100文字に制限
+      } 
     }
+  end
 
   def new
     @recipe = current_user.recipes.build

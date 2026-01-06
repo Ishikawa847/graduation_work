@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   root "static_pages#top"
   resources :recipes, only: %i[index create new show edit update destroy] do
     collection do
-      get: autocomplete
+      get :autocomplete
     end
   end
   resource :profile, only: %i[show edit update]
