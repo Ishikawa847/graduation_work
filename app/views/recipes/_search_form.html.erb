@@ -1,17 +1,33 @@
-<%= search_form_for @q, url: recipes_path, method: :get do |f| %>
-  <div class="flex items-center gap-2 bg-gray-800 rounded-xl p-2 shadow-lg">
+<div data-controller="autocomplete" 
+     data-action="click@window->autocomplete#hideResults"
+     class="relative">
+  
+  <%= search_form_for @q, url: recipes_path, method: :get do |f| %>
+    <div class="flex items-center gap-2 bg-gray-800 rounded-xl p-2 shadow-lg">
 
-    <%= f.search_field :name_or_description_cont,
-        class: "flex-1 bg-gray-900 text-gray-100 placeholder-gray-400
-                border border-gray-700 rounded-lg px-4 py-2
-                focus:outline-none focus:ring-2 focus:ring-blue-500
-                focus:border-blue-500",
-        placeholder: t('recipes.index.search_placeholder') %>
+      <%= f.search_field :name_or_description_cont,
+          data: { 
+            autocomplete_target: "input",
+            action: "input->autocomplete#search"
+          },
+          class: "flex-1 bg-gray-900 text-gray-100 placeholder-gray-400
+                  border border-gray-700 rounded-lg px-4 py-2
+                  focus:outline-none focus:ring-2 focus:ring-blue-500
+                  focus:border-blue-500",
+          placeholder: t('recipes.index.search_placeholder'),
+          autocomplete: "off" %>
 
-    <%= f.submit t('defaults.search'),
-        class: "bg-white text-gray-900 font-semibold
-                px-5 py-2 rounded-lg shadow
-                hover:bg-gray-200 transition" %>
+      <%= f.submit t('defaults.search'),
+          class: "bg-white text-gray-900 font-semibold
+                  px-5 py-2 rounded-lg shadow
+                  hover:bg-gray-200 transition" %>
 
-  </div>
-<% end %>
+    </div>
+  <% end %>
+  
+  <!-- オートコンプリートの候補リスト -->
+  <ul data-autocomplete-target="results"
+      class="absolute z-50 w-full bg-gray-800 border border-gray-700 rounded-lg mt-2 shadow-xl max-h-96 overflow-y-auto">
+  </ul>
+  
+</div>

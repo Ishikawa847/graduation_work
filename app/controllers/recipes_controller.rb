@@ -4,6 +4,19 @@ class RecipesController < ApplicationController
     @recipes = @q.result(distinct: true).includes(:user).order(created_at: :desc)
   end
 
+  def autocomplete
+    @q = Recipe.ransack(params[:q])
+    @recipes = @q.result(distinct: true).limit(10)
+
+    render json: @recipes.map { |recipe| 
+      { 
+        id: recipe.id, 
+        name: recipe.name,
+        description: recipe.description&.truncate(100) # 説明文を100文字に制限
+      } 
+    }
+  end
+
   def new
     @recipe = current_user.recipes.build
     # 材料入力用のフォームを3つ準備

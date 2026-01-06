@@ -4,9 +4,11 @@
 
 import { application } from "./application"
 
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-import ImagePreviewController from "./image_preview_controller"
 
-// image-previewという名前でコントローラーを登録
+import ImagePreviewController from "./image_preview_controller"
 application.register("image-preview", ImagePreviewController)
