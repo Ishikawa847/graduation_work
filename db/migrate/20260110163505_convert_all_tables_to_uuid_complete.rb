@@ -1,5 +1,6 @@
 class ConvertAllTablesToUuidComplete < ActiveRecord::Migration[7.2]
-    # recipes テーブルの状態を確認
+  def up
+  # recipes テーブルの状態を確認
     check_recipes_table_status
     
     # ステップ1: recipe_ingredients の UUID 化
