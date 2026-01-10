@@ -5,7 +5,7 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true, length: { maximum: 1000 }
 
-  belongs_to :user
+  belongs_to :user, foreign_key: :user_id, primary_key: :uuid
 
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
@@ -30,5 +30,9 @@ class Recipe < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [ "user", "ingredients", "recipe_ingredients" ]
+  end
+
+  def to_param
+    uuid
   end
 end

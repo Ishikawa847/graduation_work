@@ -16,6 +16,10 @@ class User < ApplicationRecord
   validates :weight, numericality: { greater_than: 0, less_than: 500 }, allow_blank: true
   validates :age, numericality: { greater_than: 0, less_than: 150 }, allow_blank: true
 
-  has_many :recipes, dependent: :destroy
-  has_many :menus, dependent: :destroy
+  has_many :recipes, foreign_key: :user_id, primary_key: :uuid, dependent: :destroy
+  has_many :menus, foreign_key: :user_id, primary_key: :uuid, dependent: :destroy
+
+  def to_param
+    uuid
+  end
 end
