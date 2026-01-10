@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -61,14 +62,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
     t.index ["recipe_id"], name: "index_menu_recipes_on_recipe_id"
   end
 
-  create_table "menus", force: :cascade do |t|
+  create_table "menus", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "user_id"
+    t.index ["id"], name: "index_menus_on_id", unique: true
     t.index ["user_id"], name: "index_menus_on_user_id"
-    t.index ["uuid"], name: "index_menus_on_uuid", unique: true
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -81,16 +81,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
-  create_table "recipes", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "recipes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "user_id"
     t.index ["created_at"], name: "index_recipes_on_created_at"
+    t.index ["id"], name: "index_recipes_on_id", unique: true
     t.index ["name"], name: "index_recipes_on_name"
     t.index ["user_id"], name: "index_recipes_on_user_id"
-    t.index ["uuid"], name: "index_recipes_on_uuid", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,8 +114,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "menu_recipes", "menus", primary_key: "uuid"
-  add_foreign_key "menu_recipes", "recipes", primary_key: "uuid"
+  add_foreign_key "menu_recipes", "menus"
+  add_foreign_key "menu_recipes", "recipes"
   add_foreign_key "recipe_ingredients", "ingredients"
-  add_foreign_key "recipe_ingredients", "recipes", primary_key: "uuid"
+  add_foreign_key "recipe_ingredients", "recipes"
 end
