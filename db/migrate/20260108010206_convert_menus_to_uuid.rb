@@ -1,4 +1,6 @@
 class ConvertMenusToUuid < ActiveRecord::Migration[7.2]
   def change
+    add_column :menus, :uuid, :uuid, default: 'gen_random_uuid()', null: false
+    add_index :menus, :uuid, unique: true
   end
 end

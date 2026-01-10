@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_07_134446) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_08_010206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,7 +67,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_07_134446) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["user_id"], name: "index_menus_on_user_id"
+    t.index ["uuid"], name: "index_menus_on_uuid", unique: true
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -87,9 +89,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_07_134446) do
     t.string "name", null: false
     t.text "description", null: false
     t.bigint "user_id", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_at"], name: "index_recipes_on_created_at"
     t.index ["name"], name: "index_recipes_on_name"
     t.index ["user_id"], name: "index_recipes_on_user_id"
+    t.index ["uuid"], name: "index_recipes_on_uuid", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,8 +109,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_07_134446) do
     t.float "weight"
     t.integer "age"
     t.integer "gender", default: 0
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
