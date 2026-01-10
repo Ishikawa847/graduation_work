@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_10_050723) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_10_115136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,8 +55,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_050723) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
-    t.uuid "menu_id"
-    t.uuid "recipe_id"
+    t.uuid "menu_id", null: false
+    t.uuid "recipe_id", null: false
     t.index ["menu_id"], name: "index_menu_recipes_on_menu_id"
     t.index ["recipe_id"], name: "index_menu_recipes_on_recipe_id"
   end
@@ -76,17 +76,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_050723) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "recipe_id"
+    t.uuid "recipe_id", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
-  create_table "recipes", force: :cascade do |t|
+  create_table "recipes", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
     t.text "description", null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "user_id"
     t.index ["created_at"], name: "index_recipes_on_created_at"
     t.index ["name"], name: "index_recipes_on_name"
@@ -115,5 +114,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_050723) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "menu_recipes", "menus", primary_key: "uuid"
+  add_foreign_key "menu_recipes", "recipes", primary_key: "uuid"
   add_foreign_key "recipe_ingredients", "ingredients"
+  add_foreign_key "recipe_ingredients", "recipes", primary_key: "uuid"
 end
