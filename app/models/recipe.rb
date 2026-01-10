@@ -16,6 +16,9 @@ class Recipe < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_ingredient?
 
+  def to_param
+    uuid
+  end
   private
 
   def reject_ingredient?(attributes)
@@ -32,7 +35,4 @@ class Recipe < ApplicationRecord
     [ "user", "ingredients", "recipe_ingredients" ]
   end
 
-  def to_param
-    uuid
-  end
 end
