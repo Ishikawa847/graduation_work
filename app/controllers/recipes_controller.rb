@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @q = Recipe.ransack(params[:q])
     @recipes = @q.result(distinct: true).includes(:user).order(created_at: :desc)
@@ -18,6 +19,7 @@ class RecipesController < ApplicationController
   end
 
   def new
+        Rails.logger.debug "current_user: #{current_user.inspect}"
     @recipe = current_user.recipes.build
     # 材料入力用のフォームを3つ準備
     3.times do
@@ -27,22 +29,24 @@ class RecipesController < ApplicationController
     @ingredients = Ingredient.all
   end
 
-  def create
-    @recipe = current_user.recipes.build(recipe_params)
+def create
+  
+  @recipe = current_user.recipes.build(recipe_params)
 
-    if @recipe.save
-      redirect_to recipes_path, notice: "レシピが作成されました"
-    else
-      # エラー時にフォーム用データを再準備
-      while @recipe.recipe_ingredients.size < 3
-        @recipe.recipe_ingredients.build.build_ingredient
-      end
-      render :new
+  if @recipe.save
+    redirect_to recipes_path, notice: "レシピが作成されました"
+  else
+    # エラー時にフォーム用データを再準備
+    while @recipe.recipe_ingredients.size < 3
+      @recipe.recipe_ingredients.build.build_ingredient
     end
+    @ingredients = Ingredient.all
+    render :new, status: :unprocessable_entity
   end
+end
 
   def show
-    @recipe = Recipe.find_by!(uuid: params[:id])
+    @recipe = Recipe.find(params[:id])
   end
 
   def edit

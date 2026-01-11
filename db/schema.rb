@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_06_105623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -52,48 +52,48 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "menu_recipes", force: :cascade do |t|
+  create_table "menu_recipes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "menu_id", null: false
+    t.uuid "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
-    t.uuid "menu_id", null: false
-    t.uuid "recipe_id", null: false
+    t.index ["menu_id", "position"], name: "index_menu_recipes_on_menu_id_and_position"
     t.index ["menu_id"], name: "index_menu_recipes_on_menu_id"
     t.index ["recipe_id"], name: "index_menu_recipes_on_recipe_id"
   end
 
   create_table "menus", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id"
-    t.index ["id"], name: "index_menus_on_id", unique: true
     t.index ["user_id"], name: "index_menus_on_user_id"
   end
 
-  create_table "recipe_ingredients", force: :cascade do |t|
+  create_table "recipe_ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "recipe_id", null: false
     t.bigint "ingredient_id", null: false
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "recipe_id", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id", "ingredient_id"], name: "index_recipe_ingredients_on_recipe_id_and_ingredient_id", unique: true
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
   create_table "recipes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id"
     t.index ["created_at"], name: "index_recipes_on_created_at"
-    t.index ["id"], name: "index_recipes_on_id", unique: true
     t.index ["name"], name: "index_recipes_on_name"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -106,16 +106,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_10_163505) do
     t.float "weight"
     t.integer "age"
     t.integer "gender", default: 0
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "menu_recipes", "menus"
   add_foreign_key "menu_recipes", "recipes"
+  add_foreign_key "menus", "users"
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipes", "users"
 end

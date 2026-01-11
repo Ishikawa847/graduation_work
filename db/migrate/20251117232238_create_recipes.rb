@@ -1,9 +1,11 @@
 class CreateRecipes < ActiveRecord::Migration[7.2]
   def change
-    create_table :recipes do |t|
+    # ✅ id: :uuid でUUID型の主キーを指定
+    create_table :recipes, id: :uuid do |t|
       t.string :name, null: false
       t.text :description, null: false
-      t.references :user, null: false, foreign_key: true
+      # ✅ type: :uuid を指定してuser_idもUUID型にする
+      t.references :user, null: false, foreign_key: true, type: :uuid
 
       t.timestamps
     end

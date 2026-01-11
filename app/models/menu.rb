@@ -1,5 +1,5 @@
 class Menu < ApplicationRecord
-  belongs_to :user, foreign_key: :user_id, primary_key: :uuid
+  belongs_to :user
   has_many :menu_recipes, dependent: :destroy
   has_many :recipes, through: :menu_recipes
 
@@ -22,7 +22,4 @@ class Menu < ApplicationRecord
     .sum("ingredients.carb * recipe_ingredients.quantity / 100.0")
   end
 
-  def to_param
-    uuid
-  end
 end

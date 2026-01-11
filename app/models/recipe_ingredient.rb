@@ -1,5 +1,5 @@
 class RecipeIngredient < ApplicationRecord
-  belongs_to :recipe, foreign_key: :recipe_id, primary_key: :uuid
+  belongs_to :recipe
   belongs_to :ingredient
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
