@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
+  post '/auth/:provider/callback', to: 'sessions#create_oauth'
+  get '/auth/failure', to: redirect('/')
 end
