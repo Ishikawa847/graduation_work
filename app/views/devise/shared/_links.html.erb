@@ -20,6 +20,14 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+    <%= form_with url: omniauth_authorize_path(resource_name, provider), 
+                  method: :post, 
+                  data: { turbo: false },
+                  class: "google-login-form" do |f| %>
+      <%= button_tag type: 'submit', class: 'btn-google' do %>
+        <%= image_tag 'web_dark_rd_SI@1x.png', alt: 'Google', class: 'google-icon' %>
+
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
