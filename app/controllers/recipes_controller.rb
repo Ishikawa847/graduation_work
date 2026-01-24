@@ -69,6 +69,33 @@ end
     redirect_to recipes_path, notice: "レシピを削除しました。"
   end
 
+  def search_nutrition
+    food_name = params[:food_name]
+    
+    if food_name.blank?
+      render json: { error: '食材名を入力してください' }, status: :bad_request
+      return
+    end
+
+    service = GeminiService.new
+    result = service.get_pfc_values(food_name)
+
+    if result
+      render json: {
+        name: result[:name],
+        protein: result[:protein],
+        fat: result[:fat],
+        carb: result[:carb],
+        calories: result[:calories]
+      }
+    else
+      render json: { error: '食材情報の取得に失敗しました' }, status: :unprocessable_entity
+    end
+  rescue StandardError => e
+    Rails.logger.error("Gemini API Error: #{e.message}")
+    render json: { error: 'サーバーエラーが発生しました' }, status: :internal_server_error
+  end
+
   private
 
   def recipe_params

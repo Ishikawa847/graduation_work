@@ -30,7 +30,7 @@ class GeminiService
         "name": "食材名",
         "protein": タンパク質(g),
         "fat": 脂質(g),
-        "carbs": 炭水化物(g),
+        "carb": 炭水化物(g),
         "calories": カロリー(kcal)
       }
       
