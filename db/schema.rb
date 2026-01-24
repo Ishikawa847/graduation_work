@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_24_085158) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_24_102229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,9 +45,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_24_085158) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
-    t.float "protein"
-    t.float "fat"
-    t.float "carb"
+    t.decimal "protein", precision: 5, scale: 1
+    t.decimal "fat", precision: 5, scale: 1
+    t.decimal "carb", precision: 5, scale: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "calories", precision: 5, scale: 1
