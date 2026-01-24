@@ -71,23 +71,45 @@ end
 
   def search_nutrition
     food_name = params[:food_name]
-    
+
     if food_name.blank?
       render json: { error: '食材名を入力してください' }, status: :bad_request
       return
     end
 
+    # 既に同じ名前の食材が存在するかチェック
+    existing_ingredient = Ingredient.find_by(name: food_name)
+    if existing_ingredient
+      render json: {
+        message: 'この食材は既に登録されています',
+        ingredient: existing_ingredient.as_json(only: [:id, :name, :protein, :fat, :carb, :calories])
+      }
+      return
+    end
+
+    # Gemini APIで栄養価を取得
     service = GeminiService.new
     result = service.get_pfc_values(food_name)
 
     if result
-      render json: {
+      # 食材をデータベースに保存
+      ingredient = Ingredient.new(
         name: result[:name],
         protein: result[:protein],
         fat: result[:fat],
         carb: result[:carb],
         calories: result[:calories]
-      }
+      )
+
+      if ingredient.save
+        render json: {
+          message: '食材を登録しました',
+          ingredient: ingredient.as_json(only: [:id, :name, :protein, :fat, :carb, :calories])
+        }
+      else
+        render json: { error: '食材の保存に失敗しました', errors: ingredient.errors.full_messages }, 
+               status: :unprocessable_entity
+      end
     else
       render json: { error: '食材情報の取得に失敗しました' }, status: :unprocessable_entity
     end
@@ -95,7 +117,7 @@ end
     Rails.logger.error("Gemini API Error: #{e.message}")
     render json: { error: 'サーバーエラーが発生しました' }, status: :internal_server_error
   end
-
+  
   private
 
   def recipe_params
