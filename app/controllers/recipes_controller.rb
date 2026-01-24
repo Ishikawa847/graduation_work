@@ -111,7 +111,8 @@ end
           :name,
           :protein,
           :fat,
-          :carb
+          :carb,
+          :calories
         ]
       ]
     )

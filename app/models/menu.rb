@@ -22,4 +22,9 @@ class Menu < ApplicationRecord
     .sum("ingredients.carb * recipe_ingredients.quantity / 100.0")
   end
 
+  def total_calories
+    recipes.joins(:recipe_ingredients, :ingredients)
+    .sum("ingredients.calories * recipe_ingredients.quantity / 100.0")
+  end
+
 end
