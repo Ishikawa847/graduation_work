@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
+  
+  post 'ingredients/search_nutrition', to: 'ingredients#search_nutrition'
 end
