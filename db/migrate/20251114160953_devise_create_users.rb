@@ -4,7 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.2]
   def change
     # enable_extension でuuid-osspを有効化(PostgreSQLの場合)
     enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
-    
+
     # id: :uuid でUUID型の主キーを指定
     create_table :users, id: :uuid do |t|
       ## Database authenticatable

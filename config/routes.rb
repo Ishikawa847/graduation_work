@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :recipes, only: %i[index create new show edit update destroy] do
     collection do
       get :autocomplete
+      post :search_nutrition
     end
   end
   resource :profile, only: %i[show edit update]

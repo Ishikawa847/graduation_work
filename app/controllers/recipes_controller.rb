@@ -9,12 +9,12 @@ class RecipesController < ApplicationController
     @q = Recipe.ransack(params[:q])
     @recipes = @q.result(distinct: true).limit(10)
 
-    render json: @recipes.map { |recipe| 
-      { 
-        id: recipe.id, 
+    render json: @recipes.map { |recipe|
+      {
+        id: recipe.id,
         name: recipe.name,
         description: recipe.description&.truncate(100) # 説明文を100文字に制限
-      } 
+      }
     }
   end
 
@@ -30,7 +30,6 @@ class RecipesController < ApplicationController
   end
 
 def create
-  
   @recipe = current_user.recipes.build(recipe_params)
 
   if @recipe.save
@@ -69,6 +68,55 @@ end
     redirect_to recipes_path, notice: "レシピを削除しました。"
   end
 
+  def search_nutrition
+    food_name = params[:food_name]
+
+    if food_name.blank?
+      render json: { error: "食材名を入力してください" }, status: :bad_request
+      return
+    end
+
+    # 既に同じ名前の食材が存在するかチェック
+    existing_ingredient = Ingredient.find_by(name: food_name)
+    if existing_ingredient
+      render json: {
+        message: "この食材は既に登録されています",
+        ingredient: existing_ingredient.as_json(only: [ :id, :name, :protein, :fat, :carb, :calories ])
+      }
+      return
+    end
+
+    # Gemini APIで栄養価を取得
+    service = GeminiService.new
+    result = service.get_pfc_values(food_name)
+
+    if result
+      # 食材をデータベースに保存
+      ingredient = Ingredient.new(
+        name: result[:name],
+        protein: result[:protein],
+        fat: result[:fat],
+        carb: result[:carb],
+        calories: result[:calories]
+      )
+
+      if ingredient.save
+        render json: {
+          message: "食材を登録しました",
+          ingredient: ingredient.as_json(only: [ :id, :name, :protein, :fat, :carb, :calories ])
+        }
+      else
+        render json: { error: "食材の保存に失敗しました", errors: ingredient.errors.full_messages },
+               status: :unprocessable_entity
+      end
+    else
+      render json: { error: "食材情報の取得に失敗しました" }, status: :unprocessable_entity
+    end
+  rescue StandardError => e
+    Rails.logger.error("Gemini API Error: #{e.message}")
+    render json: { error: "サーバーエラーが発生しました" }, status: :internal_server_error
+  end
+
   private
 
   def recipe_params
@@ -84,7 +132,8 @@ end
           :name,
           :protein,
           :fat,
-          :carb
+          :carb,
+          :calories
         ]
       ]
     )

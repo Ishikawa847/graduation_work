@@ -46,11 +46,11 @@ gem "rails-i18n", "~> 7.0.0"
 
 gem "rubocop"
 
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
-gem 'config'
+gem "config"
 
 
 group :development, :test do
@@ -68,8 +68,7 @@ group :development, :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem 'dotenv-rails'
-
+  gem "dotenv-rails"
 end
 
 group :development do
