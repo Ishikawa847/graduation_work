@@ -139,7 +139,8 @@
     </div>
   </div>
 
-      <div id="ingredients-container">
+      <div id="ingredients-container"
+      data-ingredients='<%= @ingredients.to_json(only: [:id, :name, :protein, :fat, :carb]).html_safe %>'>
         <%= form.fields_for :recipe_ingredients do |ingredient_form| %>
           <div class="ingredient-item bg-gray-800 p-6 rounded-lg shadow-lg mb-4">
             
@@ -151,12 +152,19 @@
                 <!-- 既存食材選択 -->
                 <div>
                   <label class="block text-sm font-medium text-gray-200 mb-2">食材を選択</label>
-                  <%= ingredient_form.collection_select :ingredient_id,
-                        @ingredients,
-                        :id,
-                        :name,
-                        { prompt: '-- 選択してください --' },
-                        { class: 'ingredient-select w-full rounded-md bg-gray-800 border-gray-600 text-gray-100 focus:border-green-500 focus:ring-green-500' } %>
+                  <%= ingredient_form.select :ingredient_id,
+      options_for_select(
+        @ingredients.map { |ing| 
+          [ing.name, ing.id, { 
+            'data-protein': ing.protein, 
+            'data-fat': ing.fat, 
+            'data-carb': ing.carb 
+          }] 
+        },
+        ingredient_form.object.ingredient_id
+      ),
+      { prompt: '-- 選択してください --' },
+      { class: 'ingredient-select w-full rounded-md bg-gray-800 border-gray-600 text-gray-100 focus:border-green-500 focus:ring-green-500' } %>
                   
                   <!-- 栄養価表示エリア -->
                   <div class="nutrition-info mt-3 p-3 bg-gray-700 rounded-md text-sm" style="display: none;">

@@ -18,10 +18,10 @@ Rails.application.routes.draw do
   resources :recipes, only: %i[index create new show edit update destroy] do
     collection do
       get :autocomplete
+      post :search_nutrition
     end
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
   
-  post 'ingredients/search_nutrition', to: 'ingredients#search_nutrition'
 end
