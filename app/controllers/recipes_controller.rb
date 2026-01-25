@@ -9,12 +9,12 @@ class RecipesController < ApplicationController
     @q = Recipe.ransack(params[:q])
     @recipes = @q.result(distinct: true).limit(10)
 
-    render json: @recipes.map { |recipe| 
-      { 
-        id: recipe.id, 
+    render json: @recipes.map { |recipe|
+      {
+        id: recipe.id,
         name: recipe.name,
         description: recipe.description&.truncate(100) # 説明文を100文字に制限
-      } 
+      }
     }
   end
 
@@ -30,7 +30,6 @@ class RecipesController < ApplicationController
   end
 
 def create
-  
   @recipe = current_user.recipes.build(recipe_params)
 
   if @recipe.save
@@ -73,7 +72,7 @@ end
     food_name = params[:food_name]
 
     if food_name.blank?
-      render json: { error: '食材名を入力してください' }, status: :bad_request
+      render json: { error: "食材名を入力してください" }, status: :bad_request
       return
     end
 
@@ -81,8 +80,8 @@ end
     existing_ingredient = Ingredient.find_by(name: food_name)
     if existing_ingredient
       render json: {
-        message: 'この食材は既に登録されています',
-        ingredient: existing_ingredient.as_json(only: [:id, :name, :protein, :fat, :carb, :calories])
+        message: "この食材は既に登録されています",
+        ingredient: existing_ingredient.as_json(only: [ :id, :name, :protein, :fat, :carb, :calories ])
       }
       return
     end
@@ -103,21 +102,21 @@ end
 
       if ingredient.save
         render json: {
-          message: '食材を登録しました',
-          ingredient: ingredient.as_json(only: [:id, :name, :protein, :fat, :carb, :calories])
+          message: "食材を登録しました",
+          ingredient: ingredient.as_json(only: [ :id, :name, :protein, :fat, :carb, :calories ])
         }
       else
-        render json: { error: '食材の保存に失敗しました', errors: ingredient.errors.full_messages }, 
+        render json: { error: "食材の保存に失敗しました", errors: ingredient.errors.full_messages },
                status: :unprocessable_entity
       end
     else
-      render json: { error: '食材情報の取得に失敗しました' }, status: :unprocessable_entity
+      render json: { error: "食材情報の取得に失敗しました" }, status: :unprocessable_entity
     end
   rescue StandardError => e
     Rails.logger.error("Gemini API Error: #{e.message}")
-    render json: { error: 'サーバーエラーが発生しました' }, status: :internal_server_error
+    render json: { error: "サーバーエラーが発生しました" }, status: :internal_server_error
   end
-  
+
   private
 
   def recipe_params

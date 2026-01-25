@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -23,5 +23,4 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
-  
 end

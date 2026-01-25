@@ -22,16 +22,8 @@ class Recipe < ApplicationRecord
     # ingredient_idが空 かつ quantityが空 かつ 新規材料の名前も空の場合は拒否
     attributes["ingredient_id"].blank? &&
     attributes["quantity"].blank? &&
-    (attributes["ingredient_attributes"].nil? || 
+    (attributes["ingredient_attributes"].nil? ||
      attributes["ingredient_attributes"]["name"].blank?)
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "description", "id", "name", "updated_at", "user_id"]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    ["user", "ingredients", "recipe_ingredients"]
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -42,4 +34,11 @@ class Recipe < ApplicationRecord
     [ "user", "ingredients", "recipe_ingredients" ]
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "created_at", "description", "id", "name", "updated_at", "user_id" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "user", "ingredients", "recipe_ingredients" ]
+  end
 end
