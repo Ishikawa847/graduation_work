@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "static_pages#top"
+  get 'terms', to: 'static_pages#terms'
+  
   resources :recipes, only: %i[index create new show edit update destroy] do
     collection do
       get :autocomplete
