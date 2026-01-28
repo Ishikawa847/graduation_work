@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
       render "static_pages/top"
     end
   end
+
+  def terms
+  end
 end
