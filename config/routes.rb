@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
   get 'terms', to: 'static_pages#terms'
+  get 'privacy', to: 'static_pages#privacy'
   
   resources :recipes, only: %i[index create new show edit update destroy] do
     collection do
