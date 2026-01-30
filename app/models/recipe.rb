@@ -24,21 +24,10 @@ class Recipe < ApplicationRecord
       format: :webp    )
   end
 
-  def thumbnail_image
-    return unless image.attached?
-        image.variant(
-      resize_and_pad: [300, 300, background: [255, 255, 255]],
-      format: :webp
-    )
-  end
-
 def square_image(size: 300)
   return unless image.attached?
 
-  image.variant(
-      resize_to_fill: [300, 300],
-        format: :webp
-  )
+  display_image(width: size, height: size)
 end
 
   private
