@@ -177,6 +177,8 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (6.0.0)
       prism (~> 1.5)
@@ -449,6 +451,7 @@ DEPENDENCIES
   factory_bot_rails
   jbuilder
   jsbundling-rails
+  mini_magick
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
