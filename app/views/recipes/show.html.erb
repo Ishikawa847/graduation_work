@@ -7,7 +7,7 @@
       <!-- 左上：画像 -->
       <div class="w-full h-64 bg-gray-700 rounded-xl overflow-hidden shadow-lg">
         <% if @recipe.image.attached? %>
-          <%= image_tag @recipe.image, class: "w-full h-full object-cover" %>
+          <%= image_tag @recipe.large_image, class: "w-full h-full object-cover" %>
         <% else %>
           <div class="flex items-center justify-center h-full text-gray-400">
             No Image

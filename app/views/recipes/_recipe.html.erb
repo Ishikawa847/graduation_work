@@ -1,7 +1,18 @@
 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col">
   <div class="relative w-full aspect-square overflow-hidden bg-gray-200">
-    <%= image_tag recipe.image, alt: recipe.name, 
-        class: "w-full h-full object-cover" %>
+    <%# 画像が添付されているか確認 %>
+    <% if recipe.image.attached? %>
+      <%# サムネイル用の WebP 画像を表示（300x300px） %>
+      <%= image_tag recipe.square_image, 
+          alt: recipe.name, 
+          class: "w-full h-full object-cover",
+          loading: "lazy" %>
+    <% else %>
+      <%# 画像がない場合のプレースホルダー %>
+      <div class="w-full h-full flex items-center justify-center bg-gray-300">
+        <span class="text-gray-500">No Image</span>
+      </div>
+    <% end %>
   </div>
   
   <div class="p-4 flex-grow flex flex-col">

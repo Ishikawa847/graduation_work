@@ -16,6 +16,26 @@ class Recipe < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_ingredient?
 
+  def display_image(width: 800, height: 600)
+    return unless image.attached?
+    
+    image.variant(
+      resize_to_fill: [width, height],  
+      format: :webp    )
+  end
+
+def square_image(size: 300)
+  return unless image.attached?
+
+  display_image(width: size, height: size)
+end
+
+def large_image(size: 800)
+  return unless image.attached?
+
+  display_image(width: size, height: size)
+end
+
   private
 
   def reject_ingredient?(attributes)
