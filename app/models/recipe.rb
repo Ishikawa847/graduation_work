@@ -30,6 +30,12 @@ def square_image(size: 300)
   display_image(width: size, height: size)
 end
 
+def large_image(size: 800)
+  return unless image.attached?
+
+  display_image(width: size, height: size)
+end
+
   private
 
   def reject_ingredient?(attributes)
