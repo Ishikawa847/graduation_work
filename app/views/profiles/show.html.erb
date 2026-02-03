@@ -30,7 +30,7 @@
                     <div class="flex-shrink-0">
                       <div class="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden">
                         <% if recipe.image.present? %>
-                          <%= image_tag recipe.image, alt: recipe.name, class: "w-full h-full object-cover" %>
+                          <%= image_tag recipe.square_image, alt: recipe.name, class: "w-full h-full object-cover" %>
                         <% else %>
                           <div class="w-full h-full flex items-center justify-center text-gray-400">
                             <span>No Image</span>
