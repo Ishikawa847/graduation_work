@@ -1,21 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["overlay", "submit"]
-  
-    connect() {
+  static targets = ["overlay", "submit"]
+
+  connect() {
     this.element.addEventListener("submit", this.showLoading.bind(this))
+    console.log("loading controller connected")
   }
 
   showLoading(event) {
-    const fileInput = this.element.querySelector('input[type="file"]')
+    this.overlayTarget.classList.remove("hidden")
     
-    if (fileInput && fileInput.files.length > 0) {
-      this.overlayTarget.classList.remove("hidden")
-      
-      if (this.hasSubmitTarget) {
-        this.submitTarget.disabled = true
-      }
+    if (this.hasSubmitTarget) {
+      this.submitTarget.disabled = true
     }
   }
 }
