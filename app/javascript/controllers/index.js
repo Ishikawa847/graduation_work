@@ -15,3 +15,6 @@ application.register("image-preview", ImagePreviewController)
 
 import IngredientSearchController from "./ingredient_search_controller"
 application.register("ingredient-search", IngredientSearchController)
+
+import LoadingController from "./loading_controller"
+application.register("loading", LoadingController)
