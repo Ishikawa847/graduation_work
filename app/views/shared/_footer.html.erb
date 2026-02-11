@@ -1,16 +1,35 @@
-<footer class="bg-gray-900 text-gray-100 border-t border-gray-800 py-6 pt-12">
-  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+<footer class="bg-[#1a1a1a] text-gray-500 border-t border-white/5 py-12 mt-auto">
+  <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
 
-    <!-- 左側：コピーライト -->
-    <p class="text-sm text-gray-400 mb-4 md:mb-0">
-      <%= t('footer.copyright', year: Time.current.year) %>
-    </p>
+    <div class="flex items-center space-x-4">
+      <div class="flex flex-col">
+        <p class="text-[10px] uppercase tracking-[0.3em] font-black text-gray-400 mb-1">
+          <%= t('footer.copyright', year: Time.current.year) %>
+        </p>
+      </div>
+    </div>
 
-    <!-- 右側：各リンク -->
-    <nav class="flex space-x-6 text-sm">
-      <%= link_to t('footer.terms_of_service'), terms_path, class: "hover:text-gray-300 transition" %>
-      <%= link_to t('footer.privacy_policy'), privacy_path, class: "hover:text-gray-300 transition" %>
-      <%= link_to t('footer.contact'), "#", class: "hover:text-gray-300 transition" %>
+    <nav class="flex flex-wrap justify-center gap-x-10 gap-y-4">
+      <%= link_to terms_path, class: "group relative" do %>
+        <span class="text-[10px] uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors duration-300">
+          <%= t('footer.terms_of_service') %>
+        </span>
+        <span class="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
+
+      <%= link_to privacy_path, class: "group relative" do %>
+        <span class="text-[10px] uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors duration-300">
+          <%= t('footer.privacy_policy') %>
+        </span>
+        <span class="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
+
+      <%= link_to "#", class: "group relative" do %>
+        <span class="text-[10px] uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors duration-300">
+          <%= t('footer.contact') %>
+        </span>
+        <span class="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
     </nav>
 
   </div>

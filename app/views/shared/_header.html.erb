@@ -1,28 +1,49 @@
-<header class="bg-gray-900 text-gray-100 shadow-md sticky top-0 z-50">
-  <div class="container mx-auto flex items-center justify-between px-6 py-4">
+<header class="bg-[#1a1a1a]/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
 
     <div>
-      <%= link_to "MyMuscleMeal", root_path,
-          class: "text-2xl font-bold tracking-wide hover:text-gray-300 transition-colors" %>
+      <%= link_to root_path, class: "group flex items-center space-x-2" do %>
+        <span class="text-2xl font-black tracking-tighter text-white group-hover:text-blue-500 transition-colors duration-300">
+          MYMUSCLEMEAL
+        </span>
+      <% end %>
     </div>
 
-    <nav class="flex items-center space-x-6">
+    <nav class="hidden md:flex items-center space-x-8">
+      
+      <%= link_to profile_path, class: "group relative py-1" do %>
+        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
+          <%= t('header.profile') %>
+        </span>
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
 
-      <%= link_to t('header.profile'), profile_path,
-          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
+      <%= link_to recipes_path, class: "group relative py-1" do %>
+        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
+          <%= t('header.recipe_index') %>
+        </span>
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
 
-      <%= link_to t('header.recipe_index'), recipes_path,
-          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
+      <%= link_to menus_path, class: "group relative py-1" do %>
+        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
+          <%= t('header.menu_index') %>
+        </span>
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+      <% end %>
 
-      <%= link_to t('header.menu_index'), menus_path,
-          class: "text-gray-300 hover:text-white transition-colors duration-200" %>
-
-      <%= link_to t('header.logout'), destroy_user_session_path,
+      <%= link_to destroy_user_session_path,
           data: { turbo_method: :delete },
-          class: "ml-4 bg-gray-700 text-white font-medium px-4 py-2 rounded-lg
-                 hover:bg-gray-600 transition-colors duration-200 shadow-sm" %>
+          class: "ml-4 px-5 py-2 rounded-xl border border-white/10 text-[11px] uppercase tracking-widest font-black
+                 text-gray-400 hover:text-white hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300" do %>
+        <%= t('header.logout') %>
+      <% end %>
 
     </nav>
+
+    <div class="md:hidden text-gray-400">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    </div>
 
   </div>
 </header>
