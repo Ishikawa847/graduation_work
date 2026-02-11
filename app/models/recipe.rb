@@ -36,6 +36,43 @@ def large_image(size: 800)
   display_image(width: size, height: size)
 end
 
+  def total_protein
+    total_p = 0
+
+    recipe_ingredients.includes(:ingredient).each do |ri|
+      ing = ri.ingredient
+      qty = ri.quantity.to_f
+
+      total_p += ing.protein.to_f * qty / 100.0
+    end
+    total_p
+  end
+
+  def total_fat
+    total_f = 0
+
+    recipe_ingredients.includes(:ingredient).each do |ri|
+      ing = ri.ingredient
+      qty = ri.quantity.to_f
+
+      total_f += ing.fat.to_f * qty / 100.0
+    end
+    total_f
+  end
+
+  def total_carb
+    total_c = 0
+
+    recipe_ingredients.includes(:ingredient).each do |ri|
+      ing = ri.ingredient
+      qty = ri.quantity.to_f
+
+      total_c += ing.carb.to_f * qty / 100.0
+    end
+    total_c
+  end
+
+
   private
 
   def reject_ingredient?(attributes)
