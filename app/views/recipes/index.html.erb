@@ -1,32 +1,52 @@
-  <!-- ページタイトル & 右上検索ボックス -->
-  <section class="container mx-auto px-6 pt-12">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-bold"><%= t('recipes.index.title') %></h1>
+<div class="min-h-screen bg-[#1a1a1a] text-gray-100 p-6 md:p-12">
+  <div class="max-w-7xl mx-auto">
 
-    <div class="flex items-center gap-4">
-      <%= render 'search_form' %>
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-white/5 pb-8">
+      <div>
 
-      <%= link_to t('recipes.index.new'), new_recipe_path,
-          class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
-                  hover:bg-gray-200 transition whitespace-nowrap" %>
-    </div>
-    </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-none">
+          <%= t('recipes.index.title') %>
+        </h1>
+      </div>
 
-      <div class="container mx-auto px-4">
-  
-  <% if @recipes.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <% @recipes.each do |recipe| %>
-        <%= render 'recipe', recipe: recipe %>
+      <div class="flex items-center gap-3">
+        <div class="relative flex-grow md:flex-grow-0">
+          <%= render 'search_form' %>
+        </div>
+
+        <%= link_to new_recipe_path, class: "group relative inline-flex items-center justify-center px-6 py-3 font-bold text-white transition-all duration-200 bg-[#242424] font-pj rounded-xl border border-white/10 hover:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900" do %>
+
+          <span class="text-sm tracking-wide"><%= t('recipes.index.new') %></span>
+        <% end %>
+      </div>
+    </header>
+
+    <main>
+      <% if @recipes.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <% @recipes.each do |recipe| %>
+            <div class="transform transition-all duration-300 hover:-translate-y-2">
+              <%= render 'recipe', recipe: recipe %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="flex flex-col items-center justify-center py-24 px-6 bg-[#242424] rounded-[2rem] border border-dashed border-white/10">
+          <div class="w-20 h-20 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-6 shadow-inner text-gray-700">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <p class="text-xl font-medium text-gray-400 mb-6 text-center">
+            <%= t('recipes.index.no_recipes') %>
+          </p>
+          <%= link_to new_recipe_path, class: "flex items-center space-x-2 text-blue-500 hover:text-blue-400 font-bold transition-colors" do %>
+            <span><%= t('recipes.index.new') %></span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          <% end %>
+        </div>
       <% end %>
-    </div>
-  <% else %>
-    <div class="text-center">
-      <p class="text-gray-600 mb-4"><%= t('recipes.index.no_recipes') %></p>
-      <%= link_to t('recipes.index.new'), new_recipe_path, 
-          class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-    </div>
-  <% end %>
-</div>
-  </section>
+    </main>
 
+  </div>
+</div>
