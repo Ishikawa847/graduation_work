@@ -19,26 +19,10 @@
       <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
         <h2 class="text-xl font-semibold mb-4 text-gray-100"><%= t('recipes.show.pfc_information') %></h2>
 
-        <%# 合計PFC計算 %>
-        <% 
-          total_p = 0
-          total_f = 0
-          total_c = 0
-
-          @recipe.recipe_ingredients.includes(:ingredient).each do |ri|
-            ing = ri.ingredient
-            qty = ri.quantity.to_f
-
-            total_p += ing.protein.to_f * qty / 100.0
-            total_f += ing.fat.to_f * qty / 100.0
-            total_c += ing.carb.to_f * qty / 100.0
-          end
-        %>
-
         <ul class="space-y-2 text-gray-200">
-          <li><%= t('recipes.show.protein')%>: <%= total_p.round(1) %> g</li>
-          <li><%= t('recipes.show.fat')%>:<%= total_f.round(1) %> g</li>
-          <li><%= t('recipes.show.carbo')%>:<%= total_c.round(1) %> g</li>
+          <li><%= t('recipes.show.protein')%>: <%= @recipe.total_protein.round(1) %> g</li>
+          <li><%= t('recipes.show.fat')%>:<%= @recipe.total_fat.round(1) %> g</li>
+          <li><%= t('recipes.show.carbo')%>:<%= @recipe.total_carb.round(1) %> g</li>
           <li class="pt-2 text-gray-400 text-sm">
           </li>
         </ul>
@@ -66,3 +50,5 @@
 
   </div>
 </div>
+
+<%= @recipe.ingredients[0] %>
