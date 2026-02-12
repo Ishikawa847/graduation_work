@@ -1,3 +1,5 @@
+ <% content_for :og_image,
+     rails_blob_url(@recipe.image, host: request.base_url) %>
 <div class="min-h-screen bg-[#1a1a1a] text-gray-100 p-4 md:p-12">
   <div class="max-w-6xl mx-auto">
     
