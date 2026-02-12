@@ -86,3 +86,6 @@
     
   </div>
 </div>
+<%= link_to "https://twitter.com/share?url=#{ request.url }&text=#{ @recipe.name }を投稿しました！", target: '_blank' do %>
+  <i class="fab fa-twitter" style='color: #3399FF;'></i>シェア
+<% end %>
