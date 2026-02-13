@@ -72,6 +72,15 @@ end
     total_c
   end
 
+  def ogp_image_url(host:)
+    if Rails.env.production?
+      image.url(width: 1200, height: 630, crop: :fill)
+    else
+      Rails.application.routes.url_helpers.rails_blob_url(image, host: host)
+    end
+  end
+
+
 
   private
 

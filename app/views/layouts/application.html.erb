@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta property="og:title" content="MyMuscleMeal" />
-    <meta property="og:image" content="<%= image_url('ogp.png') %>" />
+    <meta property="og:image" content="<%= content_for?(:og_image) ? yield(:og_image) : image_url('ogp.png', host: request.base_url) %>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<%= request.original_url %>" />
 
@@ -17,7 +17,7 @@
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="<%= image_url('ogp.png') %>" />
+    <meta name="twitter:image" content="<%= content_for?(:og_image) ? yield(:og_image) : image_url('ogp.png', host: request.base_url) %>" />
 
     <meta name="twitter:title" content="MyMuscleMeal" />
     <meta name="twitter:description" content="筋トレとダイエットのための食事管理アプリ" />
