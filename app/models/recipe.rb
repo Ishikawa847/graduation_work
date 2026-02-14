@@ -18,23 +18,21 @@ class Recipe < ApplicationRecord
 
   def display_image(width: 800, height: 600)
     return unless image.attached?
-    
+
     image.variant(
-      resize_to_fill: [width, height],  
-      format: :webp    )
+    resize_to_limit: [width, height],
+    saver: { quality: 80 },
+    format: :webp
+    )
   end
 
-def square_image(size: 300)
-  return unless image.attached?
+  def square_image(size: 300)
+    display_image(width: size, height: size)
+  end
 
-  display_image(width: size, height: size)
-end
-
-def large_image(size: 800)
-  return unless image.attached?
-
-  display_image(width: size, height: size)
-end
+  def large_image(size: 800)
+    display_image(width: size, height: size)
+  end
 
   def total_protein
     total_p = 0
