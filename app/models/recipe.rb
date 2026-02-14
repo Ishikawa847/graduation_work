@@ -21,7 +21,6 @@ class Recipe < ApplicationRecord
 
     image.variant(
     resize_to_limit: [width, height],
-    saver: { quality: 80 },
     format: :webp
     )
   end
