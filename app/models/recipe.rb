@@ -19,10 +19,19 @@ class Recipe < ApplicationRecord
   def display_image(width: 800, height: 600)
     return unless image.attached?
 
-    image.variant(
-    resize_to_limit: [width, height],
-    format: :webp
+    if Rails.env.production?
+      Cloudinary::Utils.cloudinary_url(
+      image.key,
+      width: width,
+      height: height,
+      crop: :fill
+      )
+    else
+      image.variant(
+      resize_to_limit: [width, height],
+      format: :webp
     )
+    end
   end
 
   def square_image(size: 300)
