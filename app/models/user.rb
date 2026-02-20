@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   has_many :recipes, dependent: :destroy
   has_many :menus, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_recipes, through: :likes, source: :recipe
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -28,4 +30,17 @@ class User < ApplicationRecord
       # user.image = auth.info.image # 画像を保存する場合
     end
   end
+
+  def liked?(recipe)
+    likes.exists?(recipe_id: recipe.id)
+  end
+
+  def like(recipe)
+    likes.create(recipe_id: recipe.id)
+  end
+
+  def unlike(recipe)
+    likes.find_by(recipe_id: recipe.id)&.destroy
+  end
+
 end

@@ -10,6 +10,26 @@
       <% end %>
 
       <div class="flex items-center gap-3">
+      
+<div data-controller="like" 
+       data-like-recipe-id-value="<%= @recipe.id %>"
+       data-like-liked-value="<%= current_user.liked?(@recipe) %>"
+       class="flex items-center gap-3 bg-[#242424] px-4 py-2 rounded-full border border-white/5 shadow-xl">
+    
+    <button data-like-target="button"
+            data-action="click->like#toggle"
+            class="group flex items-center justify-center transition-all duration-300 active:scale-75">
+      
+      <%# アイコン部分はコントローラーでクラスを操作するため <i> タグを使用 %>
+      <i class="text-xl transition-colors duration-300 <%= current_user.liked?(@recipe) ? 'bi-heart-fill text-white' : 'bi-heart text-gray-500 hover:text-white' %>"></i>
+    </button>
+
+    <%# カウント表示部分 %>
+    <span data-like-target="count" class="text-xs font-mono font-bold text-gray-400 min-w-[1ch]">
+      <%= @recipe.likes.count %>
+    </span>
+  </div>
+
         <%= link_to "https://twitter.com/share?url=#{ request.url }&text=#{ @recipe.name }｜MyMuscleMeal", 
             target: '_blank', 
             class: "flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition-all active:scale-95 shadow-lg shadow-white/5" do %>
