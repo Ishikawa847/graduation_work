@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'privacy', to: 'static_pages#privacy'
   
   resources :recipes, only: %i[index create new show edit update destroy] do
+    resource :like, only: [:create, :destroy]
     collection do
       get :autocomplete
       post :search_nutrition

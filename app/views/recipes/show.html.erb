@@ -10,6 +10,33 @@
       <% end %>
 
       <div class="flex items-center gap-3">
+      
+<div data-controller="like" 
+     data-like-recipe-id-value="<%= @recipe.id %>"
+     data-like-liked-value="<%= current_user.liked?(@recipe) %>"
+     class="flex items-center gap-3 bg-[#242424] px-4 py-2 rounded-full border border-white/5 shadow-xl transition-all hover:border-white/10">
+  
+  <button data-like-target="button"
+          data-action="click->like#toggle"
+          class="group flex items-center justify-center transition-all duration-300 active:scale-75 outline-none"
+          type="button">
+    
+    <%# w-5 h-5 (20px) が効くように inline-block や flex 系の親要素を確認 %>
+    <svg data-like-target="icon"
+         class="w-5 h-5 transition-all duration-300 pointer-events-none"
+         viewBox="0 0 24 24" 
+         stroke-width="2"
+         stroke="currentColor"
+         style="display: block;"> <%# 確実に表示させるためのスタイル %>
+      <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+    </svg>
+  </button>
+
+  <span data-like-target="count" class="text-xs font-mono font-bold text-gray-400 min-w-[1ch] select-none">
+    <%= @recipe.likes.count %>
+  </span>
+</div>
+
         <%= link_to "https://twitter.com/share?url=#{ request.url }&text=#{ @recipe.name }｜MyMuscleMeal", 
             target: '_blank', 
             class: "flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition-all active:scale-95 shadow-lg shadow-white/5" do %>

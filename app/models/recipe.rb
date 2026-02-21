@@ -11,6 +11,8 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :menu_recipes, dependent: :destroy
   has_many :menus, through: :menu_recipes
+  has_many :likes, dependent: :destroy
+  has_many :liked_users, through: :likes, source: :user
 
   accepts_nested_attributes_for :recipe_ingredients,
                                 allow_destroy: true,

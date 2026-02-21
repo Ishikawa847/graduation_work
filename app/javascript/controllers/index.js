@@ -18,3 +18,6 @@ application.register("ingredient-search", IngredientSearchController)
 
 import LoadingController from "./loading_controller"
 application.register("loading", LoadingController)
+
+import LikeController from "./like_controller"
+application.register("like", LikeController)
