@@ -21,3 +21,6 @@ application.register("loading", LoadingController)
 
 import LikeController from "./like_controller"
 application.register("like", LikeController)
+
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)

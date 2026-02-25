@@ -1,49 +1,33 @@
-<header class="bg-[#1a1a1a] backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
+<header 
+  data-controller="menu"
+  class="bg-[#1a1a1a] backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
 
-    <div>
-      <%= link_to root_path, class: "group flex items-center space-x-2" do %>
-        <span class="text-2xl font-black tracking-tighter text-white group-hover:text-blue-500 transition-colors duration-300">
-          MYMUSCLEMEAL
-        </span>
-      <% end %>
-    </div>
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4">
+
+    <%= link_to root_path, class: "group flex items-center space-x-2" do %>
+      <span class="text-2xl font-black tracking-tighter text-white group-hover:text-blue-500 transition-colors duration-300">
+        MYMUSCLEMEAL
+      </span>
+    <% end %>
 
     <nav class="hidden md:flex items-center space-x-8">
-      
-      <%= link_to profile_path, class: "group relative py-1" do %>
-        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
-          <%= t('header.profile') %>
-        </span>
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-      <% end %>
-
-      <%= link_to recipes_path, class: "group relative py-1" do %>
-        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
-          <%= t('header.recipe_index') %>
-        </span>
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-      <% end %>
-
-      <%= link_to menus_path, class: "group relative py-1" do %>
-        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-colors">
-          <%= t('header.menu_index') %>
-        </span>
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-      <% end %>
-
-      <%= link_to destroy_user_session_path,
-          data: { turbo_method: :delete },
-          class: "ml-4 px-5 py-2 rounded-xl border border-white/10 text-[11px] uppercase tracking-widest font-black
-                 text-gray-400 hover:text-white hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300" do %>
-        <%= t('header.logout') %>
-      <% end %>
-
+      <%= render "shared/header_links" %>
     </nav>
 
-    <div class="md:hidden text-gray-400">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-    </div>
-
+    <button 
+      data-action="click->menu#toggle"
+      class="md:hidden text-gray-400 focus:outline-none">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+          d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+    </button>
   </div>
+
+  <div 
+    data-menu-target="panel"
+    class="hidden md:hidden px-6 pb-6 space-y-4 bg-[#1a1a1a] border-t border-white/5">
+    <%= render "shared/header_links_mobile" %>
+  </div>
+
 </header>
