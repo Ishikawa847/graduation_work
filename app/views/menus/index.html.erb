@@ -1,81 +1,140 @@
-<div class="container mx-auto px-6 py-10">
+<div class="min-h-screen bg-[#1a1a1a] text-gray-100 p-4 md:p-12 selection:bg-white selection:text-black">
+  <div class="max-w-6xl mx-auto">
 
-<div class="flex items-center justify-between mb-8">
-  <h1 class="text-3xl font-bold text-gray-100">
-    <%= t('.title') %>
-  </h1>
+    <% # ヘッダーセクション %>
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-12 gap-6 px-2">
+      <div class="space-y-1">
+        <span class="text-gray-500 text-[10px] font-black tracking-[0.4em] uppercase">Storage</span>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter text-white">
+          <%= t('.title') %>
+        </h1>
+      </div>
 
-  <%= link_to t('.new'), new_menu_path,
-      class: "bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-lg shadow
-            hover:bg-gray-200 transition" %>
-</div>
+      <%= link_to new_menu_path, class: "group relative inline-flex items-center justify-center px-8 py-4 font-black text-[10px] uppercase tracking-[0.2em] text-black bg-white rounded-full overflow-hidden transition-all hover:bg-gray-200 active:scale-95 w-full sm:w-auto" do %>
+        <span class="relative z-10"><%= t('.new') %></span>
+      <% end %>
+    </div>
 
-  <% if @menus.any? %>
-    <div class="overflow-x-auto bg-gray-800 rounded-xl shadow-lg">
-      <table class="min-w-full text-sm text-gray-300">
+    <% if @menus.any? %>
+      <% # デスクトップ %>
+      <div class="hidden md:block overflow-hidden bg-[#242424] rounded-[2.5rem] border border-white/5 shadow-2xl">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 bg-[#1f1f1f]">
+              <th class="px-8 py-6 text-left text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]"><%= t('.table.menu_name') %></th>
+              <th class="px-6 py-6 text-center text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]"><%= t('.table.recipe_count') %></th>
+              <th class="px-6 py-6 text-center text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]"><%= t('.table.pfc') %></th>
+              <th class="px-8 py-6 text-right text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]"><%= t('.table.actions') %></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <% @menus.each do |menu| %>
+              <tr class="hover:bg-white/[0.02] transition-colors group">
+                <td class="px-8 py-8">
+                  <%= link_to menu.name, menu_path(menu), class: "text-lg font-bold text-white hover:text-gray-400 transition-colors block mb-1" %>
+                  <span class="text-[10px] text-gray-600 font-mono tracking-widest uppercase">
+                    <%= l menu.created_at, format: :long %>
+                  </span>
+                </td>
+                <td class="px-6 py-8 text-center">
+                  <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/5 text-[10px] font-mono font-bold text-gray-400">
+                    <%= menu.recipes.size %>
+                  </span>
+                </td>
+                <td class="px-6 py-8">
+                  <div class="flex items-center justify-center gap-4 font-mono text-xs">
+                    <div class="text-center">
+                      <span class="text-[8px] block text-gray-600 mb-1">P</span>
+                      <span class="text-white font-bold"><%= menu.total_protein.round(1) %></span>
+                    </div>
+                    <div class="w-px h-4 bg-white/10"></div>
+                    <div class="text-center">
+                      <span class="text-[8px] block text-gray-600 mb-1">F</span>
+                      <span class="text-gray-400"><%= menu.total_fat.round(1) %></span>
+                    </div>
+                    <div class="w-px h-4 bg-white/10"></div>
+                    <div class="text-center">
+                      <span class="text-[8px] block text-gray-600 mb-1">C</span>
+                      <span class="text-gray-500"><%= menu.total_carb.round(1) %></span>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-8 py-8 text-right space-x-6">
+                  <%= link_to t('.actions.edit'), edit_menu_path(menu), 
+                      class: "text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition" %>
+                  <%= link_to t('.actions.show'), menu_path(menu), 
+                      class: "text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition" %>                  
+                  <%= link_to t('.actions.delete'), menu_path(menu), 
+                      data: { turbo_method: :delete, turbo_confirm: t('.actions.confirm_delete') }, 
+                      class: "text-[10px] font-black uppercase tracking-widest text-red-900 hover:text-red-500 transition" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-        <thead class="bg-gray-900 text-gray-400">
-          <tr>
-            <th class="px-6 py-4 text-left font-semibold"><%= t('.table.menu_name') %></th>
-            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.recipe_count') %></th>
-            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.created_at') %></th>
-            <th class="px-6 py-4 text-center font-semibold"><%= t('.table.pfc') %></th>
-            <th class="px-6 py-4 text-right font-semibold"><%= t('.table.actions') %></th>
-          </tr>
-        </thead>
-
-        <tbody class="divide-y divide-gray-700">
-          <% @menus.each do |menu| %>
-            <tr class="hover:bg-gray-700/40 transition-colors">
-
-              <td class="px-6 py-4 font-medium text-gray-100">
-                <%= link_to menu.name, menu_path(menu),
-                    class: "hover:text-blue-400 transition-colors" %>
-              </td>
-
-              <td class="px-6 py-4 text-center">
-                <span class="inline-block bg-gray-700 px-3 py-1 rounded-full text-xs">
+      <% # スマホ %>
+      <div class="grid grid-cols-1 gap-6 md:hidden">
+        <% @menus.each do |menu| %>
+          <div class="bg-[#242424] border border-white/5 rounded-[2rem] p-8 shadow-xl">
+            <div class="flex justify-between items-start mb-6">
+              <div class="max-w-[70%]">
+                <span class="text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em] block mb-2"><%= l menu.created_at, format: :short %></span>
+                <%= link_to menu.name, menu_path(menu), class: "text-2xl font-black text-white leading-tight" %>
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="text-[10px] font-mono font-bold text-gray-400 bg-[#1a1a1a] px-3 py-1 rounded-full border border-white/5">
                   <%= menu.recipes.size %>
                 </span>
-              </td>
+              </div>
+            </div>
 
-              <td class="px-6 py-4 text-center text-gray-400">
-                <%= l menu.created_at, format: :long %>
-              </td>
+            <div class="flex justify-between items-center py-6 border-y border-white/5 mb-6">
+              <div class="text-center flex-1">
+                <div class="text-[8px] uppercase text-gray-600 font-black tracking-widest mb-1">Protein</div>
+                <div class="text-lg font-mono font-bold text-white"><%= menu.total_protein.round(1) %></div>
+              </div>
+              <div class="text-center flex-1 border-x border-white/5">
+                <div class="text-[8px] uppercase text-gray-600 font-black tracking-widest mb-1">Fat</div>
+                <div class="text-lg font-mono font-bold text-gray-400"><%= menu.total_fat.round(1) %></div>
+              </div>
+              <div class="text-center flex-1">
+                <div class="text-[8px] uppercase text-gray-600 font-black tracking-widest mb-1">Carb</div>
+                <div class="text-lg font-mono font-bold text-gray-500"><%= menu.total_carb.round(1) %></div>
+              </div>
+            </div>
 
-              <td class="px-6 py-4 text-center text-xs">
-                <span class="text-blue-400">P:</span> <%= menu.total_protein %>
-                <span class="mx-1 text-gray-500">/</span>
-                <span class="text-red-400">F:</span> <%= menu.total_fat %>
-                <span class="mx-1 text-gray-500">/</span>
-                <span class="text-green-400">C:</span> <%= menu.total_carb %>
-              </td>
+            <div class="flex justify-between items-center">
+              <%= link_to menu_path(menu), data: { turbo_method: :delete, turbo_confirm: t('.actions.confirm_delete') }, class: "text-[10px] font-black uppercase tracking-widest text-red-900" do %>
+                Delete
+              <% end %>
+              <div class="flex gap-6">
+                <%= link_to edit_menu_path(menu), class: "text-[10px] font-black uppercase tracking-widest text-gray-500" do %>
+                  Edit
+                <% end %>
+                <%= link_to menu_path(menu), class: "text-[10px] font-black uppercase tracking-widest text-white underline underline-offset-8" do %>
+                  View
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
-              <td class="px-6 py-4 text-right space-x-3">
-                <%= link_to t('.actions.show'), menu_path(menu),
-                    class: "text-blue-400 hover:text-blue-300 transition" %>
+    <% else %>
+      <% # 空の状態（Empty State） %>
+      <div class="text-center py-32 bg-[#242424] rounded-[3rem] border border-dashed border-white/10">
+        <div class="mb-8 opacity-20 flex justify-center">
+          <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <p class="text-gray-500 text-xs font-bold uppercase tracking-[0.4em] mb-8"><%= t('.empty.message') %></p>
+        <%= link_to t('.empty.create_first'), new_menu_path,
+            class: "inline-block bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] px-12 py-5 rounded-full hover:bg-gray-200 transition-all shadow-xl" %>
+      </div>
+    <% end %>
 
-                <%= link_to t('.actions.edit'), edit_menu_path(menu),
-                    class: "text-yellow-400 hover:text-yellow-300 transition" %>
-
-                <%= link_to t('.actions.delete'), menu_path(menu),
-                    data: { turbo_method: :delete, turbo_confirm: t('.actions.confirm_delete') },
-                    class: "text-red-400 hover:text-red-300 transition" %>
-              </td>
-
-            </tr>
-          <% end %>
-        </tbody>
-
-      </table>
-    </div>
-
-  <% else %>
-    <div class="text-center py-16 text-gray-400">
-      <p class="text-lg mb-4"><%= t('.empty.message') %></p>
-      <%= link_to t('.empty.create_first'), new_menu_path,
-          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition" %>
-    </div>
-  <% end %>
-
+  </div>
 </div>
