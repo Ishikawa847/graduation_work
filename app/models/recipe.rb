@@ -81,6 +81,7 @@ class Recipe < ApplicationRecord
   end
 
   def ogp_image_url(host:)
+    return nil unless image.attached?
     if Rails.env.production?
       image.url
     else
