@@ -19,6 +19,10 @@ class RecipesController < ApplicationController
     }
   end
 
+  def most_liked
+
+  end
+
   def new
         Rails.logger.debug "current_user: #{current_user.inspect}"
     @recipe = current_user.recipes.build
