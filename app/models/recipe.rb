@@ -29,10 +29,7 @@ class Recipe < ApplicationRecord
       crop: :fill
       )
     else
-      image.variant(
-      resize_to_limit: [width, height],
-      format: :webp
-    )
+      image
     end
   end
 
