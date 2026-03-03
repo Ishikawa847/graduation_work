@@ -73,7 +73,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"
   gem "dotenv-rails"
 end
 
@@ -87,6 +86,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem 'webdrivers'
   gem 'database_cleaner-active_record'
 end
