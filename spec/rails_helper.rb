@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'database_cleaner/active_record'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -87,4 +89,24 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation) # テスト前に DB を空にする
+    DatabaseCleaner.strategy = :transaction # デフォルトは transaction
+  end
+
+  # 各テストの前に開始
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  # system spec / JS を使う場合は transaction ではなく truncation に切り替える
+  config.before(:each, type: :system) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # 各テストの後にクリーン
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end

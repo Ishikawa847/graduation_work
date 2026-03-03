@@ -87,4 +87,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
+  gem 'webdrivers'
+  gem 'database_cleaner-active_record'
 end
