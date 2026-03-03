@@ -66,7 +66,7 @@ end
   def destroy
     recipe = current_user.recipes.find(params[:id])
     recipe.destroy!
-    redirect_to recipes_path, notice: "レシピを削除しました。"
+    redirect_to profile_path, notice: "レシピを削除しました。"
   end
 
   def search_nutrition

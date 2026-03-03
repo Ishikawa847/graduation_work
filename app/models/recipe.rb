@@ -16,7 +16,7 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_ingredients,
                                 allow_destroy: true,
-                                reject_if: :reject_ingredient?
+                                reject_if: :all_blank
 
   def display_image(width: 800, height: 600)
     return unless image.attached?
@@ -29,10 +29,7 @@ class Recipe < ApplicationRecord
       crop: :fill
       )
     else
-      image.variant(
-      resize_to_limit: [width, height],
-      format: :webp
-    )
+      image
     end
   end
 
@@ -81,6 +78,7 @@ class Recipe < ApplicationRecord
   end
 
   def ogp_image_url(host:)
+    return nil unless image.attached?
     if Rails.env.production?
       image.url
     else

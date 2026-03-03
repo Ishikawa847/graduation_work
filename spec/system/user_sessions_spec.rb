@@ -37,9 +37,10 @@ RSpec.describe 'UserSessions', type: :system do
       sign_in user
     end
 
-    it 'ログアウトできること' do
+    it 'ログアウトできること', js: true do
       visit recipes_path
-      click_link 'ログアウト'
+      expect(page).to have_link("ログアウト")
+      find("#logout-link").click
 
       expect(page).to have_content('ログアウトしました')
       expect(page).to have_current_path(root_path)
