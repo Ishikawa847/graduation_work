@@ -54,6 +54,7 @@ RSpec.describe "Recipes", type: :system do
 
   describe "いいね順ページ" do
     it "いいね数の多い順で表示される" do
+      Recipe.delete_all
       recipe1 = create(:recipe, name: "Recipe A")
       recipe2 = create(:recipe, name: "Recipe B")
       recipe3 = create(:recipe, name: "Recipe C")
