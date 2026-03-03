@@ -65,29 +65,13 @@ jobs:
             curl \
             libjemalloc2 \
             libvips \
-            postgresql-client \
-            unzip
-            
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1)
-          if [ -z "$CHROME_VERSION" ]; then
-            echo "Failed to get Chrome version"
-            exit 1
-          fi
-          echo "Detected Chrome version: $CHROME_VERSION"
-          
-          # 最新の対応する ChromeDriver バージョンを取得
-          LATEST_DRIVER=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-          if [ -z "$LATEST_DRIVER" ]; then
-            echo "Failed to get latest chromedriver for Chrome $CHROME_VERSION"
-            exit 1
-          fi
-          echo "Latest chromedriver version: $LATEST_DRIVER"
-          
-          # ダウンロードしてインストール
-          curl -sSL "https://chromedriver.storage.googleapis.com/$LATEST_DRIVER/chromedriver_linux64.zip" -o chromedriver.zip
-          unzip chromedriver.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+            postgresql-client 
+
+      - name: Install Google Chrome
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
+      - name: Setup Chromedriver
+        uses: selenium/actions/setup-chromedriver@v1
 
       - name: Checkout code
         uses: actions/checkout@v4
