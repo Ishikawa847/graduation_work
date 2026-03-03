@@ -36,16 +36,13 @@ RSpec.describe "Recipes", type: :system do
   end
 
   describe "レシピ削除" do
-    it "削除できる" do
+    it "削除できる", js: true do
       visit profile_path
 
     expect(page).to have_content recipe.name
+    expect(page).to have_link("削除")
 
     accept_confirm do
-      click_link "削除"
-    end
-
-    accept_confirm "本当に削除しますか？" do
       click_link "削除"
     end
 
