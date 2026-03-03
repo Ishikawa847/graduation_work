@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Google Chrome
         run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
-        
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -85,6 +85,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
         run: |
+          bin/rails assets:precompile
           bin/rails db:prepare
           bundle exec rspec
 
