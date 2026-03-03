@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Recipes", type: :system do
-  let(:user) { create(:user) } 
+  let(:user) { create(:user) }
   let!(:recipe) { create(:recipe, user: user) }
 
   before do

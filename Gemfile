@@ -52,7 +52,7 @@ gem "omniauth-rails_csrf_protection"
 
 gem "config"
 
-gem 'mini_magick'
+gem "mini_magick"
 
 gem "image_processing", "~> 1.2"
 
@@ -86,5 +86,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
 end
