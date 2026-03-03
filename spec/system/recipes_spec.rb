@@ -51,4 +51,21 @@ RSpec.describe "Recipes", type: :system do
     expect(Recipe.exists?(recipe.id)).to be false
     end
   end
+
+  describe "いいね順ページ" do
+    it "いいね数の多い順で表示される" do
+      recipe1 = create(:recipe, name: "Recipe A")
+      recipe2 = create(:recipe, name: "Recipe B")
+      recipe3 = create(:recipe, name: "Recipe C")
+
+      create_list(:like, 5, recipe: recipe1)
+      create_list(:like, 2, recipe: recipe2)
+
+      visit most_liked_recipes_path
+
+      displayed_names = all(".recipe-card h3 span").map(&:text)
+
+      expect(displayed_names).to eq(["5", "2", "0"])
+    end
+  end
 end
