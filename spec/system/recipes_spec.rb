@@ -66,7 +66,7 @@ RSpec.describe "Recipes", type: :system do
 
       displayed_names = all(".recipe-card h3 span").map(&:text)
 
-      expect(displayed_names).to eq(["5", "2", "0"])
+      expect(displayed_names).to eq([ "5", "2", "0" ])
     end
   end
 end

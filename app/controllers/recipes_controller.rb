@@ -21,7 +21,7 @@ class RecipesController < ApplicationController
 
   def most_liked
     @q = Recipe.ransack(params[:q])
-    @recipes = @q.result(distinct: true).includes(:likes).group(:id).sort_by { |recipe| -recipe.likes.size }  
+    @recipes = @q.result(distinct: true).includes(:likes).group(:id).sort_by { |recipe| -recipe.likes.size }
   end
 
   def new
