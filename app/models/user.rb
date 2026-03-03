@@ -42,5 +42,4 @@ class User < ApplicationRecord
   def unlike(recipe)
     likes.find_by(recipe_id: recipe.id)&.destroy
   end
-
 end

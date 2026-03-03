@@ -58,7 +58,17 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            google-chrome-stable \
+            curl \
+            libjemalloc2 \
+            libvips \
+            postgresql-client 
+
+      - name: Install Google Chrome
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,7 +84,10 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: |
+          bin/rails assets:precompile
+          bin/rails db:prepare
+          bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
