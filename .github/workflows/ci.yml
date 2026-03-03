@@ -71,7 +71,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
 
       - name: Setup Chromedriver
-        uses: selenium/actions/setup-chromedriver@v1
+        uses: seleniumhq/setup-chromedriver@v2
 
       - name: Checkout code
         uses: actions/checkout@v4
