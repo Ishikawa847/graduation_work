@@ -69,9 +69,7 @@ jobs:
 
       - name: Install Google Chrome
         run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
-
-      - name: Setup Chromedriver
-
+        
       - name: Checkout code
         uses: actions/checkout@v4
 
