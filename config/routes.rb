@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resource :like, only: [ :create, :destroy ]
     collection do
       get :autocomplete
+      get :most_liked
       post :search_nutrition
     end
   end

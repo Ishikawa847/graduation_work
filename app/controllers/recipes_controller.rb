@@ -19,6 +19,11 @@ class RecipesController < ApplicationController
     }
   end
 
+  def most_liked
+    @q = Recipe.ransack(params[:q])
+    @recipes = @q.result(distinct: true).includes(:likes).group(:id).sort_by { |recipe| -recipe.likes.size }
+  end
+
   def new
         Rails.logger.debug "current_user: #{current_user.inspect}"
     @recipe = current_user.recipes.build
