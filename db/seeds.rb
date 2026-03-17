@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+# db/seeds.rb
+admin_email = ENV['ADMIN_EMAIL']
+
+user = User.find_by(email: admin_email)
+if user
+  user.admin!
+end

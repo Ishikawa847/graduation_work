@@ -12,6 +12,8 @@ class User < ApplicationRecord
     prefer_not_to_say: 3
   }
 
+  enum role: { general: 0, admin: 1 }
+
   validates :name, presence: true, length: { maximum: 100 }
   validates :height, numericality: { greater_than: 0, less_than: 300 }, allow_blank: true
   validates :weight, numericality: { greater_than: 0, less_than: 500 }, allow_blank: true
