@@ -30,12 +30,13 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
-
+  
+  devise_scope :user do
   namespace :admin do
     root "dashboard#index"
     get 'login', to: 'sessions#new'
     post 'login', to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy'
   end
-
+  end
 end

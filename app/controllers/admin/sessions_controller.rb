@@ -1,8 +1,5 @@
 class Admin::SessionsController < Devise::SessionsController
-
-  def new
-  end
-
+    
   def create
     self.resource = warden.authenticate!(auth_options)
 
@@ -19,4 +16,5 @@ class Admin::SessionsController < Devise::SessionsController
     sign_out(resource_name)
     redirect_to admin_login_path, notice: "ログアウトしました"
   end
+  
 end
