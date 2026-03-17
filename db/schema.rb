@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_17_062222) do
     t.integer "gender", default: 0
     t.string "provider"
     t.string "uid"
-    t.integer "role"
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
