@@ -1,0 +1,7 @@
+<%= recipe.user.name %>
+<% if recipe.image.present? %>
+  <%= image_tag recipe.image, size: "100x100" %>
+<% end %>
+<p>料理名：<%= recipe.name %> </p>
+  <%= link_to "編集", edit_admin_recipe_path(recipe) %>
+  <%= link_to "削除", admin_recipe_path(recipe), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>

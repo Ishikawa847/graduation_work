@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-8">
+  <% @recipes.each do |recipe| %>
+    <div class="transform transition-all duration-300 hover:-translate-y-2">
+      <%= render 'recipe', recipe: recipe %>
+    </div>
+  <% end %>
+</div>
