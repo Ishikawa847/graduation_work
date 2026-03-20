@@ -1,0 +1,10 @@
+<% if @recipe.errors.any? %>
+<div class="bg-red-500/10 border border-red-500/50 backdrop-blur-md text-red-200 px-6 py-4 rounded-2xl shadow-xl shadow-red-900/20">
+    <h4 class="font-bold mb-2"><%= t('recipes.new.error_occur') %>:</h4>
+    <ul class="list-disc pl-8 text-sm opacity-90">
+    <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>

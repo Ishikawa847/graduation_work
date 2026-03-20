@@ -1,0 +1,18 @@
+<%= form_with model: recipe, local: true, multipart: true, class: "space-y-10" do |form| %>
+
+  <%= render "error_messages", recipe: recipe %>
+
+  <div class="bg-slate-900/40 backdrop-blur-xl border border-slate-700/50 p-8 rounded-3xl shadow-2xl ring-1 ring-white/5 space-y-8">
+    <%= render "basic_fields", form: form %>
+    <%= render "image_upload", form: form %>
+  </div>
+
+  <%= render "ingredients_section", form: form, ingredients: ingredients %>
+
+  <%= render "ingredient_ai_search" %>
+
+  <%= render "submit_button", form: form %>
+
+<% end %>
+
+<%= render "loading_overlay" %>
