@@ -1,18 +1,25 @@
-<div class="min-h-screen bg-gray-900 text-gray-100 px-6 py-10">
-  <div class="max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-8">
+<div class="min-h-screen bg-[#1a1a1a] text-slate-100 px-6 py-16 font-sans">
+  <div class="max-w-3xl mx-auto bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl shadow-2xl ring-1 ring-white/5 p-10">
 
-    <h1 class="text-3xl font-bold mb-8">
-      <%= t('.title') %>
-    </h1>
+    <header class="mb-12">
+      <h1 class="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
+        <%= t('.title') %>
+      </h1>
+      <p class="text-slate-500 mt-2 font-medium"><%= t('.subtitle', default: '献立の構成をデザインしましょう') %></p>
+    </header>
 
-    <%= form_with model: @menu, url: menus_path, class: "space-y-8" do |form| %>
+    <%= form_with model: @menu, url: menus_path, class: "space-y-10" do |form| %>
 
+      <%# エラーメッセージ %>
       <% if @menu.errors.any? %>
-        <div class="bg-red-900/40 border border-red-700 text-red-300 rounded-lg p-4">
-          <h2 class="font-semibold mb-2">
-            <%= t('.errors.title', count: @menu.errors.count) %>
-          </h2>
-          <ul class="list-disc list-inside text-sm">
+        <div class="bg-red-500/10 border border-red-500/50 backdrop-blur-md text-red-200 rounded-2xl p-6 shadow-xl shadow-red-900/20">
+          <div class="flex items-center gap-2 mb-3 text-red-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            <h2 class="font-bold text-lg leading-none">
+              <%= t('.errors.title', count: @menu.errors.count) %>
+            </h2>
+          </div>
+          <ul class="list-disc list-inside text-sm opacity-80 space-y-1 ml-1">
             <% @menu.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
@@ -20,45 +27,54 @@
         </div>
       <% end %>
 
-      <div>
-        <%= form.label :name,
-            class: "block text-sm font-medium text-gray-300 mb-2" %>
-
+      <%# メニュー名入力 %>
+      <div class="group">
+        <%= form.label :name, class: "block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 ml-1 group-focus-within:text-blue-400 transition-colors" %>
         <%= form.text_field :name,
             placeholder: t('.name_placeholder'),
-            class: "w-full rounded-lg bg-gray-900 border border-gray-700
-                    text-gray-100 placeholder-gray-500
-                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+            class: "w-full rounded-2xl bg-black/30 border border-slate-800
+                    text-gray-100 placeholder-slate-600 py-4 px-6
+                    focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/60
+                    transition-all shadow-inner" %>
       </div>
 
-      <div>
-        <h2 class="text-xl font-semibold mb-4">
-          <%= t('.add_recipes_title') %>
-        </h2>
+      <%# レシピ追加セクション %>
+      <div class="pt-4">
+        <div class="flex items-center justify-between mb-6 px-1">
+          <h2 class="text-xl font-bold text-slate-200 flex items-center gap-2">
+            <span class="w-1.5 h-6 bg-blue-500 rounded-full"></span>
+            <%= t('.add_recipes_title') %>
+          </h2>
+        </div>
 
-        <div class="space-y-4">
+        <div class="space-y-5">
           <%= form.fields_for :menu_recipes do |menu_recipe_form| %>
-            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-black/20 border border-slate-800/60 rounded-2xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6 transition-all hover:bg-black/40 hover:border-slate-700 group/item">
 
-              <div>
+              <div class="md:col-span-2">
                 <%= menu_recipe_form.label :recipe_id, t('.recipe_label'),
-                    class: "block text-sm text-gray-400 mb-1" %>
+                    class: "block text-[10px] font-bold text-slate-500 uppercase tracking-tighter mb-2 ml-1 group-hover/item:text-slate-300 transition-colors" %>
 
                 <%= menu_recipe_form.collection_select :recipe_id,
                     @recipes, :id, :name,
                     { prompt: t('.recipe_prompt') },
-                    class: "w-full rounded-lg bg-gray-800 border border-gray-700
-                            text-gray-100 focus:ring-blue-500 focus:border-blue-500" %>
+                    class: "w-full rounded-xl bg-[#1a1a1a] border border-slate-800
+                            text-slate-200 py-3 px-4 text-sm focus:ring-blue-500 focus:border-blue-500
+                            transition-all" %>
               </div>
 
               <div>
                 <%= menu_recipe_form.label :position, t('.position_label'),
-                    class: "block text-sm text-gray-400 mb-1" %>
+                    class: "block text-[10px] font-bold text-slate-500 uppercase tracking-tighter mb-2 ml-1 group-hover/item:text-slate-300 transition-colors" %>
 
-                <%= menu_recipe_form.number_field :position,
-                    min: 1, placeholder: "1",
-                    class: "w-full rounded-lg bg-gray-800 border border-gray-700
-                            text-gray-100 focus:ring-blue-500 focus:border-blue-500" %>
+                <div class="relative">
+                  <%= menu_recipe_form.number_field :position,
+                      min: 1, placeholder: "1",
+                      class: "w-full rounded-xl bg-[#1a1a1a] border border-slate-800
+                              text-slate-200 py-3 px-4 text-sm focus:ring-blue-500 focus:border-blue-500
+                              transition-all font-mono" %>
+                  <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-600">ST</span>
+                </div>
               </div>
 
             </div>
@@ -66,15 +82,23 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-between pt-6">
-        <%= link_to t('.back'), menus_path,
-            class: "text-gray-400 hover:text-gray-200 transition" %>
+      <%# フッターアクション %>
+      <div class="flex items-center justify-between pt-10 border-t border-slate-800/50">
+        <%= link_to menus_path, class: "group flex items-center gap-2 text-slate-500 hover:text-white transition-all text-sm font-bold" do %>
+          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          <%= t('.back') %>
+        <% end %>
 
         <%= form.submit t('.submit'),
-            class: "bg-white text-gray-900 font-semibold px-6 py-2.5 rounded-lg shadow
-                    hover:bg-gray-200 transition" %>
+            class: "bg-white text-black font-black px-10 py-4 rounded-2xl shadow-xl
+                    hover:bg-slate-200 hover:scale-[1.03] active:scale-95
+                    transition-all duration-200 cursor-pointer tracking-tight" %>
       </div>
 
     <% end %>
+  </div>
+
+  <div class="text-center mt-12">
+    <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.3em]">Menu Management System v2.0</p>
   </div>
 </div>
