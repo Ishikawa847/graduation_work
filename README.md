@@ -57,9 +57,13 @@ SNSによる宣伝
 | :---: | 
 | ![top](docs/images/recipe_submit.gif) |
 | <p align="left">ユーザーがオリジナルのレシピを投稿・管理できる機能です。料理名や説明に加えて、画像やPFC値も登録できます。 |
-- 献立作成（1日分）
+
+| 献立登録（名前、料理、PFC値） |
+| :---: | 
+| ![top](docs/images/menu.gif) |
+| <p align="left">複数のレシピを組み合わせて、1日の食事プラン（献立）を作成・管理できる機能です。筋トレや健康管理において重要な PFCバランス（タンパク質・脂質・炭水化物） を意識した食事設計をサポートします。 |
 - PFC自動計算
-- 料理投稿・閲覧
+- 料理閲覧
 
 追加予定
 - 週間献立
@@ -80,5 +84,5 @@ SNSによる宣伝
 - ページネーション :kaminari
 - データベース：PostgreSQL
 - デプロイ先：Render
-- 画像アップロード：Active Storage + AWS S3
-- CSS フレームワーク：Bootstrap（または Tailwind CSS）
+- 画像アップロード：Active Storage + Cloudinary
+- CSS フレームワーク：Tailwind CSS
