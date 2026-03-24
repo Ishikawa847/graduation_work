@@ -1,93 +1,117 @@
-<div class="container mx-auto px-6 py-10">
+<div class="min-h-screen bg-[#1a1a1a] text-slate-100 px-6 py-16 font-sans">
+  <div class="max-w-4xl mx-auto space-y-10">
 
-  <!-- ページタイトル -->
-  <h1 class="text-3xl font-bold text-gray-100 mb-8">
-    <%= t('.title') %>
-  </h1>
-
-  <!-- メニュー情報カード -->
-  <div class="bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
-
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
       <div>
-        <h2 class="text-2xl font-bold text-gray-100 mb-2">
+        <span class="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-2 block">Menu Details</span>
+        <h1 class="text-4xl font-black tracking-tight text-white leading-none">
           <%= @menu.name %>
-        </h2>
-        <p class="text-sm text-gray-400">
-          <%= t('.created_at') %>：<%= l @menu.created_at, format: :long %>
+        </h1>
+        <p class="text-slate-500 mt-4 text-sm font-medium flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          <%= l @menu.created_at, format: :long %>
         </p>
       </div>
 
-      <!-- アクション -->
-      <div class="flex items-center space-x-3">
-        <%= link_to t('.edit'), edit_menu_path(@menu),
-            class: "bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition" %>
+      <div class="flex items-center gap-3">
+        <%= link_to edit_menu_path(@menu), class: "group flex items-center gap-2 bg-slate-800/50 hover:bg-slate-700 text-slate-300 hover:text-white px-5 py-2.5 rounded-xl border border-slate-700/50 transition-all text-sm font-bold shadow-lg" do %>
+          <svg class="w-4 h-4 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          <%= t('.edit') %>
+        <% end %>
 
-        <%= link_to t('.delete'), menu_path(@menu),
-            data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') },
-            class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition" %>
+        <%= link_to menu_path(@menu), data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') }, class: "group flex items-center gap-2 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-5 py-2.5 rounded-xl border border-red-500/20 transition-all text-sm font-bold shadow-lg" do %>
+          <svg class="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          <%= t('.delete') %>
+        <% end %>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <div class="lg:col-span-1 bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center relative overflow-hidden">
+        <div class="relative z-10 w-full">
+          <%= pie_chart( 
+            { t('menus.show.protein') => @menu.total_protein, t('menus.show.fat') => @menu.total_fat, t('menus.show.carbo') => @menu.total_carb }, 
+            colors: ["#EF4444", "#3B82F6", "#EAB308"], 
+            donut: true,
+            legend: false,
+            library: { 
+              cutout: '80%',
+              plugins: { tooltip: { backgroundColor: '#000', padding: 12, cornerRadius: 10 } }
+            }
+          ) %>
+          <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Total</span>
+            <span class="text-2xl font-black text-white">Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-8 shadow-2xl">
+        <h3 class="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-8 leading-none">Nutritional Balance</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          
+          <div class="space-y-2">
+            <p class="text-sm font-bold text-[#EF4444] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#EF4444]"></span><%= t('menus.show.protein') %>
+            </p>
+            <p class="text-4xl font-black text-white font-mono leading-none">
+              <%= @menu.total_protein %><span class="text-sm text-slate-500 ml-1 font-sans">g</span>
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <p class="text-sm font-bold text-[#3B82F6] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#3B82F6]"></span><%= t('menus.show.fat') %>
+            </p>
+            <p class="text-4xl font-black text-white font-mono leading-none">
+              <%= @menu.total_fat %><span class="text-sm text-slate-500 ml-1 font-sans">g</span>
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <p class="text-sm font-bold text-[#EAB308] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#EAB308]"></span><%= t('menus.show.carbo') %>
+            </p>
+            <p class="text-4xl font-black text-white font-mono leading-none">
+              <%= @menu.total_carb %><span class="text-sm text-slate-500 ml-1 font-sans">g</span>
+            </p>
+          </div>
+
+        </div>
       </div>
     </div>
 
-  </div>
-
-  <!-- レシピ一覧 -->
-  <div class="bg-gray-800 rounded-xl shadow-lg p-6">
-
-    <h3 class="text-xl font-bold text-gray-100 mb-4">
-      <%= t('.recipes.title') %>
-    </h3>
-
-    <% if @menu.menu_recipes.any? %>
-      <div class="overflow-x-auto">
-        <table class="min-w-full text-sm text-gray-300">
-
-          <thead class="bg-gray-900 text-gray-400">
-            <tr>
-              <th class="px-6 py-3 text-left font-semibold"><%= t('.recipes.position') %></th>
-              <th class="px-6 py-3 text-left font-semibold"><%= t('.recipes.recipe_name') %></th>
-            </tr>
-          </thead>
-
-          <tbody class="divide-y divide-gray-700">
-            <% @menu.menu_recipes.order(:position).each do |menu_recipe| %>
-              <tr class="hover:bg-gray-700/40 transition">
-
-                <td class="px-6 py-4 font-medium text-gray-100">
-                  <%= t('.recipes.position_suffix', count: menu_recipe.position) %>
-                </td>
-
-                <td class="px-6 py-4">
-                  <%= link_to menu_recipe.recipe.name,
-                      recipe_path(menu_recipe.recipe),
-                      class: "hover:text-blue-400 transition" %>
-                </td>
-
-                <td class="px-6 py-4">
-                  <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-700">
-                    <%= image_tag menu_recipe.recipe.square_image,
-                    class: "w-full h-full object-cover" %>
-                  </div>
-                </td>
-
-              </tr>
-            <% end %>
-          </tbody>
-
-        </table>
+    <section class="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl shadow-2xl overflow-hidden">
+      <div class="px-8 py-6 border-b border-slate-800/50 flex justify-between items-center">
+        <h3 class="text-lg font-black text-white tracking-tight"><%= t('.recipes.title') %></h3>
+        <span class="bg-slate-800 text-slate-400 text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">
+          <%= @menu.menu_recipes.count %> Items
+        </span>
       </div>
-    <% else %>
-      <div class="text-center py-12 text-gray-400">
-        <%= t('.recipes.no_recipes') %>
-      </div>
-    <% end %>
+
+      <% if @menu.menu_recipes.any? %>
+        <div class="divide-y divide-slate-800/50">
+          <% @menu.menu_recipes.order(:position).each do |menu_recipe| %>
+            <%= render "recipe_item", menu_recipe: menu_recipe %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-20">
+          <div class="bg-slate-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-600">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 14c-.77 1.333.192 3 1.732 3z" /></svg>
+          </div>
+          <p class="text-slate-500 font-bold"><%= t('.recipes.no_recipes') %></p>
+        </div>
+      <% end %>
+    </section>
+
+    <footer class="pt-6">
+      <%= link_to menus_path, class: "group flex items-center gap-2 text-slate-500 hover:text-white transition-all text-sm font-bold w-fit" do %>
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <%= t('.back_to_list') %>
+      <% end %>
+    </footer>
 
   </div>
-
-  <!-- フッターアクション -->
-  <div class="mt-8 flex justify-between">
-    <%= link_to t('.back_to_list'), menus_path,
-        class: "text-gray-400 hover:text-white transition" %>
-  </div>
-
 </div>

@@ -1,0 +1,116 @@
+<div class="min-h-screen bg-[#1a1a1a] text-slate-100 px-6 py-16 font-sans">
+  <div class="max-w-3xl mx-auto bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl shadow-2xl ring-1 ring-white/5 p-10">
+
+    <!-- ヘッダー -->
+    <header class="mb-12">
+      <h1 class="text-4xl font-black tracking-tight text-white">
+        <%= title %>
+      </h1>
+    </header>
+
+    <!-- フォーム -->
+    <%= form_with model: menu, class: "space-y-10" do |form| %>
+
+      <!-- エラーメッセージ -->
+      <% if menu.errors.any? %>
+        <div class="bg-red-500/10 border border-red-500/50 backdrop-blur-md text-red-200 rounded-2xl p-6 shadow-xl shadow-red-900/20">
+          <div class="flex items-center gap-2 mb-3 text-red-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <h2 class="font-bold text-lg leading-none">
+              <%= "#{menu.errors.count}件のエラーがあります" %>
+            </h2>
+          </div>
+          <ul class="list-disc list-inside text-sm opacity-80 space-y-1 ml-1">
+            <% menu.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- メニュー名 -->
+      <div class="group">
+        <%= form.label :name, "メニュー名",
+            class: "block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 ml-1 group-focus-within:text-blue-400 transition-colors" %>
+
+        <%= form.text_field :name,
+            placeholder: "例：1日のメニュー",
+            class: "w-full rounded-2xl bg-black/30 border border-slate-800
+                    text-gray-100 placeholder-slate-600 py-4 px-6
+                    focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/60
+                    transition-all shadow-inner" %>
+      </div>
+
+      <!-- レシピ追加 -->
+      <div class="pt-4">
+        <div class="flex items-center justify-between mb-6 px-1">
+          <h2 class="text-xl font-bold text-slate-200 flex items-center gap-2">
+            <span class="w-1.5 h-6 bg-blue-500 rounded-full"></span>
+            レシピを追加
+          </h2>
+        </div>
+
+        <div class="space-y-5">
+          <%= form.fields_for :menu_recipes do |menu_recipe_form| %>
+
+            <div class="bg-black/20 border border-slate-800/60 rounded-2xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6 transition-all hover:bg-black/40 hover:border-slate-700 group/item">
+
+              <!-- レシピ選択 -->
+              <div class="md:col-span-2">
+                <%= menu_recipe_form.label :recipe_id, "レシピ",
+                    class: "block text-[10px] font-bold text-slate-500 uppercase tracking-tighter mb-2 ml-1 group-hover/item:text-slate-300 transition-colors" %>
+
+                <%= menu_recipe_form.collection_select :recipe_id,
+                    recipes, :id, :name,
+                    { prompt: "選択してください" },
+                    class: "w-full rounded-xl bg-[#1a1a1a] border border-slate-800
+                            text-slate-200 py-3 px-4 text-sm
+                            focus:ring-blue-500 focus:border-blue-500 transition-all" %>
+              </div>
+
+              <!-- 順番 -->
+              <div>
+                <%= menu_recipe_form.label :position, "順番",
+                    class: "block text-[10px] font-bold text-slate-500 uppercase tracking-tighter mb-2 ml-1 group-hover/item:text-slate-300 transition-colors" %>
+
+                <div class="relative">
+                  <%= menu_recipe_form.number_field :position,
+                      min: 1,
+                      placeholder: "1",
+                      class: "w-full rounded-xl bg-[#1a1a1a] border border-slate-800
+                              text-slate-200 py-3 px-4 text-sm
+                              focus:ring-blue-500 focus:border-blue-500
+                              transition-all font-mono" %>
+
+                </div>
+              </div>
+
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+
+      <!-- フッター -->
+      <div class="flex items-center justify-between pt-10 border-t border-slate-800/50">
+
+        <%= link_to menus_path,
+            class: "group flex items-center gap-2 text-slate-500 hover:text-white transition-all text-sm font-bold" do %>
+          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          戻る
+        <% end %>
+
+        <%= form.submit submit_label,
+            class: "bg-white text-black font-black px-10 py-4 rounded-2xl shadow-xl
+                    hover:bg-slate-200 hover:scale-[1.03] active:scale-95
+                    transition-all duration-200 cursor-pointer tracking-tight" %>
+      </div>
+
+    <% end %>
+  </div>
+
+</div>
