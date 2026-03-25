@@ -1,0 +1,7 @@
+<%= month_calendar do |date| %>
+  <% if date == Date.current %>
+    <div class="text-xs text-blue-600 font-bold">
+      今日
+    </div>
+  <% end %>
+<% end %>
