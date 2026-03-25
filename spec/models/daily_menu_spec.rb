@@ -10,7 +10,7 @@ RSpec.describe DailyMenu, type: :model do
     subject { create(:daily_menu) }
 
     it { should validate_presence_of(:date) }
-    it { should validate_uniqueness_of(:user_id).scoped_to(:date) }
+    it { should validate_uniqueness_of(:user_id).scoped_to(:date).ignoring_case_sensitivity }
   end
 
   describe '自作バリデーション' do
