@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root "static_pages#top"
   get "terms", to: "static_pages#terms"
   get "privacy", to: "static_pages#privacy"
+  get "calendar", to: "calendars#index"
 
   resources :recipes, only: %i[index create new show edit update destroy] do
     resource :like, only: [ :create, :destroy ]
@@ -30,8 +31,6 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show edit update]
   resources :menus, only: %i[index new create show edit update destroy]
-
-  resource :calendar, only: [:index]
   
   devise_scope :user do
   namespace :admin do
