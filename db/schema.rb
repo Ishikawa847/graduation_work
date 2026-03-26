@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_17_062222) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_25_055743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_17_062222) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "daily_menus", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "menu_id", null: false
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id"], name: "index_daily_menus_on_menu_id"
+    t.index ["user_id", "date"], name: "index_daily_menus_on_user_id_and_date", unique: true
+    t.index ["user_id"], name: "index_daily_menus_on_user_id"
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -127,6 +138,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_17_062222) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "daily_menus", "menus"
+  add_foreign_key "daily_menus", "users"
   add_foreign_key "likes", "recipes"
   add_foreign_key "likes", "users"
   add_foreign_key "menu_recipes", "menus"
