@@ -4,7 +4,7 @@ class DailyMenu < ApplicationRecord
 
   validates :date, presence: true
   validates :user_id, uniqueness: { scope: :date }
-  
+
   validate :menu_belongs_to_user
 
   private
