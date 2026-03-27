@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :menus, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :daily_menus, dependent: :destroy
   has_many :liked_recipes, through: :likes, source: :recipe
 
   def self.from_omniauth(auth)

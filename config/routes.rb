@@ -41,4 +41,5 @@ Rails.application.routes.draw do
     resources :recipes, only: [ :index, :new, :create, :edit, :update, :destroy ]
   end
   end
+  resources :daily_menus, only: [ :new, :create ]
 end

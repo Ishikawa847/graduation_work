@@ -2,6 +2,7 @@ class Menu < ApplicationRecord
   belongs_to :user
   has_many :menu_recipes, dependent: :destroy
   has_many :recipes, through: :menu_recipes
+  has_many :daily_menus, dependent: :destroy
 
   accepts_nested_attributes_for :menu_recipes, allow_destroy: true, reject_if: :all_blank
 

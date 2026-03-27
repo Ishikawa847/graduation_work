@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-[#1a1a1a] text-white px-6 py-16 font-sans">
+  <div class="max-w-2xl mx-auto">
+    
+    <header class="mb-12 px-2 border-l-2 border-white pl-6">
+      <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.5em] mb-2 block">Scheduler</span>
+      <h1 class="text-4xl font-black tracking-tighter text-white leading-none">
+        <%= t('.title', default: '献立をスケジュール') %>
+      </h1>
+    </header>
+
+    <%= form_with model: daily_menu, class: "space-y-10" do |f| %>
+      
+      <div class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-8 md:p-12 space-y-12">
+        
+        <div class="group">
+          <%= f.label :date, "日付", class: "block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 ml-1 group-focus-within:text-white transition-colors" %>
+          
+          <div class="relative flex items-center rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all focus-within:ring-1 focus-within:ring-white/40">
+            <div class="absolute left-6 text-slate-500 group-focus-within:text-white transition-colors pointer-events-none z-10">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+
+            <%= f.date_field :date,
+                class: "block w-full bg-transparent border-none py-5 pl-16 pr-6 text-white font-mono text-lg focus:ring-0 cursor-pointer 
+                        [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0" %>
+          </div>
+        </div>
+
+        <div class="group">
+          <%= f.label :menu_id, t('.menu_label', default: "献立を選択"), 
+              class: "block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 ml-1 group-focus-within:text-white transition-colors" %>
+          
+          <div class="relative flex items-center rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all focus-within:ring-1 focus-within:ring-white/40">
+            <div class="absolute left-6 text-slate-500 group-focus-within:text-white transition-colors pointer-events-none z-10">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            
+            <%= f.collection_select :menu_id, menus, :id, :name, 
+                { prompt: "献立を選択してください" }, 
+                { class: "block w-full bg-transparent border-none py-5 pl-16 pr-12 text-white text-lg focus:ring-0 cursor-pointer appearance-none relative z-0" } %>
+            
+            <div class="absolute right-6 text-white/40 pointer-events-none z-10">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-8 px-2">
+        <%= link_to "キャンセル", :back, class: "text-[10px] font-black text-slate-500 hover:text-white tracking-[0.3em] transition-all" %>
+        <%= f.submit "スケジュールを確定",
+            class: "w-full sm:w-auto bg-white text-black font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-slate-200 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer tracking-widest text-xs" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
