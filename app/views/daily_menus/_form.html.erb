@@ -13,7 +13,7 @@
       <div class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-8 md:p-12 space-y-12">
         
         <div class="group">
-          <%= f.label :date, class: "block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 ml-1 group-focus-within:text-white transition-colors" %>
+          <%= f.label :date, "日付", class: "block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 ml-1 group-focus-within:text-white transition-colors" %>
           
           <div class="relative flex items-center rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all focus-within:ring-1 focus-within:ring-white/40">
             <div class="absolute left-6 text-slate-500 group-focus-within:text-white transition-colors pointer-events-none z-10">
@@ -39,7 +39,6 @@
               </svg>
             </div>
             
-            <%# 日本語化：promptを日本語に変更 %>
             <%= f.collection_select :menu_id, menus, :id, :name, 
                 { prompt: "献立を選択してください" }, 
                 { class: "block w-full bg-transparent border-none py-5 pl-16 pr-12 text-white text-lg focus:ring-0 cursor-pointer appearance-none relative z-0" } %>

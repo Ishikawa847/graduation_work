@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "献立登録", type: :system do
   let(:user) { create(:user) }
-  let(:menu) { create(:menu, user: user) }
+  let!(:menu) { create(:menu, user: user) }
 
   before do
     sign_in user
