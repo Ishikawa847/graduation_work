@@ -7,6 +7,10 @@ class DailyMenu < ApplicationRecord
 
   validate :menu_belongs_to_user
 
+  def start_time
+    date.in_time_zone
+  end
+
   private
 
   def menu_belongs_to_user
