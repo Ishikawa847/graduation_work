@@ -17,5 +17,4 @@ class DailyMenu < ApplicationRecord
     return if menu.blank? || menu.user_id == user_id
     errors.add(:menu, "は自分の献立ではありません")
   end
-  
 end
