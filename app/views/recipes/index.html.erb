@@ -34,6 +34,10 @@
             </div>
           <% end %>
         </div>
+
+        <div class="mt-12 flex justify-center">
+          <%= paginate @recipes, params: { q: params[:q] } %>
+        </div>
       <% else %>
         <div class="flex flex-col items-center justify-center py-24 px-6 bg-[#242424] rounded-[2rem] border border-dashed border-white/10">
           <div class="w-20 h-20 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-6 shadow-inner text-gray-700">
