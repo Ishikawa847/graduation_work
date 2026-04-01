@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show ]
   def index
     @q = Recipe.ransack(params[:q])
-    @recipes = @q.result(distinct: true).includes(:user).order(created_at: :desc)
+    @recipes = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def autocomplete
