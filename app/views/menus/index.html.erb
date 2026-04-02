@@ -122,6 +122,10 @@
         <% end %>
       </div>
 
+        <div class="mt-12 flex justify-center">
+          <%= paginate @menus %>
+        </div>
+
     <% else %>
       <% # 空の状態（Empty State） %>
       <div class="text-center py-32 bg-[#242424] rounded-[3rem] border border-dashed border-white/10">
