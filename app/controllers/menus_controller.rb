@@ -1,6 +1,6 @@
 class MenusController < ApplicationController
   def index
-    @menus = current_user.menus.includes(:menu_recipes, :recipes).order(created_at: :desc)
+    @menus = current_user.menus.includes(:menu_recipes, :recipes).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
