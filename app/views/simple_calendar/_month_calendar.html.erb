@@ -40,8 +40,13 @@
 
             <div class="max-h-20 overflow-y-auto space-y-1">
               <% events_for_day.each do |event| %>
-                <div class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded truncate w-full">
-                  <%= event.menu&.name %>
+                <div class="text-xs bg-white text-black px-2 py-1 rounded truncate w-full">
+                  
+                  <% if event.menu.present? %>
+                    <%= link_to event.menu.name, menu_path(event.menu),
+                        class: "block hover:underline" %>
+                  <% end %>
+
                 </div>
               <% end %>
             </div>
