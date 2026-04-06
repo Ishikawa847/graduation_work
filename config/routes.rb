@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "terms", to: "static_pages#terms"
   get "privacy", to: "static_pages#privacy"
   get "calendar", to: "calendars#index"
+  get "calendar/week", to: "calendars#week"
 
   resources :recipes, only: %i[index create new show edit update destroy] do
     resource :like, only: [ :create, :destroy ]
