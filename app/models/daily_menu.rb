@@ -11,6 +11,14 @@ class DailyMenu < ApplicationRecord
     date.in_time_zone
   end
 
+  def self.total_pfc(daily_menus)
+    {
+      protein: daily_menus.sum { |dm| dm.menu&.protein.to_i },
+      fat:     daily_menus.sum { |dm| dm.menu&.fat.to_i },
+      carb:    daily_menus.sum { |dm| dm.menu&.carb.to_i }
+    }
+  end
+
   private
 
   def menu_belongs_to_user
