@@ -28,7 +28,7 @@ RSpec.describe DailyMenu, type: :model do
 
   describe ".total_pfc" do
     it "PFC合計を正しく計算できる" do
-    user = create(:user)  
+    user = create(:user)
     menu = create(:menu, user: user)
     recipe = create(:recipe)
 
