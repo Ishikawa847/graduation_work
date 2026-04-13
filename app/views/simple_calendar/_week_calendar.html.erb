@@ -1,39 +1,87 @@
-<div class="simple-calendar">
-  <div class="calendar-heading">
-    <span class="calendar-title">
-      <%= t('simple_calendar.week', default: 'Week') %>
-      <%= calendar.week_number %>
-      <% if calendar.number_of_weeks > 1 %>
-        - <%= calendar.end_week %>
-      <% end %>
-    </span>
+<div class="flex items-center justify-center gap-6 mb-4 text-gray-300">
 
-    <nav>
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view %>
-      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
-    </nav>
+  <%= link_to "←", calendar_week_path(start_date: @start_date.prev_week),
+      class: "px-3 py-1 bg-gray-800 rounded hover:bg-gray-700" %>
+
+  <div class="text-lg font-bold">
+    <%= @start_date.beginning_of_week.strftime("%Y年 %m月 %d日") %> 〜
+    <%= @start_date.end_of_week.strftime("%m月 %d日") %>
   </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <% date_range.slice(0, 7).each do |day| %>
-          <th><%= t('date.abbr_day_names')[day.wday] %></th>
-        <% end %>
-      </tr>
-    </thead>
+  <%= link_to "→", calendar_week_path(start_date: @start_date.next_week),
+      class: "px-3 py-1 bg-gray-800 rounded hover:bg-gray-700" %>
 
-    <tbody>
-      <% date_range.each_slice(7) do |week| %>
-        <tr>
-          <% week.each do |day| %>
-            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
-              <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
-            <% end %>
-          <% end %>
-        </tr>
+</div>
+
+<!-- 週間PFC -->
+<div class="flex justify-center gap-6 mb-6 text-sm text-gray-300">
+  <div class="bg-gray-800 px-4 py-2 rounded">
+    P: <%= @pfc[:protein] %>g
+  </div>
+  <div class="bg-gray-800 px-4 py-2 rounded">
+    F: <%= @pfc[:fat] %>g
+  </div>
+  <div class="bg-gray-800 px-4 py-2 rounded">
+    C: <%= @pfc[:carb] %>g
+  </div>
+</div>
+
+<!-- カレンダー -->
+<div class="max-w-5xl mx-auto">
+<table class="w-full table-fixed border border-gray-700 rounded-lg overflow-hidden">
+
+  <thead class="bg-gray-800 text-gray-300 text-sm">
+    <tr>
+      <% %w[Sun Mon Tue Wed Thu Fri Sat].each do |day| %>
+        <th class="p-2 text-center"><%= day %></th>
       <% end %>
-    </tbody>
-  </table>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr class="border-t border-gray-700">
+      <% @week_dates.each do |day| %>
+        <% is_today = (day == Date.current) %>
+        <% events_for_day = @daily_menus_by_date[day] || [] %>
+
+        <td class="h-32 align-top p-2 
+                   <%= is_today ? 'bg-gray-700' : 'bg-gray-900' %> 
+                   border-r border-gray-700">
+
+          <!-- 日付 + 日別PFC -->
+          <div class="flex justify-between items-start mb-1">
+            <div class="text-xs 
+                        <%= is_today ? 'text-blue-400 font-bold' : 'text-gray-400' %>">
+              <%= day.day %>
+            </div>
+
+            <% p = events_for_day.sum { |e| e.menu&.total_protein.to_i } %>
+            <% f = events_for_day.sum { |e| e.menu&.total_fat.to_i } %>
+            <% c = events_for_day.sum { |e| e.menu&.total_carb.to_i } %>
+
+            <div class="text-[10px] text-right leading-tight">
+              <div class="text-green-400">P:<%= p %></div>
+              <div class="text-yellow-400">F:<%= f %></div>
+              <div class="text-red-400">C:<%= c %></div>
+            </div>
+          </div>
+
+          <!-- メニュー一覧 -->
+          <div class="max-h-20 overflow-y-auto space-y-1">
+            <% events_for_day.each do |event| %>
+              <% if event.menu.present? %>
+                <div class="text-xs bg-white text-black px-2 py-1 rounded truncate w-full">
+                  <%= link_to event.menu.name, menu_path(event.menu),
+                      class: "block hover:underline" %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+
+</table>
 </div>
