@@ -25,4 +25,31 @@ RSpec.describe DailyMenu, type: :model do
       expect(daily_menu.errors[:menu]).to include("は自分の献立ではありません")
     end
   end
+
+  describe ".total_pfc" do
+    it "PFC合計を正しく計算できる" do
+    user = create(:user)
+    menu = create(:menu, user: user)
+    recipe = create(:recipe)
+
+    create(:menu_recipe, menu: menu, recipe: recipe)
+
+    ingredient = create(:ingredient, protein: 10, fat: 5, carb: 20)
+
+    create(:recipe_ingredient,
+      recipe: recipe,
+      ingredient: ingredient,
+      quantity: 100
+    )
+
+    create(:daily_menu, menu: menu, date: Date.today, user: user)
+    create(:daily_menu, menu: menu, date: Date.tomorrow, user: user)
+
+    result = DailyMenu.total_pfc(DailyMenu.all)
+
+    expect(result[:protein]).to eq(20)
+    expect(result[:fat]).to eq(10)
+    expect(result[:carb]).to eq(40)
+    end
+  end
 end

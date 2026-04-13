@@ -10,6 +10,11 @@ class CalendarsController < ApplicationController
 
     @daily_menus = DailyMenu
       .includes(:menu)
-      .where(start_time: @week_dates.first.beginning_of_day..@week_dates.last.end_of_day)
+      .where(date: @week_dates.first.beginning_of_day..@week_dates.last.end_of_day)
+
+    # group_byで日付ごとにまとめてハッシュ化
+    @daily_menus_by_date = @daily_menus.group_by(&:date)
+
+    @pfc = DailyMenu.total_pfc(@daily_menus)
   end
 end

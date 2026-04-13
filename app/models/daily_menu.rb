@@ -13,9 +13,9 @@ class DailyMenu < ApplicationRecord
 
   def self.total_pfc(daily_menus)
     {
-      protein: daily_menus.sum { |dm| dm.menu&.protein.to_i },
-      fat:     daily_menus.sum { |dm| dm.menu&.fat.to_i },
-      carb:    daily_menus.sum { |dm| dm.menu&.carb.to_i }
+      protein: daily_menus.sum { |dm| dm.menu&.total_protein.to_i },
+      fat:     daily_menus.sum { |dm| dm.menu&.total_fat.to_i },
+      carb:    daily_menus.sum { |dm| dm.menu&.total_carb.to_i }
     }
   end
 
