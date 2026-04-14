@@ -208,6 +208,7 @@ ja:
     recipe_index: レシピ一覧
     menu_index: 献立一覧
     profile: プロフィール
+    calendar: カレンダー
   footer:
     copyright: "© %{year} 筋トレ飯管理 All rights reserved."
     terms_of_service: "利用規約"
