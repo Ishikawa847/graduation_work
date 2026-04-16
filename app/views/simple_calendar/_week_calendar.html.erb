@@ -1,3 +1,9 @@
+<div class="flex justify-center mb-2">
+  <%= render "view_toggle",
+      start_date: @start_date,
+      current_view: :week %>
+</div>
+
 <div class="flex items-center justify-center gap-6 mb-4 text-gray-300">
 
   <%= link_to "←", calendar_week_path(start_date: @start_date.prev_week),
