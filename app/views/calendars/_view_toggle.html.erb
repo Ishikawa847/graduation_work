@@ -1,0 +1,11 @@
+<div class="flex justify-center mb-4 gap-2">
+
+  <%= link_to "月間",
+      calendar_path(start_date: start_date),
+      class: "px-4 py-1 rounded bg-gray-800 #{'bg-blue-500 text-white' if current_view == :month}" %>
+
+  <%= link_to "週間",
+      calendar_week_path(start_date: start_date),
+      class: "px-4 py-1 rounded bg-gray-800 #{'bg-blue-500 text-white' if current_view == :week}" %>
+
+</div>
